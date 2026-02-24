@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التقنية 1: 🚫 المناطق الحمراء - لا تقترب</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-light: #A8E6E3;
+            --primary-medium: #5BBFBC;
+            --primary-dark: #2C6B7F;
+            --deep-blue: #1A4D5C;
+            --ocean-deep: #0D3B4A;
+            --cloud-white: #F0F8F8;
+            --sand-light: #F4D9B8;
+            --accent: #FF6B6B;
+            --warning: #F59E0B;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans Arabic', 'Tajawal', sans-serif;
+            background: var(--cloud-white);
+            color: var(--ocean-deep);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(91, 191, 188, 0.2);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--ocean-deep);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-medium);
+        }
+
+        .nav-title {
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #F59E0B 0%, #F97316 50%, var(--accent) 100%);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '1';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.05);
+            font-family: 'Tajawal', sans-serif;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero .icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.2));
+            animation: shake 3s ease-in-out infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .hero h1 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        /* Main Content */
+        .main {
+            max-width: 1000px;
+            margin: -3rem auto 0;
+            padding: 0 2rem 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Section */
+        .section {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section h2 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--ocean-deep);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary-light);
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1));
+            border-right: 4px solid var(--warning);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .info-box .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box h3 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--warning);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box p {
+            font-size: 1rem;
+            color: var(--ocean-deep);
+            margin: 0;
+        }
+
+        /* Risk Situations Grid */
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .risk-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(168, 230, 227, 0.1));
+            border: 2px solid rgba(245, 158, 11, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .risk-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--warning), var(--accent));
+            opacity: 0.1;
+            border-radius: 0 0 0 100%;
+        }
+
+        .risk-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.2);
+            border-color: var(--warning);
+        }
+
+        .risk-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .risk-card h3 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--ocean-deep);
+            margin-bottom: 0.75rem;
+        }
+
+        .risk-card p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .risk-level {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .risk-level.high {
+            background: rgba(255, 107, 107, 0.15);
+            color: var(--accent);
+        }
+
+        .risk-level.medium {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+        }
+
+        /* Solution Box */
+        .solution-box {
+            background: linear-gradient(135deg, rgba(168, 230, 227, 0.15), rgba(91, 191, 188, 0.1));
+            border-right: 4px solid var(--primary-medium);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+
+        .solution-box h4 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .solution-box ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 0.75rem;
+        }
+
+        .solution-box li {
+            padding: 0.5rem 0;
+            padding-right: 1.5rem;
+            position: relative;
+            color: #555;
+            font-size: 1rem;
+        }
+
+        .solution-box li::before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            color: var(--primary-medium);
+            font-weight: 700;
+        }
+
+        /* Comparison Table */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .comparison-column {
+            background: linear-gradient(135deg, rgba(168, 230, 227, 0.1), rgba(91, 191, 188, 0.05));
+            border-radius: 16px;
+            padding: 2rem;
+            border: 2px solid;
+        }
+
+        .comparison-column.wrong {
+            border-color: rgba(255, 107, 107, 0.3);
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.05), rgba(249, 115, 22, 0.05));
+        }
+
+        .comparison-column.right {
+            border-color: rgba(91, 191, 188, 0.3);
+        }
+
+        .comparison-column h3 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .comparison-column.wrong h3 {
+            color: var(--accent);
+        }
+
+        .comparison-column.right h3 {
+            color: var(--primary-medium);
+        }
+
+        .comparison-item {
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* Emergency Plan */
+        .emergency-plan {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(249, 115, 22, 0.1));
+            border: 3px solid var(--warning);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+        }
+
+        .emergency-plan h3 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--warning);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .emergency-steps {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .emergency-step {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-right: 4px solid var(--warning);
+            display: flex;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .step-number {
+            background: var(--warning);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--ocean-deep);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-content p {
+            font-size: 1rem;
+            color: #666;
+            margin: 0;
+        }
+
+        /* Challenge Button */
+        .challenge-btn {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 3rem auto;
+            padding: 1.5rem 3rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, var(--warning), var(--accent));
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .challenge-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.4);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-content h3 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--ocean-deep);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .modal-content .challenge-icon {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content p {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content ol {
+            padding-right: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .modal-content li {
+            font-size: 1.05rem;
+            color: #555;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .modal-close {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            margin-top: 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, var(--warning), var(--accent));
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(245, 158, 11, 0.3);
+        }
+
+        /* Navigation Arrows */
+        .nav-arrows {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(168, 230, 227, 0.1), rgba(91, 191, 188, 0.1));
+            border-radius: 16px;
+        }
+
+        .nav-arrow {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: white;
+            border: 2px solid var(--primary-medium);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--ocean-deep);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-arrow:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 5px 20px rgba(91, 191, 188, 0.3);
+        }
+
+        .nav-arrow.next:hover {
+            transform: translateX(5px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section {
+                padding: 2rem 1.5rem;
+            }
+
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-arrows {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-arrow {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="nav-title">← العودة للرئيسية</a>
+        <span style="color: var(--primary-dark); font-weight: 600;">التقنية 1 من 7</span>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="icon">⚠️</div>
+            <h1>🚫 المناطق الحمراء - لا تقترب</h1>
+            <p>المقاومة الذكية: لماذا لا تنفع الإرادة وحدها</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main">
+        <!-- Introduction -->
+        <section class="section">
+            <h2>لماذا تفشل قوة الإرادة؟</h2>
+            <p>
+                هل حصل معاك قبل كده؟ عزمت بكل قوتك على التوقف، وفعلاً نجحت يوم يومين... لكن في موقف معين - نفس المكان، نفس الوقت - رجعت انتكست تاني.
+            </p>
+            <p>
+                المشكلة مش في قوة إرادتك. المشكلة إنك بتحط نفسك في <strong>مواقف خطرة</strong> - ظروف معينة بتخلي الانتكاسة شبه حتمية.
+            </p>
+
+            <div class="info-box">
+                <div class="icon">📊</div>
+                <h3>حقيقة علمية:</h3>
+                <p>الأبحاث أثبتت إن معظم الانتكاسات بتحصل في <strong>نفس الظروف</strong> - نفس المكان، نفس الوقت، نفس الحالة النفسية. السبب: دماغك <strong>يربط الموقف بالسلوك</strong>.</p>
+            </div>
+
+            <p style="font-size: 1.2rem; font-weight: 600; color: var(--primary-dark); text-align: center; margin-top: 2rem;">
+                الحل مش إنك تقوي إرادتك. الحل إنك <strong>تتجنب الموقف الخطر من الأساس</strong>.
+            </p>
+        </section>
+
+        <!-- Risk Situations -->
+        <section class="section">
+            <h2>المواقف الخطرة الشائعة</h2>
+            <p>كل شخص مختلف، لكن في مواقف مشتركة بتسبب معظم الانتكاسات:</p>
+
+            <div class="risk-grid">
+                <div class="risk-card">
+                    <div class="icon">🌙</div>
+                    <h3>الوحدة الطويلة</h3>
+                    <p>لما تقعد لوحدك فترة طويلة من غير ما حد يشوفك، دماغك بيدور على "رفيق" - والرفيق السهل؟ العادة القديمة.</p>
+                    <span class="risk-level high">خطر عالي</span>
+                </div>
+
+                <div class="risk-card">
+                    <div class="icon">😴</div>
+                    <h3>السهر المتأخر</h3>
+                    <p>من 11 بالليل لحد 3 الفجر - أخطر وقت. قوة الإرادة في أضعف حالاتها، والجسم متعب ومحتاج نوم.</p>
+                    <span class="risk-level high">خطر عالي</span>
+                </div>
+
+                <div class="risk-card">
+                    <div class="icon">📱</div>
+                    <h3>الشاشات بدون رقيب</h3>
+                    <p>الموبايل على السرير، اللاب توب في الأوضة، مفيش حد هيشوفك - البوابة مفتوحة والانتكاسة سهلة.</p>
+                    <span class="risk-level high">خطر عالي</span>
+                </div>
+
+                <div class="risk-card">
+                    <div class="icon">😔</div>
+                    <h3>الضغط النفسي</h3>
+                    <p>مشاكل، قلق، اكتئاب، حتى فرح زيادة - أي حالة عاطفية قوية ممكن تخليك تدور على "مهرب سريع".</p>
+                    <span class="risk-level medium">خطر متوسط</span>
+                </div>
+
+                <div class="risk-card">
+                    <div class="icon">🎯</div>
+                    <h3>الملل والفراغ</h3>
+                    <p>مفيش حاجة تعملها، مفيش هدف، مفيش مهمة - دماغك يدور على حاجة تملي بيها الفراغ، وغالباً يرجع للحاجة القديمة.</p>
+                    <span class="risk-level medium">خطر متوسط</span>
+                </div>
+
+                <div class="risk-card">
+                    <div class="icon">😴</div>
+                    <h3>قلة النوم والإرهاق</h3>
+                    <p>لما تكون مش نايم كويس أو مرهق جسدياً، القشرة الجبهية (المسؤولة عن القرارات) بتضعف - والسيطرة تصعب.</p>
+                    <span class="risk-level medium">خطر متوسط</span>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="icon">💡</div>
+                <h3>ملاحظة مهمة:</h3>
+                <p>المواقف دي <strong>مش خطر لوحدها</strong> - لكن لما تتجمع (وحدة + سهر + موبايل)، الخطر يزيد بشكل كبير!</p>
+            </div>
+        </section>
+
+        <!-- Wrong vs Right -->
+        <section class="section">
+            <h2>المقاومة الغبية vs المقاومة الذكية</h2>
+
+            <div class="comparison">
+                <div class="comparison-column wrong">
+                    <h3>❌ الطريقة الغبية</h3>
+                    <div class="comparison-item">
+                        أقعد في أوضتي لوحدي بالليل، الموبايل جنبي، وأحاول أقاوم بقوة الإرادة
+                    </div>
+                    <div class="comparison-item">
+                        أسهر لحد الفجر وأنا تعبان، وأقول لنفسي "أنا قوي هتحكم"
+                    </div>
+                    <div class="comparison-item">
+                        أفتح السوشيال ميديا وأتفرج على أي حاجة، وأقول "مش هحصل حاجة"
+                    </div>
+                    <div class="comparison-item">
+                        أقعد ساعات في فراغ تام، وأحاول "أقاوم الأفكار"
+                    </div>
+                </div>
+
+                <div class="comparison-column right">
+                    <h3>✅ الطريقة الذكية</h3>
+                    <div class="comparison-item">
+                        أقفل الموبايل في الصالة قبل النوم، أنام بدري، أخلي باب الأوضة مفتوح شوية
+                    </div>
+                    <div class="comparison-item">
+                        أنام مبكراً (10-11)، أخد قسط كافي من النوم، أصحى نشيط
+                    </div>
+                    <div class="comparison-item">
+                        أحط فلاتر على الموبايل، أمسح التطبيقات الخطرة، أستخدم الموبايل في أماكن عامة
+                    </div>
+                    <div class="comparison-item">
+                        أملا وقتي بأنشطة نافعة: رياضة، قراءة، شغل، هوايات - مفيش وقت للفراغ
+                    </div>
+                </div>
+            </div>
+
+            <p style="text-align: center; font-size: 1.2rem; font-weight: 600; color: var(--ocean-deep); margin-top: 2rem;">
+                الإنسان الذكي مش اللي بيكسب المعارك الصعبة. <br>الإنسان الذكي هو اللي <strong>بيتجنب المعارك الصعبة من الأساس</strong>.
+            </p>
+        </section>
+
+        <!-- Emergency Plan -->
+        <section class="section">
+            <div class="emergency-plan">
+                <h3>🚨 خطة الطوارئ: لو وقعت في موقف خطر</h3>
+                <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">
+                    أحياناً هتلاقي نفسك في موقف خطر من غير ما تخطط (ظرف طارئ، صاحبك سافر فجأة، إلخ). في الحالة دي:
+                </p>
+
+                <div class="emergency-steps">
+                    <div class="emergency-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>اعترف بالخطر</h4>
+                            <p>قول لنفسك بصوت عالي: "أنا دلوقتي في موقف خطر - احتمال الانتكاسة عالي"</p>
+                        </div>
+                    </div>
+
+                    <div class="emergency-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>اتصل بحد فوراً</h4>
+                            <p>صديق، قريب، أي حد تثق فيه - كلمه حتى لو في موضوع عادي، المهم تكسر العزلة</p>
+                        </div>
+                    </div>
+
+                    <div class="emergency-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>غير المكان فوراً</h4>
+                            <p>اطلع من الأوضة، اطلع من البيت، روح أي مكان فيه ناس (قهوة، مسجد، شارع)</p>
+                        </div>
+                    </div>
+
+                    <div class="emergency-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>شغل نفسك بنشاط قوي</h4>
+                            <p>رياضة عنيفة، مشي سريع، قرآن بصوت عالي، شغل - أي حاجة تاخد كل انتباهك</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Takeaways -->
+        <section class="section">
+            <h2>رسالتك من هذه التقنية</h2>
+            
+            <div class="info-box" style="border-right: 4px solid var(--warning);">
+                <h3 style="color: var(--warning); font-size: 1.5rem;">الوقاية أسهل 100 مرة من المقاومة.</h3>
+                <p style="font-size: 1.1rem; margin-top: 1rem;">
+                    كل مرة تتجنب فيها موقف خطر، أنت:
+                </p>
+            </div>
+
+            <div class="solution-box">
+                <ul>
+                    <li>بتحمي نفسك من معركة صعبة مش محتاجها</li>
+                    <li>بتوفر طاقة قوة الإرادة لمواقف تانية فعلاً محتاجها</li>
+                    <li>بتقلل فرص الانتكاسة بشكل كبير جداً</li>
+                    <li>بتبني حياة أكثر استقراراً وأماناً</li>
+                </ul>
+            </div>
+
+            <p style="text-align: center; font-size: 1.2rem; font-weight: 600; color: var(--primary-dark); margin-top: 2rem;">
+                مش لازم تثبت إنك قوي بإنك تحط نفسك في مواقف خطرة. <br>الذكاء الحقيقي هو إنك <strong>تتجنب الخطر من الأساس</strong>.
+            </p>
+        </section>
+
+        <!-- Challenge Button -->
+        <button class="challenge-btn" onclick="showChallenge()">
+            🎯 شاهد التحدي
+        </button>
+
+        <!-- Navigation -->
+        <div class="nav-arrows">
+            <a href="technique-0.html" class="nav-arrow">
+                <span>→</span>
+                <span>التقنية السابقة</span>
+            </a>
+            <a href="technique-2.html" class="nav-arrow next">
+                <span>التقنية التالية</span>
+                <span>←</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Challenge Modal -->
+    <div class="modal" id="challengeModal">
+        <div class="modal-content">
+            <div class="challenge-icon">🗺️</div>
+            <h3>تحدي الـ3 أيام القادمة</h3>
+            <h4 style="font-family: 'Tajawal', sans-serif; font-size: 1.3rem; color: var(--warning); margin-bottom: 1rem;">
+                "خريطة المواقف الخطرة"
+            </h4>
+            <p><strong>الهدف:</strong> تحدد بدقة أخطر 3 مواقف عليك، وتحط خطة عملية لكل واحد.</p>
+            
+            <p style="margin-top: 1.5rem;"><strong>الخطوات:</strong></p>
+            
+            <ol>
+                <li><strong>ارجع لآخر 5 انتكاسات:</strong> اكتب تفاصيل كل واحدة - اليوم، الساعة، المكان، كنت مع مين، حالتك النفسية، كنت بتعمل إيه قبلها.</li>
+                
+                <li><strong>استخرج النمط:</strong> هتلاقي تكرار - نفس المكان، نفس الوقت، نفس الحالة. حدد أخطر 3 مواقف.</li>
+                
+                <li><strong>اكتب خطة لكل موقف:</strong>
+                    <ul style="margin-top: 0.5rem; padding-right: 1.5rem;">
+                        <li>الموقف الخطر الأول: [الوصف]</li>
+                        <li>الخطة: [3 إجراءات محددة لتجنبه أو التعامل معه]</li>
+                    </ul>
+                </li>
+                
+                <li><strong>طبق الخطة لمدة 3 أيام:</strong> كل يوم، راجع: هل الموقف الخطر حصل؟ الخطة اشتغلت؟ لو لأ، عدل الخطة.</li>
+            </ol>
+
+            <div class="info-box" style="margin-top: 2rem; border-right-color: var(--warning);">
+                <p style="font-weight: 600; color: var(--warning);">
+                    💡 مثال: الموقف الخطر = "سهر لوحدي بعد 12 بالليل" <br>
+                    الخطة = "1) نوم الساعة 10 يومياً 2) قفل الموبايل في الصالة 3) لو صحيت متأخر، اطلع برة فوراً"
+                </p>
+            </div>
+
+            <button class="modal-close" onclick="closeChallenge()">فهمت - سأبدأ التحدي</button>
+        </div>
+    </div>
+
+    <script>
+        function showChallenge() {
+            document.getElementById('challengeModal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeChallenge() {
+            document.getElementById('challengeModal').classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('challengeModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeChallenge();
+            }
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.section, .risk-card, .comparison-column').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

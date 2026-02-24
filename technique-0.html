@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التقنية 0: فك الشفرة - ما هي الرغبة الملحة؟</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-light: #A8E6E3;
+            --primary-medium: #5BBFBC;
+            --primary-dark: #2C6B7F;
+            --deep-blue: #1A4D5C;
+            --ocean-deep: #0D3B4A;
+            --cloud-white: #F0F8F8;
+            --sand-light: #F4D9B8;
+            --accent: #FF6B6B;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans Arabic', 'Tajawal', sans-serif;
+            background: var(--cloud-white);
+            color: var(--ocean-deep);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(91, 191, 188, 0.2);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--ocean-deep);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-medium);
+        }
+
+        .nav-title {
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-medium) 50%, var(--primary-dark) 100%);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '0';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.05);
+            font-family: 'Tajawal', sans-serif;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero .icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.2));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero h1 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        /* Main Content */
+        .main {
+            max-width: 1000px;
+            margin: -3rem auto 0;
+            padding: 0 2rem 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Section */
+        .section {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section h2 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--ocean-deep);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary-light);
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: linear-gradient(135deg, rgba(168, 230, 227, 0.15), rgba(91, 191, 188, 0.15));
+            border-right: 4px solid var(--primary-medium);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .info-box .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box h3 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box p {
+            font-size: 1rem;
+            color: var(--ocean-deep);
+            margin: 0;
+        }
+
+        /* Craving Curve Interactive */
+        .curve-container {
+            background: linear-gradient(135deg, rgba(168, 230, 227, 0.1), rgba(91, 191, 188, 0.1));
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .curve-svg {
+            width: 100%;
+            max-width: 700px;
+            height: 300px;
+            margin: 2rem auto;
+        }
+
+        .curve-path {
+            fill: none;
+            stroke: var(--primary-medium);
+            stroke-width: 4;
+            stroke-linecap: round;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            animation: drawCurve 3s ease forwards;
+        }
+
+        @keyframes drawCurve {
+            from { stroke-dasharray: 1000; stroke-dashoffset: 1000; }
+            to { stroke-dasharray: 1000; stroke-dashoffset: 0; }
+        }
+
+        .curve-label {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            fill: var(--ocean-deep);
+        }
+
+        .curve-time {
+            font-size: 0.85rem;
+            fill: var(--primary-dark);
+        }
+
+        .peak-indicator {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            right: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--primary-light), var(--primary-medium), var(--primary-dark));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-right: calc(50% + 2rem);
+        }
+
+        .timeline-item:nth-child(even) {
+            padding-right: 0;
+            padding-left: calc(50% + 2rem);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            right: calc(50% - 12px);
+            top: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary-medium);
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px rgba(91, 191, 188, 0.2);
+            animation: expand 0.6s ease;
+        }
+
+        @keyframes expand {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+        .timeline-content {
+            background: rgba(168, 230, 227, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-right: 3px solid var(--primary-medium);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            border-right: none;
+            border-left: 3px solid var(--primary-medium);
+        }
+
+        .timeline-title {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-desc {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* Key Points Grid */
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .key-point {
+            background: linear-gradient(135deg, rgba(168, 230, 227, 0.1), rgba(91, 191, 188, 0.05));
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 2px solid rgba(91, 191, 188, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .key-point:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(91, 191, 188, 0.2);
+            border-color: var(--primary-medium);
+        }
+
+        .key-point .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .key-point h3 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--ocean-deep);
+            margin-bottom: 0.5rem;
+        }
+
+        .key-point p {
+            font-size: 0.95rem;
+            color: #666;
+            margin: 0;
+        }
+
+        /* Challenge Button */
+        .challenge-btn {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 3rem auto;
+            padding: 1.5rem 3rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, var(--primary-medium), var(--primary-dark));
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(91, 191, 188, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .challenge-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(91, 191, 188, 0.4);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-content h3 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--ocean-deep);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .modal-content .challenge-icon {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content p {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content ol {
+            padding-right: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .modal-content li {
+            font-size: 1.05rem;
+            color: #555;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .modal-close {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            margin-top: 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            background: rgba(168, 230, 227, 0.2);
+            border: 2px solid var(--primary-medium);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation Arrows */
+        .nav-arrows {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(168, 230, 227, 0.1), rgba(91, 191, 188, 0.1));
+            border-radius: 16px;
+        }
+
+        .nav-arrow {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: white;
+            border: 2px solid var(--primary-medium);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--ocean-deep);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-arrow:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 5px 20px rgba(91, 191, 188, 0.3);
+        }
+
+        .nav-arrow.next:hover {
+            transform: translateX(5px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section {
+                padding: 2rem 1.5rem;
+            }
+
+            .timeline::before {
+                right: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                padding-right: 0;
+                padding-left: 3rem;
+            }
+
+            .timeline-dot {
+                right: 8px;
+            }
+
+            .nav-arrows {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-arrow {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="nav-title">← العودة للرئيسية</a>
+        <span style="color: var(--primary-dark); font-weight: 600;">التقنية 0 من 7</span>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="icon">🧠</div>
+            <h1>فك الشفرة - ما هي الرغبة الملحة؟</h1>
+            <p>قبل أن تواجه العدو، افهم كيف يعمل</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main">
+        <!-- Introduction -->
+        <section class="section">
+            <h2>لماذا تأتي الرغبة؟ وكم تدوم؟</h2>
+            <p>
+                الرغبة الملحة ليست علامة ضعف منك. إنها استجابة طبيعية تماماً من دماغ تعوّد على نمط معين من السلوك.
+            </p>
+            <p>
+                دماغك يحتوي على <strong>نظام مكافأة</strong> مصمم لتحفيزك على السلوكيات الضرورية. هذا النظام يعتمد على ناقل عصبي اسمه <strong>الدوبامين</strong> - "هرمون السعادة".
+            </p>
+
+            <div class="info-box">
+                <div class="icon">💡</div>
+                <h3>ببساطة:</h3>
+                <p>عندما كنت تمارس العادة، دماغك كان يفرز دفعة ضخمة من الدوبامين. لما بطلت، دماغك "افتقد" الدفعة دي وبدأ يطلبها - وده اللي بتحسه كـ"رغبة ملحة".</p>
+            </div>
+        </section>
+
+        <!-- The Craving Curve -->
+        <section class="section">
+            <h2>منحنى الرغبة - الحقيقة اللي هتغير حياتك</h2>
+            <p>
+                الخبر السار: <strong>الرغبة الملحة ليست دائمة</strong>. هي موجة - بترتفع، بتوصل للذروة، وبعدين <strong>بتنزل وتختفي</strong> - سواء استسلمت ولا لأ.
+            </p>
+
+            <div class="curve-container">
+                <h3 style="font-family: 'Tajawal', sans-serif; font-size: 1.5rem; color: var(--ocean-deep); margin-bottom: 1rem;">منحنى الرغبة النموذجي</h3>
+                
+                <svg class="curve-svg" viewBox="0 0 600 250">
+                    <!-- Axes -->
+                    <line x1="50" y1="200" x2="550" y2="200" stroke="#ccc" stroke-width="2"/>
+                    <line x1="50" y1="200" x2="50" y2="30" stroke="#ccc" stroke-width="2"/>
+                    
+                    <!-- Curve -->
+                    <path class="curve-path" d="M 50 190 Q 150 180, 200 120 Q 250 60, 300 50 Q 350 60, 400 120 Q 450 170, 550 190"/>
+                    
+                    <!-- Peak indicator -->
+                    <circle class="peak-indicator" cx="300" cy="50" r="8" fill="var(--accent)"/>
+                    <line x1="300" y1="50" x2="300" y2="200" stroke="var(--accent)" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
+                    
+                    <!-- Labels -->
+                    <text class="curve-label" x="300" y="35" text-anchor="middle">الذروة</text>
+                    <text class="curve-label" x="50" y="25" text-anchor="middle">قوية</text>
+                    <text class="curve-label" x="50" y="215" text-anchor="middle">ضعيفة</text>
+                    
+                    <!-- Time labels -->
+                    <text class="curve-time" x="100" y="220" text-anchor="middle">0 دقيقة</text>
+                    <text class="curve-time" x="300" y="220" text-anchor="middle">5-10 دقائق</text>
+                    <text class="curve-time" x="500" y="220" text-anchor="middle">15-20 دقيقة</text>
+                    
+                    <!-- Annotations -->
+                    <text class="curve-time" x="150" y="165" text-anchor="middle" font-size="12">بداية الصعود</text>
+                    <text class="curve-time" x="450" y="155" text-anchor="middle" font-size="12">بداية الهبوط</text>
+                </svg>
+
+                <div class="info-box" style="margin-top: 2rem; text-align: right;">
+                    <div class="icon">⏱️</div>
+                    <h3>الحقيقة العلمية:</h3>
+                    <p>معظم الرغبات الملحة تصل لذروتها في <strong>5-10 دقائق</strong>، ونادراً جداً تستمر أكثر من <strong>20 دقيقة</strong>. المشكلة: معظمنا يستسلم في الدقيقة 2 أو 3!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- What Happens in Brain -->
+        <section class="section">
+            <h2>ماذا يحدث في دماغك؟</h2>
+            
+            <div class="key-points">
+                <div class="key-point">
+                    <div class="icon">🔥</div>
+                    <h3>التحمّل (Tolerance)</h3>
+                    <p>دماغك يقلل عدد مستقبلات الدوبامين. النتيجة: تحتاج "جرعات" أكبر لنفس المتعة.</p>
+                </div>
+
+                <div class="key-point">
+                    <div class="icon">🔗</div>
+                    <h3>الارتباط الشرطي</h3>
+                    <p>دماغك يربط المحفزات (ملل، ضغط، وحدة) بالسلوك. المحفز = إشارة "حان وقت المكافأة!"</p>
+                </div>
+
+                <div class="key-point">
+                    <div class="icon">⚡</div>
+                    <h3>ضعف القشرة الجبهية</h3>
+                    <p>الجزء المسؤول عن اتخاذ القرارات يضعف نشاطه. لذلك تجد صعوبة في المقاومة.</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="icon">📊</div>
+                <h3>الخبر السار:</h3>
+                <p>كل هذا <strong>قابل للعكس</strong>. دماغك قادر على إعادة بناء نفسه - وهذا ما يسمى <strong>المرونة العصبية (Neuroplasticity)</strong>. المطلوب فقط: الوقت والصبر.</p>
+            </div>
+        </section>
+
+        <!-- Recovery Timeline -->
+        <section class="section">
+            <h2>خريطة التعافي - إلى متى تستمر الرغبات؟</h2>
+            <p style="text-align: center; margin-bottom: 3rem;">
+                التعافي رحلة، وكل مرحلة لها خصائصها. إليك ما تتوقعه:
+            </p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">الأيام 1-7: فترة الانسحاب الحاد</div>
+                        <div class="timeline-desc">
+                            أقوى فترة! رغبات ملحة متكررة وقوية. أعراض: قلق، أرق، تقلبات مزاجية. <strong>المهم:</strong> صعبة لكن قصيرة.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">الأسابيع 2-4: تحسن تدريجي</div>
+                        <div class="timeline-desc">
+                            الرغبات تقل في التكرار والشدة. دماغك يبدأ يعيد ضبط إنتاج الدوبامين الطبيعي. الحالة المزاجية تتحسن.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">الشهور 1-3: تحسن ملحوظ</div>
+                        <div class="timeline-desc">
+                            تركيز أفضل، طاقة أكثر. الرغبات على شكل "موجات" متباعدة. تبدأ تستمتع بالأشياء الطبيعية مجدداً.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">الشهور 3-6: استعادة القوة</div>
+                        <div class="timeline-desc">
+                            القشرة الجبهية تستعيد قوتها. قدرة أفضل على اتخاذ القرارات. الرغبات نادرة وأضعف.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">6 شهور - سنتين: إعادة بناء كاملة</div>
+                        <div class="timeline-desc">
+                            المسارات العصبية الجديدة قوية. الدماغ يعود تقريباً لحالته الطبيعية. خطر الانتكاسة يقل بشكل كبير.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="icon">⚠️</div>
+                <h3>ملحوظة مهمة:</h3>
+                <p>كل شخص مختلف. المدة تعتمد على: مدة الإدمان، شدته، عمرك، صحتك، ونظام الدعم حولك. <strong>لا تقارن نفسك بالآخرين</strong>.</p>
+            </div>
+        </section>
+
+        <!-- Key Takeaways -->
+        <section class="section">
+            <h2>رسالتك من هذه التقنية</h2>
+            
+            <div class="info-box" style="border-right: 4px solid var(--accent);">
+                <h3 style="color: var(--accent); font-size: 1.5rem;">الرغبة الملحة ليست علامة ضعف.</h3>
+                <p style="font-size: 1.1rem; margin-top: 1rem;">
+                    إنها علامة أن دماغك <strong>يتعافى</strong>. كل مرة تقاوم فيها موجة دون انتكاسة، أنت:
+                </p>
+            </div>
+
+            <div class="key-points" style="margin-top: 2rem;">
+                <div class="key-point">
+                    <div class="icon">📉</div>
+                    <h3>تضعف المسارات القديمة</h3>
+                    <p>كل موجة تقاومها تضعف الطريق العصبي القديم</p>
+                </div>
+
+                <div class="key-point">
+                    <div class="icon">📈</div>
+                    <h3>تبني مسارات جديدة</h3>
+                    <p>وتقوي طرق صحية جديدة في دماغك</p>
+                </div>
+
+                <div class="key-point">
+                    <div class="icon">🔄</div>
+                    <h3>تعيد برمجة نظام المكافأة</h3>
+                    <p>دماغك يتعلم مصادر جديدة للسعادة الحقيقية</p>
+                </div>
+            </div>
+
+            <p style="text-align: center; font-size: 1.2rem; font-weight: 600; color: var(--primary-dark); margin-top: 2rem;">
+                أنت لست مريضاً. أنت في رحلة شفاء. والشفاء يحتاج وقتاً، صبراً، ومعرفة.
+            </p>
+        </section>
+
+        <!-- Challenge Button -->
+        <button class="challenge-btn" onclick="showChallenge()">
+            🎯 شاهد التحدي
+        </button>
+
+        <!-- Navigation -->
+        <div class="nav-arrows">
+            <a href="index.html" class="nav-arrow">
+                <span>→</span>
+                <span>العودة للرئيسية</span>
+            </a>
+            <a href="technique-1.html" class="nav-arrow next">
+                <span>التقنية التالية</span>
+                <span>←</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Challenge Modal -->
+    <div class="modal" id="challengeModal">
+        <div class="modal-content">
+            <div class="challenge-icon">🎯</div>
+            <h3>تحدي الـ3 أيام القادمة</h3>
+            <h4 style="font-family: 'Tajawal', sans-serif; font-size: 1.3rem; color: var(--primary-dark); margin-bottom: 1rem;">
+                "راقب الموجات"
+            </h4>
+            <p><strong>الهدف:</strong> أن تكتشف بنفسك أن الرغبة فعلاً تمر إذا لم تستسلم لها.</p>
+            
+            <p style="margin-top: 1.5rem;"><strong>في الـ3 أيام القادمة، كلما شعرت برغبة ملحة:</strong></p>
+            
+            <ol>
+                <li><strong>سجّل الوقت:</strong> متى بدأت الرغبة بالضبط؟</li>
+                <li><strong>حدد المحفز:</strong> ما الذي أثارها؟ ملل؟ ضغط نفسي؟ صورة؟ وحدة؟</li>
+                <li><strong>انتظر 15 دقيقة:</strong> بدون استسلام - افعل أي شيء آخر (امشِ، اقرأ، صلِّ، اتصل بصديق)</li>
+                <li><strong>سجّل النتيجة:</strong> هل مرت الموجة؟ كيف كان شعورك بعدها؟</li>
+            </ol>
+
+            <div class="info-box" style="margin-top: 2rem;">
+                <p style="font-weight: 600; color: var(--primary-dark);">
+                    💡 هذه المعرفة التجريبية ستكون سلاحك الأقوى في رحلتك. عندما تختبر بنفسك أن الموجة تمر، لن تعود خائفاً منها.
+                </p>
+            </div>
+
+            <button class="modal-close" onclick="closeChallenge()">فهمت - سأبدأ التحدي</button>
+        </div>
+    </div>
+
+    <script>
+        function showChallenge() {
+            document.getElementById('challengeModal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeChallenge() {
+            document.getElementById('challengeModal').classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on outside click
+        document.getElementById('challengeModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeChallenge();
+            }
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.section, .key-point, .timeline-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

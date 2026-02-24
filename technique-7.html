@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التقنية 7: 💎 الرغبة = فرصة ذهبية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --diamond:   #1D4ED8;
+            --sapphire:  #1E40AF;
+            --deep:      #1E3A8A;
+            --abyss:     #172554;
+            --shine:     #93C5FD;
+            --ice:       #DBEAFE;
+            --foam:      #EFF6FF;
+            --dark-txt:  #172554;
+            --success:   #059669;
+            --danger:    #DC2626;
+            --gold:      #F59E0B;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans Arabic', 'Tajawal', sans-serif;
+            background: var(--foam);
+            color: var(--dark-txt);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(29,78,216,.15);
+            padding: 1rem 2rem; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,.05);
+        }
+        nav a { text-decoration: none; color: var(--dark-txt); font-weight: 600; transition: color .3s; }
+        nav a:hover { color: var(--diamond); }
+        .nav-title { font-family: 'Tajawal', sans-serif; font-weight: 700; font-size: 1.1rem; }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(160deg, #1D4ED8 0%, #1E40AF 35%, #1E3A8A 65%, #172554 100%);
+            padding: 8rem 2rem 5rem;
+            text-align: center; position: relative; overflow: hidden;
+            min-height: 500px;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+        }
+
+        /* Diamond facets background */
+        .hero-facets {
+            position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+        }
+        .facet {
+            position: absolute;
+            border: 1px solid rgba(147,197,253,.15);
+            transform: rotate(45deg);
+            animation: facetPulse 6s ease-in-out infinite;
+        }
+        @keyframes facetPulse {
+            0%,100% { opacity:.15; transform: rotate(45deg) scale(1); }
+            50%      { opacity:.35; transform: rotate(45deg) scale(1.05); }
+        }
+
+        /* Sparkles */
+        .sparkle {
+            position: absolute;
+            color: #93C5FD;
+            font-size: 1.2rem;
+            animation: sparkleSpin 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes sparkleSpin {
+            0%,100% { opacity:0; transform: scale(0) rotate(0deg); }
+            30%,70% { opacity:1; transform: scale(1) rotate(180deg); }
+        }
+
+        .hero::before {
+            content: '7';
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            font-size: 28rem; font-weight: 900;
+            color: rgba(255,255,255,.03);
+            font-family: 'Tajawal', sans-serif;
+            pointer-events: none; line-height: 1;
+        }
+
+        .hero-content { position: relative; z-index: 2; max-width: 800px; }
+        .hero .icon {
+            font-size: 5.5rem; display: block; margin-bottom: 1rem;
+            animation: diamondGlow 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(147,197,253,.8)) drop-shadow(0 0 40px rgba(29,78,216,.5));
+        }
+        @keyframes diamondGlow {
+            0%,100% { filter: drop-shadow(0 0 15px rgba(147,197,253,.6)) drop-shadow(0 0 30px rgba(29,78,216,.4)); transform: scale(1) rotate(-2deg); }
+            50%      { filter: drop-shadow(0 0 30px rgba(147,197,253,1))  drop-shadow(0 0 60px rgba(29,78,216,.8)); transform: scale(1.1) rotate(2deg); }
+        }
+        .hero h1 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: clamp(2rem,5vw,3.5rem); font-weight: 900;
+            color: white; text-shadow: 2px 2px 6px rgba(0,0,0,.35);
+            margin-bottom: .5rem;
+        }
+        .hero .subtitle { font-size: 1.15rem; color: rgba(147,197,253,.95); margin-bottom: 1.5rem; }
+        .hero-badges { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
+        .badge {
+            background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.22);
+            padding: .45rem 1.1rem; border-radius: 50px; color: white;
+            font-size: .9rem; font-weight: 600; backdrop-filter: blur(8px);
+        }
+
+        /* diamond divider at bottom of hero */
+        .hero-diamond-divider {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            height: 70px; overflow: hidden;
+        }
+        .hero-diamond-divider svg { position: absolute; bottom: 0; width: 100%; }
+
+        /* ===== MAIN ===== */
+        .main { max-width: 1000px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+
+        /* ===== SECTION ===== */
+        .section {
+            background: white; border-radius: 24px;
+            padding: 3rem; margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,.07);
+            opacity: 0; transform: translateY(28px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+        .section.visible { opacity: 1; transform: translateY(0); }
+        .section h2 {
+            font-family: 'Tajawal', sans-serif; font-size: 1.9rem; font-weight: 700;
+            color: var(--dark-txt); margin-bottom: 1.4rem;
+            padding-bottom: .9rem; border-bottom: 3px solid var(--ice);
+        }
+        .section p { font-size: 1.08rem; color: #4a5568; line-height: 1.95; margin-bottom: 1.1rem; }
+
+        /* ===== INFO BOX ===== */
+        .info-box {
+            background: linear-gradient(135deg,rgba(29,78,216,.09),rgba(30,64,175,.06));
+            border-right: 4px solid var(--diamond);
+            padding: 1.4rem 1.6rem; border-radius: 12px; margin: 1.8rem 0;
+        }
+        .info-box .ib-icon { font-size: 1.8rem; margin-bottom: .4rem; }
+        .info-box h3 { font-family:'Tajawal',sans-serif; font-size:1.2rem; font-weight:700; color:var(--diamond); margin-bottom:.4rem; }
+        .info-box p { font-size:1rem; color:var(--dark-txt); margin:0; line-height:1.75; }
+
+        /* ===== STAT PILL ===== */
+        .stat-pill {
+            display: inline-flex; align-items: center; gap: .6rem;
+            background: linear-gradient(135deg,var(--diamond),var(--sapphire));
+            color: white; padding: .6rem 1.4rem; border-radius: 50px;
+            font-family: 'Tajawal',sans-serif; font-weight: 700; font-size: 1.05rem;
+            margin: .8rem 0; box-shadow: 0 4px 15px rgba(29,78,216,.35);
+        }
+
+        /* ===== TWO PATHS VISUAL ===== */
+        .paths-visual {
+            background: linear-gradient(160deg,#172554,#1E3A8A);
+            border-radius: 20px; padding: 2rem; margin: 2rem 0;
+        }
+        .paths-visual h3 {
+            font-family:'Tajawal',sans-serif; font-size:1.3rem; font-weight:700;
+            color:white; text-align:center; margin-bottom:2rem;
+        }
+        .paths-grid {
+            display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: start;
+        }
+        .path-col { border-radius: 16px; padding: 1.5rem; }
+        .path-col.threat { background: rgba(220,38,38,.15); border: 1px solid rgba(220,38,38,.25); }
+        .path-col.opp    { background: rgba(29,78,216,.2);  border: 1px solid rgba(147,197,253,.25); }
+        .path-label {
+            font-family:'Tajawal',sans-serif; font-size:1rem; font-weight:700;
+            text-align:center; margin-bottom:1rem; padding:.5rem 1rem;
+            border-radius:8px;
+        }
+        .path-col.threat .path-label { background:rgba(220,38,38,.2); color:#FCA5A5; }
+        .path-col.opp    .path-label { background:rgba(147,197,253,.2); color:#93C5FD; }
+        .path-step {
+            display: flex; align-items: center; gap: .6rem;
+            font-size: .88rem; color: rgba(255,255,255,.85);
+            margin-bottom: .65rem; padding: .55rem .8rem;
+            background: rgba(255,255,255,.06); border-radius: 8px;
+        }
+        .path-step .ps-arrow { color: rgba(255,255,255,.3); font-size: .8rem; }
+        .path-col.threat .path-step { border-right: 2px solid rgba(220,38,38,.4); }
+        .path-col.opp    .path-step { border-right: 2px solid rgba(147,197,253,.4); }
+        .path-vs {
+            display: flex; align-items: center; justify-content: center;
+            font-family:'Tajawal',sans-serif; font-weight:900; font-size:1.5rem;
+            color: rgba(255,255,255,.3); padding-top: 3rem;
+        }
+        .path-outcome {
+            margin-top: .75rem; padding: .75rem;
+            border-radius: 10px; text-align: center;
+            font-family:'Tajawal',sans-serif; font-weight:700; font-size:.95rem;
+        }
+        .path-col.threat .path-outcome { background:rgba(220,38,38,.2); color:#FCA5A5; }
+        .path-col.opp    .path-outcome { background:rgba(29,78,216,.25); color:#93C5FD; }
+
+        /* ===== STEPS ACCORDION ===== */
+        .step-card {
+            border: 2px solid rgba(29,78,216,.12); border-radius: 16px;
+            margin-bottom: 1rem; overflow: hidden;
+            transition: border-color .3s, box-shadow .3s; cursor: pointer;
+        }
+        .step-card:hover { border-color: var(--diamond); }
+        .step-card.open  { border-color: var(--sapphire); box-shadow: 0 8px 25px rgba(29,78,216,.15); }
+        .step-header { display:flex; align-items:center; gap:1.2rem; padding:1.4rem; user-select:none; }
+        .step-num {
+            background: linear-gradient(135deg,var(--diamond),var(--sapphire));
+            color: white; width:52px; height:52px; border-radius:14px;
+            display:flex; align-items:center; justify-content:center;
+            font-size: 1.6rem; flex-shrink:0;
+            box-shadow:0 4px 12px rgba(29,78,216,.3);
+        }
+        .step-title-wrap { flex:1; }
+        .step-title { font-family:'Tajawal',sans-serif; font-size:1.2rem; font-weight:700; color:var(--dark-txt); }
+        .step-subtitle { font-size:.88rem; color:#888; margin-top:.15rem; }
+        .step-toggle { color:var(--diamond); font-size:1.6rem; font-weight:300; transition:transform .3s; }
+        .step-card.open .step-toggle { transform:rotate(45deg); }
+        .step-body { max-height:0; overflow:hidden; transition:max-height .5s ease; }
+        .step-card.open .step-body { max-height:900px; }
+        .step-body-inner { padding:0 1.5rem 1.8rem; border-top:1px solid rgba(29,78,216,.1); padding-top:1.4rem; }
+        .step-body-inner p { font-size:1rem; color:#555; margin-bottom:.9rem; line-height:1.85; }
+
+        /* phrase cards */
+        .phrase-cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:.75rem; margin:1rem 0; }
+        .phrase-card {
+            background: linear-gradient(135deg,rgba(29,78,216,.08),rgba(30,64,175,.05));
+            border: 2px solid rgba(29,78,216,.15); border-radius: 12px;
+            padding: 1rem; font-size: .93rem; font-weight: 600;
+            color: var(--dark-txt); line-height: 1.6; text-align: center;
+            transition: all .25s;
+        }
+        .phrase-card:hover { background:linear-gradient(135deg,var(--diamond),var(--sapphire)); color:white; border-color:transparent; transform:translateY(-2px); }
+
+        /* future vision */
+        .vision-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; margin:1.2rem 0; }
+        .vision-card { border-radius:14px; padding:1.4rem; border:2px solid; }
+        .vision-card.bad  { background:rgba(220,38,38,.06); border-color:rgba(220,38,38,.2); }
+        .vision-card.good { background:rgba(29,78,216,.06); border-color:rgba(29,78,216,.2); }
+        .vision-card h4 { font-family:'Tajawal',sans-serif; font-size:1rem; font-weight:700; margin-bottom:.7rem; }
+        .vision-card.bad  h4 { color:var(--danger); }
+        .vision-card.good h4 { color:var(--diamond); }
+        .vision-item { font-size:.9rem; color:#555; margin-bottom:.4rem; padding-right:1rem; position:relative; }
+        .vision-item::before { content:'•'; position:absolute; right:0; }
+        .vision-card.bad  .vision-item::before { color:var(--danger); }
+        .vision-card.good .vision-item::before { color:var(--diamond); }
+
+        /* ===== POINTS TRACKER ===== */
+        .tracker-wrap {
+            background: linear-gradient(160deg,#172554,#1E3A8A);
+            border-radius: 24px; padding: 2.5rem; margin: 2rem 0;
+            position: relative; overflow: hidden;
+        }
+        .tracker-wrap::before {
+            content:'💎'; position:absolute; font-size:16rem;
+            top:50%; left:50%; transform:translate(-50%,-50%);
+            opacity:.04; pointer-events:none;
+        }
+        .tracker-title {
+            font-family:'Tajawal',sans-serif; font-size:1.6rem; font-weight:700;
+            color:white; text-align:center; margin-bottom:.4rem;
+        }
+        .tracker-subtitle { text-align:center; color:rgba(147,197,253,.8); font-size:.95rem; margin-bottom:2rem; }
+
+        /* Score display */
+        .score-display {
+            display: flex; align-items: center; justify-content: center; gap: 2rem;
+            margin-bottom: 2rem; flex-wrap: wrap;
+        }
+        .score-big {
+            text-align: center;
+        }
+        .score-num {
+            font-family:'Tajawal',sans-serif; font-weight:900; font-size:4rem;
+            color: white; line-height: 1;
+            text-shadow: 0 0 30px rgba(147,197,253,.8);
+        }
+        .score-label { font-size:.9rem; color:rgba(147,197,253,.7); margin-top:.3rem; }
+
+        /* Progress ring */
+        .progress-ring-wrap { position:relative; display:inline-block; }
+        .progress-ring-svg { transform: rotate(-90deg); }
+        .ring-track { fill:none; stroke:rgba(255,255,255,.1); stroke-width:8; }
+        .ring-fill  { fill:none; stroke:url(#ringGrad); stroke-width:8; stroke-linecap:round; stroke-dasharray:283; stroke-dashoffset:283; transition:stroke-dashoffset .8s ease; }
+        .ring-pct {
+            position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+            font-family:'Tajawal',sans-serif; font-weight:700; font-size:1rem; color:white; text-align:center; line-height:1.3;
+        }
+
+        /* Goal pills */
+        .goal-pills { display:flex; justify-content:center; gap:.75rem; flex-wrap:wrap; margin-bottom:2rem; }
+        .goal-pill {
+            padding:.4rem 1rem; border-radius:50px; font-size:.82rem; font-weight:600;
+            background:rgba(255,255,255,.08); color:rgba(255,255,255,.5);
+            border:1px solid rgba(255,255,255,.12); transition:all .3s;
+        }
+        .goal-pill.reached { background:rgba(245,158,11,.25); color:#FDE68A; border-color:rgba(245,158,11,.4); }
+
+        /* Add entry */
+        .tracker-form {
+            background: rgba(255,255,255,.07); border-radius: 16px; padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .tracker-form h4 {
+            font-family:'Tajawal',sans-serif; font-size:1.1rem; font-weight:700;
+            color:white; margin-bottom:1.2rem;
+        }
+        .form-row { display:flex; gap:1rem; align-items:center; flex-wrap:wrap; margin-bottom:1rem; }
+        .form-label { font-size:.88rem; color:rgba(255,255,255,.7); font-weight:600; flex-shrink:0; }
+
+        /* strength selector */
+        .strength-btns { display:flex; gap:.5rem; flex-wrap:wrap; }
+        .str-btn {
+            padding:.45rem .9rem; border-radius:8px; font-size:.85rem; font-weight:600;
+            background:rgba(255,255,255,.1); color:rgba(255,255,255,.6);
+            border:1px solid rgba(255,255,255,.15); cursor:pointer; transition:all .2s;
+        }
+        .str-btn.selected { background:rgba(147,197,253,.25); color:white; border-color:rgba(147,197,253,.5); }
+
+        /* result selector */
+        .result-btns { display:flex; gap:.75rem; flex-wrap:wrap; }
+        .res-btn {
+            padding:.55rem 1.4rem; border-radius:10px; font-size:.9rem; font-weight:700;
+            border:2px solid; cursor:pointer; transition:all .25s;
+        }
+        .res-btn.win  { background:rgba(5,150,105,.1); color:#6EE7B7; border-color:rgba(5,150,105,.3); }
+        .res-btn.lose { background:rgba(220,38,38,.1); color:#FCA5A5; border-color:rgba(220,38,38,.3); }
+        .res-btn.win.selected  { background:rgba(5,150,105,.35); color:white; border-color:#10B981; }
+        .res-btn.lose.selected { background:rgba(220,38,38,.35); color:white; border-color:#EF4444; }
+
+        .add-btn {
+            background:linear-gradient(135deg,var(--diamond),var(--sapphire));
+            color:white; border:none; border-radius:12px; padding:.8rem 2rem;
+            font-family:'Tajawal',sans-serif; font-size:1rem; font-weight:700;
+            cursor:pointer; transition:all .3s; box-shadow:0 4px 15px rgba(29,78,216,.4);
+            width:100%;
+        }
+        .add-btn:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(29,78,216,.5); }
+
+        /* Entries log */
+        .entries-wrap { margin-top:1.5rem; }
+        .entries-wrap h4 { font-family:'Tajawal',sans-serif; font-size:1rem; font-weight:700; color:rgba(255,255,255,.7); margin-bottom:.9rem; }
+        .entries-list { display:flex; flex-direction:column; gap:.6rem; max-height:280px; overflow-y:auto; padding-left:.3rem; }
+        .entries-list::-webkit-scrollbar { width:4px; }
+        .entries-list::-webkit-scrollbar-track { background:rgba(255,255,255,.05); border-radius:4px; }
+        .entries-list::-webkit-scrollbar-thumb { background:rgba(147,197,253,.3); border-radius:4px; }
+        .entry-item {
+            display:flex; align-items:center; gap:.75rem;
+            background:rgba(255,255,255,.07); border-radius:10px; padding:.7rem 1rem;
+            animation: entryIn .3s ease;
+        }
+        @keyframes entryIn { from{opacity:0;transform:translateX(-10px)} to{opacity:1;transform:translateX(0)} }
+        .entry-icon { font-size:1.3rem; flex-shrink:0; }
+        .entry-txt { flex:1; font-size:.88rem; color:rgba(255,255,255,.85); line-height:1.5; }
+        .entry-pts {
+            font-family:'Tajawal',sans-serif; font-weight:700; font-size:1rem;
+            flex-shrink:0;
+        }
+        .entry-pts.pos { color:#6EE7B7; }
+        .entry-pts.neg { color:#FCA5A5; }
+        .entry-del {
+            background:none; border:none; color:rgba(255,255,255,.3);
+            cursor:pointer; font-size:1rem; padding:.2rem; transition:color .2s;
+        }
+        .entry-del:hover { color:rgba(220,38,38,.7); }
+
+        .empty-entries { text-align:center; color:rgba(255,255,255,.3); font-size:.9rem; padding:1.5rem 0; }
+
+        .tracker-actions { display:flex; gap:.75rem; justify-content:center; margin-top:1.2rem; flex-wrap:wrap; }
+        .track-action-btn {
+            padding:.65rem 1.4rem; border-radius:10px;
+            font-family:'Tajawal',sans-serif; font-size:.9rem; font-weight:600;
+            cursor:pointer; transition:all .25s; border:none;
+        }
+        .track-action-btn.clear { background:rgba(220,38,38,.15); color:#FCA5A5; border:1px solid rgba(220,38,38,.25); }
+        .track-action-btn.clear:hover { background:rgba(220,38,38,.3); }
+        .track-action-btn.copy  { background:rgba(255,255,255,.1);  color:rgba(255,255,255,.8); border:1px solid rgba(255,255,255,.2); }
+        .track-action-btn.copy:hover { background:rgba(255,255,255,.2); }
+
+        /* celebration */
+        .celebration {
+            display:none; text-align:center; padding:1.2rem;
+            background:rgba(245,158,11,.15); border-radius:14px;
+            border:1px solid rgba(245,158,11,.3); margin-top:1rem;
+            animation: fadeInUp .5s ease;
+        }
+        .celebration.show { display:block; }
+        .celebration p { font-family:'Tajawal',sans-serif; font-size:1.1rem; font-weight:700; color:#FDE68A; margin:0; }
+        @keyframes fadeInUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+        /* ===== ARSENAL ===== */
+        .arsenal-grid {
+            display: grid; grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+            gap: 1rem; margin: 1.5rem 0;
+        }
+        .arsenal-card {
+            background: linear-gradient(135deg,rgba(29,78,216,.08),rgba(30,64,175,.05));
+            border: 2px solid rgba(29,78,216,.15); border-radius: 16px;
+            padding: 1.4rem 1.2rem; text-align: center; transition: all .3s;
+        }
+        .arsenal-card:hover { border-color:var(--diamond); transform:translateY(-4px); box-shadow:0 12px 30px rgba(29,78,216,.15); }
+        .arsenal-card .ac-num {
+            font-family:'Tajawal',sans-serif; font-size:.8rem; font-weight:700;
+            color:rgba(29,78,216,.5); margin-bottom:.3rem; text-transform:uppercase; letter-spacing:1px;
+        }
+        .arsenal-card .ac-icon { font-size:2rem; margin-bottom:.5rem; }
+        .arsenal-card .ac-name { font-family:'Tajawal',sans-serif; font-size:1rem; font-weight:700; color:var(--dark-txt); margin-bottom:.3rem; }
+        .arsenal-card .ac-desc { font-size:.82rem; color:#888; line-height:1.5; }
+
+        /* ===== PROBLEMS ===== */
+        .problem-card {
+            border:2px solid rgba(29,78,216,.12); border-radius:14px;
+            margin-bottom:.9rem; overflow:hidden; transition:border-color .3s; cursor:pointer;
+        }
+        .problem-card:hover { border-color:rgba(29,78,216,.35); }
+        .problem-card.open  { border-color:var(--diamond); }
+        .prob-header { display:flex; align-items:center; gap:1rem; padding:1.2rem 1.4rem; user-select:none; }
+        .prob-icon { font-size:1.7rem; flex-shrink:0; }
+        .prob-title { flex:1; font-family:'Tajawal',sans-serif; font-size:1.05rem; font-weight:700; color:var(--danger); }
+        .prob-toggle { color:rgba(29,78,216,.7); font-size:1.4rem; font-weight:300; transition:transform .3s; }
+        .problem-card.open .prob-toggle { transform:rotate(45deg); }
+        .prob-body { max-height:0; overflow:hidden; transition:max-height .45s ease; }
+        .problem-card.open .prob-body { max-height:220px; }
+        .prob-body-inner { padding:0 1.4rem 1.5rem; border-top:1px solid rgba(29,78,216,.1); padding-top:1.2rem; }
+        .prob-body-inner p { font-size:.97rem; color:#555; margin-bottom:.5rem; }
+        .solution-tag {
+            display:inline-block; background:rgba(5,150,105,.08);
+            border-right:3px solid var(--success); border-radius:0 8px 8px 0;
+            padding:.6rem 1rem; font-size:.9rem; color:var(--success);
+            font-weight:600; margin-top:.5rem; line-height:1.6;
+        }
+
+        /* ===== MESSAGE ===== */
+        .message-section {
+            background: linear-gradient(160deg,#172554,#1E3A8A);
+            border-radius: 24px; padding: 3rem; margin-bottom: 2rem;
+            text-align: center; position: relative; overflow: hidden;
+        }
+        .message-section::before {
+            content:'💎'; position:absolute; font-size:16rem;
+            top:50%; left:50%; transform:translate(-50%,-50%);
+            opacity:.04; pointer-events:none;
+        }
+        .message-section h2 {
+            font-family:'Tajawal',sans-serif; font-size:1.8rem; font-weight:700;
+            color:white; margin-bottom:1.5rem;
+            border-bottom:2px solid rgba(147,197,253,.25); padding-bottom:1rem;
+        }
+        .big-quote {
+            font-family:'Tajawal',sans-serif;
+            font-size:clamp(1.2rem,3vw,1.65rem); font-weight:700;
+            color:white; line-height:1.75; margin-bottom:2rem;
+        }
+        .big-quote span { color:var(--shine); }
+        .msg-bullets { display:flex; flex-direction:column; gap:.9rem; text-align:right; max-width:560px; margin:0 auto 1.5rem; }
+        .mb-item {
+            display:flex; align-items:flex-start; gap:.8rem;
+            background:rgba(255,255,255,.07); border-radius:12px;
+            padding:.9rem 1.2rem; font-size:1rem; color:rgba(255,255,255,.9);
+        }
+        .mb-icon { font-size:1.3rem; flex-shrink:0; }
+        .final-line { font-family:'Tajawal',sans-serif; font-size:1.15rem; font-weight:700; color:var(--shine); margin-top:1rem; }
+
+        /* ===== FINAL FINALE ===== */
+        .finale-section {
+            background: linear-gradient(135deg,#1D4ED8,#172554);
+            border-radius: 24px; padding: 3rem; margin-bottom: 2rem;
+            text-align: center; position: relative; overflow: hidden;
+            border: 1px solid rgba(147,197,253,.2);
+            box-shadow: 0 0 60px rgba(29,78,216,.3), inset 0 0 60px rgba(147,197,253,.05);
+        }
+        .finale-section h2 {
+            font-family:'Tajawal',sans-serif; font-size:2rem; font-weight:900;
+            color:white; margin-bottom:.5rem;
+        }
+        .finale-section .f-sub { color:rgba(147,197,253,.85); font-size:1rem; margin-bottom:2rem; }
+        .finale-quote {
+            font-family:'Tajawal',sans-serif; font-size:clamp(1rem,2.5vw,1.4rem);
+            font-weight:600; color:rgba(255,255,255,.9); line-height:1.9;
+            max-width:650px; margin:0 auto 2rem; font-style:italic;
+        }
+        .finale-quote strong { color:var(--shine); font-style:normal; }
+
+        /* ===== CHALLENGE BTN ===== */
+        .challenge-btn {
+            display:block; width:100%;
+            background:linear-gradient(135deg,var(--diamond),var(--sapphire));
+            color:white; border:none; border-radius:16px; padding:1.4rem 2rem;
+            font-family:'Tajawal',sans-serif; font-size:1.35rem; font-weight:700;
+            cursor:pointer; transition:all .3s;
+            box-shadow:0 10px 30px rgba(29,78,216,.3); margin-bottom:2rem;
+        }
+        .challenge-btn:hover { transform:translateY(-3px) scale(1.02); box-shadow:0 15px 40px rgba(29,78,216,.4); }
+
+        /* ===== NAV ARROWS ===== */
+        .nav-arrows { display:flex; justify-content:space-between; gap:1rem; margin-bottom:4rem; }
+        .nav-arrow {
+            display:flex; align-items:center; gap:.7rem;
+            text-decoration:none; background:white;
+            border:2px solid rgba(29,78,216,.15); border-radius:14px;
+            padding:1.1rem 1.5rem; color:var(--dark-txt);
+            font-weight:600; transition:all .3s;
+            box-shadow:0 4px 14px rgba(0,0,0,.06); font-size:.95rem;
+        }
+        .nav-arrow:hover { border-color:var(--diamond); box-shadow:0 8px 25px rgba(29,78,216,.15); transform:translateX(-3px); }
+        .nav-arrow.next:hover { transform:translateX(3px); }
+        .nav-arrow.disabled { opacity:.4; pointer-events:none; }
+
+        /* ===== MODAL ===== */
+        .modal {
+            display:none; position:fixed; inset:0;
+            background:rgba(23,37,84,.75); z-index:2000;
+            align-items:center; justify-content:center;
+            padding:2rem; backdrop-filter:blur(4px);
+        }
+        .modal.show { display:flex; }
+        .modal-content {
+            background:white; border-radius:24px; padding:2.5rem;
+            max-width:680px; width:100%; max-height:92vh; overflow-y:auto;
+            box-shadow:0 30px 80px rgba(0,0,0,.3); animation:modalIn .4s ease;
+        }
+        @keyframes modalIn { from{opacity:0;transform:scale(.92) translateY(18px)} to{opacity:1;transform:scale(1) translateY(0)} }
+        .modal-content .ch-icon { font-size:3.5rem; text-align:center; display:block; margin-bottom:.8rem; }
+        .modal-content h3 { font-family:'Tajawal',sans-serif; font-size:1.8rem; font-weight:900; color:var(--dark-txt); text-align:center; margin-bottom:.3rem; }
+        .modal-content h4 { font-family:'Tajawal',sans-serif; font-size:1.1rem; color:var(--diamond); text-align:center; margin-bottom:1.4rem; }
+        .modal-content p { font-size:.98rem; color:#555; margin-bottom:.75rem; line-height:1.8; }
+        .ch-phase { font-family:'Tajawal',sans-serif; font-size:1.1rem; font-weight:700; color:var(--diamond); margin:1.5rem 0 .8rem; border-right:4px solid var(--diamond); padding-right:.75rem; }
+        .ch-steps { display:flex; flex-direction:column; gap:.75rem; }
+        .ch-step { display:flex; gap:.9rem; align-items:flex-start; background:var(--foam); border-radius:12px; padding:.95rem 1.1rem; }
+        .ch-num { background:linear-gradient(135deg,var(--diamond),var(--sapphire)); color:white; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.85rem; flex-shrink:0; margin-top:.1rem; }
+        .ch-step p { font-size:.95rem; color:var(--dark-txt); margin:0; line-height:1.7; }
+        .modal-close { display:block; width:100%; background:linear-gradient(135deg,var(--diamond),var(--sapphire)); color:white; border:none; border-radius:12px; padding:1.1rem; font-family:'Tajawal',sans-serif; font-size:1.05rem; font-weight:700; cursor:pointer; margin-top:1.8rem; transition:all .3s; }
+        .modal-close:hover { transform:scale(1.02); }
+
+        /* points system in modal */
+        .points-explain { display:grid; grid-template-columns:repeat(3,1fr); gap:.75rem; margin:1rem 0; }
+        .pt-card { background:var(--foam); border-radius:12px; padding:1rem; text-align:center; border:2px solid var(--ice); }
+        .pt-card .pt-pts { font-family:'Tajawal',sans-serif; font-size:1.5rem; font-weight:900; color:var(--diamond); }
+        .pt-card .pt-lbl { font-size:.82rem; color:#666; margin-top:.3rem; }
+
+        @media(max-width:600px){
+            .section{padding:2rem 1.4rem;}
+            nav{padding:1rem;}
+            .nav-arrow{padding:.9rem 1rem;font-size:.85rem;}
+            .paths-grid{grid-template-columns:1fr;gap:.75rem;}
+            .path-vs{padding-top:0;}
+            .vision-grid{grid-template-columns:1fr;}
+            .arsenal-grid{grid-template-columns:1fr 1fr;}
+            .points-explain{grid-template-columns:1fr 1fr 1fr;}
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="nav-title">← الرئيسية</a>
+    <span class="nav-title" style="font-size:.9rem;color:#888;">💎 التقنية 7: الرغبة = فرصة</span>
+    <a href="index.html">الرئيسية</a>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <!-- Facet shapes -->
+    <div class="hero-facets">
+        <div class="facet" style="width:180px;height:180px;top:10%;right:8%;animation-delay:0s;"></div>
+        <div class="facet" style="width:100px;height:100px;top:55%;right:20%;animation-delay:1.5s;"></div>
+        <div class="facet" style="width:250px;height:250px;top:5%;left:5%;animation-delay:3s;"></div>
+        <div class="facet" style="width:70px;height:70px;top:65%;left:12%;animation-delay:2s;"></div>
+        <div class="facet" style="width:140px;height:140px;top:40%;left:40%;animation-delay:4s;opacity:.06;"></div>
+    </div>
+    <!-- Sparkles -->
+    <div class="sparkle" style="top:18%;right:22%;animation-delay:0s;">✦</div>
+    <div class="sparkle" style="top:35%;right:6%;animation-delay:1.2s;">✧</div>
+    <div class="sparkle" style="top:70%;right:35%;animation-delay:2.4s;">✦</div>
+    <div class="sparkle" style="top:15%;left:18%;animation-delay:.6s;">✧</div>
+    <div class="sparkle" style="top:60%;left:8%;animation-delay:1.8s;">✦</div>
+    <div class="sparkle" style="top:80%;left:30%;animation-delay:3s;">✧</div>
+
+    <div class="hero-content">
+        <span class="icon">💎</span>
+        <h1>الرغبة = فرصة ذهبية</h1>
+        <p class="subtitle">غيّر نظرتك — تغيّر حياتك — د. كيلي ماكجونيجال</p>
+        <div class="hero-badges">
+            <span class="badge">🔬 The Willpower Instinct — ستانفورد</span>
+            <span class="badge">📊 73% vs 41%</span>
+            <span class="badge">🏆 سجل النقاط التفاعلي</span>
+            <span class="badge">💎 الختام</span>
+        </div>
+    </div>
+
+    <!-- Diamond divider -->
+    <div class="hero-diamond-divider">
+        <svg viewBox="0 0 1440 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,70 L0,35 L240,0 L480,35 L720,0 L960,35 L1200,0 L1440,35 L1440,70 Z" fill="#EFF6FF"/>
+        </svg>
+    </div>
+</div>
+
+<div class="main">
+
+    <!-- Intro + McGonigal -->
+    <section class="section">
+        <h2>العدو أم المعلم؟</h2>
+        <p>لما الرغبة الملحة تيجي، إيه أول إحساس بيجيلك؟ "يا نهار! تاني؟ أنا تعبت." "ليه أنا ضعيف كده؟" معظمنا بيشوف الرغبة كـ<strong>تهديد</strong> — حاجة لازم نهرب منها أو نحاربها.</p>
+        <p>لكن في طريقة تانية تماماً للنظر للموضوع — طريقة <strong>بتحوّل العدو لحليف</strong>، والمشكلة لفرصة. ده مش كلام تحفيزي فاضي — ده علم نفس حقيقي اسمه <strong>Reframing — إعادة التأطير.</strong></p>
+
+        <div class="info-box">
+            <div class="ib-icon">🔬</div>
+            <h3>د. كيلي ماكجونيجال — The Willpower Instinct — ستانفورد</h3>
+            <p>قارنت بين مجموعتين في رحلة التعافي: <strong>المجموعة الأولى</strong> تعلمت تشوف الرغبة كـ"عدو" تحاربه. <strong>المجموعة التانية</strong> تعلمت تشوفها كـ"فرصة تدريب" — تمرين لبناء قوة الإرادة زي الجيم بالضبط.</p>
+        </div>
+
+        <div class="stat-pill">📊 النتيجة بعد 8 أسابيع: المجموعة التانية نجحت بنسبة 73% — مقارنة بـ 41% فقط للأولى!</div>
+
+        <p>د. ماكجونيجال قالت: <em>"عندما تنظر للرغبة الملحة كاختبار قوة بدلاً من تهديد، دماغك يفرز هرمونات مختلفة تماماً. بدلاً من الكورتيزول (هرمون التوتر)، يفرز <strong>الدوبامين التحفيزي</strong> — وده بيخليك أقوى وأكثر تحكماً."</em></p>
+    </section>
+
+    <!-- Two paths visual -->
+    <section class="section">
+        <h2>🧬 ليه النظرة بتفرق؟ — بصرياً</h2>
+        <p>دماغك مش بيستجيب للواقع — <strong>بيستجيب لتفسيرك للواقع.</strong> نفس الرغبة، تفسيرين مختلفين، نتيجتين مختلفتين تماماً.</p>
+
+        <div class="paths-visual">
+            <h3>🔀 نفس الرغبة — مسارين مختلفين</h3>
+            <div class="paths-grid">
+                <div class="path-col threat">
+                    <div class="path-label">❌ الرغبة = تهديد</div>
+                    <div class="path-step"><span>😨</span><span>كورتيزول — هرمون التوتر</span></div>
+                    <div class="path-step"><span>⬇️</span><span>ذعر وإحساس بالضعف</span></div>
+                    <div class="path-step"><span>🔴</span><span>الجسم في وضع "قاتل أو اهرب"</span></div>
+                    <div class="path-step"><span>🧠</span><span>قشرة الفص الجبهي <strong style="color:#FCA5A5;">تضعف</strong></span></div>
+                    <div class="path-step"><span>📉</span><span>احتمال الاستسلام يزيد</span></div>
+                    <div class="path-outcome">🔴 هتحارب وانت خايف — وهتخسر</div>
+                </div>
+
+                <div class="path-vs">VS</div>
+
+                <div class="path-col opp">
+                    <div class="path-label">✅ الرغبة = فرصة تدريب</div>
+                    <div class="path-step"><span>🚀</span><span>دوبامين تحفيزي — هرمون التحدي</span></div>
+                    <div class="path-step"><span>⬆️</span><span>تحدٍّ وطاقة إيجابية</span></div>
+                    <div class="path-step"><span>🟢</span><span>الجسم في وضع "أنا قادر"</span></div>
+                    <div class="path-step"><span>🧠</span><span>قشرة الفص الجبهي <strong style="color:#93C5FD;">تنشط وتقوى</strong></span></div>
+                    <div class="path-step"><span>📈</span><span>احتمال المقاومة يزيد</span></div>
+                    <div class="path-outcome">💎 هتواجه وانت واثق — وهتكسب</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <div class="ib-icon">📊</div>
+            <h3>جامعة هارفارد</h3>
+            <p>الطريقة اللي بتفسر بيها الموقف بتأثر على قدرتك على المقاومة بنسبة <strong>أكبر من 50%</strong> — يعني أهم من قوة الرغبة نفسها!</p>
+        </div>
+    </section>
+
+    <!-- 5 Steps -->
+    <section class="section">
+        <h2>🛠️ إزاي تحوّل الرغبة لفرصة؟ — 5 خطوات</h2>
+        <p>اضغط على كل خطوة للتفاصيل.</p>
+
+        <div id="stepsWrap">
+
+            <div class="step-card" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-num">💬</div>
+                    <div class="step-title-wrap">
+                        <div class="step-title">أعد تسمية الإحساس</div>
+                        <div class="step-subtitle">غيّر الكلمة — تغيّر استجابة الدماغ</div>
+                    </div>
+                    <div class="step-toggle">+</div>
+                </div>
+                <div class="step-body"><div class="step-body-inner">
+                    <p>لما الرغبة تيجي، أول حاجة بنعملها إننا نسميها بطريقة سلبية: "يا نهار! تاني؟" أو "أنا ضعيف." <strong>غيّر التسمية — وهتغير كل حاجة.</strong></p>
+                    <p>قول الجملة الإيجابية <strong>بصوت عالٍ</strong> — مش في دماغك بس. الكلام بصوت عالٍ بيأثر أقوى على الدماغ.</p>
+                    <div class="phrase-cards">
+                        <div class="phrase-card">💪 "دي فرصة أثبت فيها إني قوي"</div>
+                        <div class="phrase-card">🏋️ "الرغبة دي جيم لقوة إرادتي"</div>
+                        <div class="phrase-card">📈 "كل موجة بعديها بقوى أكتر"</div>
+                        <div class="phrase-card">🎯 "ده تمرين — مش تهديد"</div>
+                    </div>
+                </div></div>
+            </div>
+
+            <div class="step-card" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-num">🤝</div>
+                    <div class="step-title-wrap">
+                        <div class="step-title">رحّب بالرغبة</div>
+                        <div class="step-subtitle">صعبة لكن قوية جداً — بتكسر قوتها</div>
+                    </div>
+                    <div class="step-toggle">+</div>
+                </div>
+                <div class="step-body"><div class="step-body-inner">
+                    <p>الترحيب بالرغبة — مش الاستسلام ليها — <strong>بيكسر قوتها.</strong> الرغبة بتتغذى على الخوف، مش على الثقة.</p>
+                    <p>لما الرغبة تيجي، قول بصوت عالٍ:</p>
+                    <div class="info-box" style="margin:1rem 0;">
+                        <div class="ib-icon">🗣️</div>
+                        <h3>جملة الترحيب</h3>
+                        <p style="font-size:1.05rem;font-weight:600;color:#1E3A8A;">"أهلاً يا رغبة. أنا شايفك. أنا عارف إنك موجودة. تفضل، قعدي قد ما انتي عايزة — أنا مش هستسلم. دي فرصتي أتدرب."</p>
+                    </div>
+                    <div class="info-box">
+                        <div class="ib-icon">📊</div>
+                        <h3>د. ستيفن هايز — ACT Therapy</h3>
+                        <p><strong>قبول الإحساس</strong> (مش الاستسلام ليه) بيقلل قوته بنسبة <strong>30-40%</strong> في خلال دقائق.</p>
+                    </div>
+                </div></div>
+            </div>
+
+            <div class="step-card" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-num">🎮</div>
+                    <div class="step-title-wrap">
+                        <div class="step-title">حوّلها لنقاط — Gamification</div>
+                        <div class="step-subtitle">البشر بيحبوا الألعاب — استغل ده</div>
+                    </div>
+                    <div class="step-toggle">+</div>
+                </div>
+                <div class="step-body"><div class="step-body-inner">
+                    <p>حوّل المقاومة للعبة — كل رغبة تقاومها = نقاط تكسبها. الجزء التفاعلي أسفل بيخليك تفعل ده فعلاً.</p>
+                    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin:1rem 0;">
+                        <div style="background:rgba(29,78,216,.08);border:2px solid rgba(29,78,216,.15);border-radius:12px;padding:1rem;text-align:center;">
+                            <div style="font-family:'Tajawal',sans-serif;font-size:1.6rem;font-weight:900;color:var(--diamond);">5</div>
+                            <div style="font-size:.8rem;color:#666;margin-top:.3rem;">رغبة خفيفة</div>
+                        </div>
+                        <div style="background:rgba(29,78,216,.08);border:2px solid rgba(29,78,216,.15);border-radius:12px;padding:1rem;text-align:center;">
+                            <div style="font-family:'Tajawal',sans-serif;font-size:1.6rem;font-weight:900;color:var(--diamond);">10</div>
+                            <div style="font-size:.8rem;color:#666;margin-top:.3rem;">رغبة متوسطة</div>
+                        </div>
+                        <div style="background:rgba(29,78,216,.08);border:2px solid rgba(29,78,216,.15);border-radius:12px;padding:1rem;text-align:center;">
+                            <div style="font-family:'Tajawal',sans-serif;font-size:1.6rem;font-weight:900;color:var(--diamond);">15</div>
+                            <div style="font-size:.8rem;color:#666;margin-top:.3rem;">رغبة قوية جداً</div>
+                        </div>
+                    </div>
+                    <p style="color:#888;font-size:.9rem;">⚠️ اللعبة دي مش عشان تعاقب نفسك — هي عشان تحفزك وتخلي المقاومة أكتر متعة.</p>
+                </div></div>
+            </div>
+
+            <div class="step-card" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-num">🔮</div>
+                    <div class="step-title-wrap">
+                        <div class="step-title">تخيّل نفسك بعد سنة</div>
+                        <div class="step-subtitle">المستقبل بيقوي الإرادة في اللحظة الحرجة</div>
+                    </div>
+                    <div class="step-toggle">+</div>
+                </div>
+                <div class="step-body"><div class="step-body-inner">
+                    <p>لما الرغبة تيجي بقوة، <strong>اقفل عينيك 10 ثواني</strong> وتخيّل نفسك بعد سنة في الحالتين:</p>
+                    <div class="vision-grid">
+                        <div class="vision-card bad">
+                            <h4>❌ لو استسلمت دلوقتي</h4>
+                            <div class="vision-item">لسه في نفس الدايرة</div>
+                            <div class="vision-item">لسه بتنتكس كل يومين</div>
+                            <div class="vision-item">حاسس بنفس الخزي والضعف</div>
+                            <div class="vision-item">فقدت 365 يوم من حياتك</div>
+                        </div>
+                        <div class="vision-card good">
+                            <h4>✅ لو قاومت دلوقتي</h4>
+                            <div class="vision-item">حر من الإدمان تماماً</div>
+                            <div class="vision-item">قوي وفخور بنفسك</div>
+                            <div class="vision-item">بتعيش حياة طبيعية وصحية</div>
+                            <div class="vision-item">بنيت نسخة أفضل منك</div>
+                        </div>
+                    </div>
+                    <div class="info-box" style="margin-top:1rem;">
+                        <div class="ib-icon">📊</div>
+                        <h3>معهد ماساتشوستس للتكنولوجيا — MIT</h3>
+                        <p>التخيل المستقبلي بيزود قوة الإرادة بنسبة <strong>18%</strong> في اللحظات الحرجة.</p>
+                    </div>
+                </div></div>
+            </div>
+
+            <div class="step-card" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-num">🎉</div>
+                    <div class="step-title-wrap">
+                        <div class="step-title">احتفل بكل انتصار — حتى الصغير</div>
+                        <div class="step-subtitle">الاحتفال بيفرز دوبامين طبيعي وصحي</div>
+                    </div>
+                    <div class="step-toggle">+</div>
+                </div>
+                <div class="step-body"><div class="step-body-inner">
+                    <p>كل مرة تقاوم رغبة — حتى لو صغيرة — <strong>احتفل.</strong> مش لازم احتفال كبير: ابتسم، قول "أنا نجحت!"، سجّل في الترسانة أسفل.</p>
+                    <p>الاحتفال <strong>بيفرز دوبامين طبيعي</strong> — نفس المكافأة اللي كنت بتاخدها من العادة القديمة، لكن بطريقة صحية. مع الوقت، دماغك يتعلم: مقاومة الرغبة = مكافأة، مش حرمان.</p>
+                    <div class="info-box green" style="background:linear-gradient(135deg,rgba(5,150,105,.09),rgba(16,185,129,.06));border-right-color:var(--success);">
+                        <div class="ib-icon">💡</div>
+                        <h3 style="color:var(--success);">طرق الاحتفال</h3>
+                        <p>ابتسم ✦ قول "أنا نجحت!" ✦ سجّل "انتصار جديد" ✦ كلّم صديق ✦ أضف نقاط في السجل أسفل</p>
+                    </div>
+                </div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Points Tracker -->
+    <section class="section">
+        <h2>🏆 سجل النقاط التفاعلي</h2>
+        <p>سجّل كل رغبة ونتيجتها — النقاط بتتحفظ تلقائياً حتى لو أغلقت الصفحة وفتحتها تاني.</p>
+
+        <div class="tracker-wrap">
+            <svg width="0" height="0" style="position:absolute;">
+                <defs>
+                    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#93C5FD"/>
+                        <stop offset="100%" stop-color="#1D4ED8"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+
+            <h3 class="tracker-title">💎 ترسانة الانتصارات</h3>
+            <p class="tracker-subtitle">اجمع 100 نقطة — كافئ نفسك بحاجة كنت عايزها</p>
+
+            <!-- Score display -->
+            <div class="score-display">
+                <div class="score-big">
+                    <div class="score-num" id="totalScore">0</div>
+                    <div class="score-label">النقاط الكلية</div>
+                </div>
+                <div class="progress-ring-wrap">
+                    <svg class="progress-ring-svg" width="110" height="110" viewBox="0 0 110 110">
+                        <circle class="ring-track" cx="55" cy="55" r="45"/>
+                        <circle class="ring-fill" id="ringFill" cx="55" cy="55" r="45"/>
+                    </svg>
+                    <div class="ring-pct" id="ringPct">0%<br><small style="font-size:.65rem;color:rgba(255,255,255,.5);">من 100</small></div>
+                </div>
+                <div class="score-big">
+                    <div class="score-num" id="winsCount" style="color:#6EE7B7;">0</div>
+                    <div class="score-label">انتصارات</div>
+                </div>
+            </div>
+
+            <!-- Goal pills -->
+            <div class="goal-pills">
+                <div class="goal-pill" id="gp25">🥉 25 نقطة</div>
+                <div class="goal-pill" id="gp50">🥈 50 نقطة</div>
+                <div class="goal-pill" id="gp75">🥇 75 نقطة</div>
+                <div class="goal-pill" id="gp100">💎 100 نقطة</div>
+            </div>
+
+            <!-- Add form -->
+            <div class="tracker-form">
+                <h4>➕ سجّل رغبة جديدة</h4>
+
+                <div class="form-row">
+                    <span class="form-label">قوة الرغبة:</span>
+                    <div class="strength-btns">
+                        <button class="str-btn" data-pts="5" onclick="selectStr(this)">خفيفة (+5)</button>
+                        <button class="str-btn" data-pts="10" onclick="selectStr(this)">متوسطة (+10)</button>
+                        <button class="str-btn" data-pts="15" onclick="selectStr(this)">قوية جداً (+15)</button>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <span class="form-label">النتيجة:</span>
+                    <div class="result-btns">
+                        <button class="res-btn win"  onclick="selectRes(this,'win')">✅ قاومت</button>
+                        <button class="res-btn lose" onclick="selectRes(this,'lose')">❌ انتكست</button>
+                    </div>
+                </div>
+
+                <button class="add-btn" onclick="addEntry()">💾 سجّل الآن</button>
+            </div>
+
+            <!-- Celebration -->
+            <div class="celebration" id="celebration">
+                <p id="celebrationText">🎉 مبروك! وصلت لـ 25 نقطة!</p>
+            </div>
+
+            <!-- Entries log -->
+            <div class="entries-wrap">
+                <h4>📋 السجل الكامل</h4>
+                <div class="entries-list" id="entriesList">
+                    <div class="empty-entries" id="emptyMsg">لم تسجّل أي رغبة بعد — ابدأ الآن! 💪</div>
+                </div>
+            </div>
+
+            <div class="tracker-actions">
+                <button class="track-action-btn copy" onclick="copyTracker()">📋 نسخ السجل</button>
+                <button class="track-action-btn clear" onclick="clearTracker()">🗑️ مسح الكل</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Arsenal -->
+    <section class="section">
+        <h2>🛡️ ترسانتك الكاملة — كل التقنيات</h2>
+        <p>لقد أتممت السلسلة. دلوقتي عندك <strong>7 أدوات علمية</strong> — استخدمهم معاً.</p>
+
+        <div class="arsenal-grid">
+            <div class="arsenal-card">
+                <div class="ac-num">التقنية 1</div>
+                <div class="ac-icon">🗺️</div>
+                <div class="ac-name">المناطق الحمراء</div>
+                <div class="ac-desc">حدد وتجنب المحفزات — الوقاية أهم من العلاج</div>
+            </div>
+            <div class="arsenal-card">
+                <div class="ac-num">التقنية 2</div>
+                <div class="ac-icon">🧠</div>
+                <div class="ac-name">العلاج التنفيري</div>
+                <div class="ac-desc">أعد برمجة دماغك ليكره العادة بالتخيل</div>
+            </div>
+            <div class="arsenal-card">
+                <div class="ac-num">التقنية 3</div>
+                <div class="ac-icon">🌊</div>
+                <div class="ac-name">اركب الموجة</div>
+                <div class="ac-desc">لاحظ الرغبة بوعي — الرغبة موجة تمر</div>
+            </div>
+            <div class="arsenal-card">
+                <div class="ac-num">التقنية 4</div>
+                <div class="ac-icon">🔄</div>
+                <div class="ac-name">الاستبدال الذكي</div>
+                <div class="ac-desc">نمط حياة صحي + بديل فوري عند الرغبة</div>
+            </div>
+            <div class="arsenal-card">
+                <div class="ac-num">التقنية 5</div>
+                <div class="ac-icon">⚡</div>
+                <div class="ac-name">التدخل الفوري</div>
+                <div class="ac-desc">تنفس + حركة + غيّر مكان — في 3 دقائق</div>
+            </div>
+            <div class="arsenal-card">
+                <div class="ac-num">التقنية 6</div>
+                <div class="ac-icon">🧩</div>
+                <div class="ac-name">التشتيت الذكي</div>
+                <div class="ac-desc">شغّل دماغك بحاجة نافعة — ما فيش مكان للرغبة</div>
+            </div>
+            <div class="arsenal-card" style="border-color:rgba(29,78,216,.4);background:linear-gradient(135deg,rgba(29,78,216,.12),rgba(30,64,175,.08));">
+                <div class="ac-num" style="color:var(--diamond);opacity:1;">التقنية 7</div>
+                <div class="ac-icon">💎</div>
+                <div class="ac-name" style="color:var(--diamond);">الرغبة = فرصة</div>
+                <div class="ac-desc">غيّر نظرتك — حوّل العدو لحليف</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problems -->
+    <section class="section">
+        <h2>🔧 لو واجهتك مشكلة</h2>
+
+        <div class="problem-card" onclick="toggleProblem(this)">
+            <div class="prob-header">
+                <div class="prob-icon">😕</div>
+                <div class="prob-title">مش قادر أشوف الرغبة كفرصة — حاسس إنها فعلاً عدو</div>
+                <div class="prob-toggle">+</div>
+            </div>
+            <div class="prob-body"><div class="prob-body-inner">
+                <p>طبيعي في الأول — التغيير بياخد وقت. الاعتقاد القديم اتبنى على سنين.</p>
+                <div class="solution-tag">✓ ابدأ بخطوة بسيطة: بعد ما تقاوم الرغبة، قول لنفسك "كسبت نقطة." حتى لو مش مصدق، كرر الجملة. مع التكرار، الاعتقاد هيتغير.</div>
+            </div></div>
+        </div>
+
+        <div class="problem-card" onclick="toggleProblem(this)">
+            <div class="prob-header">
+                <div class="prob-icon">😞</div>
+                <div class="prob-title">جربت أشوفها كفرصة، بس انتكست برضو</div>
+                <div class="prob-toggle">+</div>
+            </div>
+            <div class="prob-body"><div class="prob-body-inner">
+                <p>الانتكاسة مش فشل في التقنية — حتى الرياضيين المحترفين بيخسروا مباريات.</p>
+                <div class="solution-tag">✓ كل مرة قاومت قبل الانتكاسة كانت تدريب حقيقي. سجّل الانتصارات الجزئية دي — وكمّل.</div>
+            </div></div>
+        </div>
+
+        <div class="problem-card" onclick="toggleProblem(this)">
+            <div class="prob-header">
+                <div class="prob-icon">📉</div>
+                <div class="prob-title">سجل النقاط بيخليني أكتئب لما أخسر</div>
+                <div class="prob-toggle">+</div>
+            </div>
+            <div class="prob-body"><div class="prob-body-inner">
+                <p>السجل هدفه التحفيز، مش العقاب.</p>
+                <div class="solution-tag">✓ ركز على المكاسب مش الخسائر. مثلاً: "كسبت 30 نقطة الأسبوع ده!" لو الاكتئاب مستمر، ابعد عن نظام النقاط واستخدم التقنيات التانية فقط.</div>
+            </div></div>
+        </div>
+
+        <div class="problem-card" onclick="toggleProblem(this)">
+            <div class="prob-header">
+                <div class="prob-icon">😰</div>
+                <div class="prob-title">الرغبات كترت أوي — حاسس إني في تدريب مستمر ومتعب</div>
+                <div class="prob-toggle">+</div>
+            </div>
+            <div class="prob-body"><div class="prob-body-inner">
+                <p>في أول 2-4 أسابيع، الرغبات بتكون كتير — هذا طبيعي تماماً.</p>
+                <div class="solution-tag">✓ كل رغبة قاومتها = ضعّفت المسار القديم. الموجات الكتيرة دلوقتي معناها إنك بتتقدم بسرعة — مش إنك بتتعب.</div>
+            </div></div>
+        </div>
+    </section>
+
+    <!-- Message -->
+    <div class="message-section">
+        <h2>رسالتك من التقنية دي</h2>
+        <p class="big-quote">الرغبة الملحة مش عدو.<br>هي <span>فرصة ذهبية</span> — لو غيّرت نظرتك ليها.</p>
+        <div class="msg-bullets">
+            <div class="mb-item"><span class="mb-icon">💪</span>بتبني "عضلة الإرادة" — وبتقوى مع كل مقاومة</div>
+            <div class="mb-item"><span class="mb-icon">🏆</span>بتضيف انتصار جديد لسجلك — لبنة لبنة</div>
+            <div class="mb-item"><span class="mb-icon">💎</span>بتقرّب خطوة من الحرية الحقيقية</div>
+        </div>
+        <p class="final-line">السر مش في غياب الرغبة — السر في تحويل الرغبة لفرصة. 💎</p>
+    </div>
+
+    <!-- Finale -->
+    <div class="finale-section">
+        <h2>🌟 مبروك — أتممت السلسلة!</h2>
+        <p class="f-sub">وصلت لآخر تقنية من الـ7 تقنيات. ده إنجاز في حد ذاته.</p>
+        <p class="finale-quote">
+            "التعافي مش خط مستقيم. هيكون فيه انتكاسات وأيام صعبة ولحظات ضعف —
+            <strong>ده طبيعي.</strong> المهم متستسلمش. كل يوم جديد فرصة جديدة.
+            <strong>أنت أقوى مما تعتقد. والحرية أقرب مما تتخيل.</strong>"
+        </p>
+    </div>
+
+    <button class="challenge-btn" onclick="showChallenge()">🎯 شاهد تحدي الـ3 أيام الأخير</button>
+
+    <div class="nav-arrows">
+        <a href="technique-6.html" class="nav-arrow"><span>→</span><span>التقنية السابقة: التشتيت الذكي</span></a>
+        <a href="index.html" class="nav-arrow next"><span>🏠 العودة للرئيسية</span><span>←</span></a>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="challengeModal">
+    <div class="modal-content">
+        <span class="ch-icon">💎</span>
+        <h3>التحدي الأخير — الختام</h3>
+        <h4>"حوّل الرغبة لفرصة — سجل الانتصارات"</h4>
+        <p><strong>الهدف:</strong> تغير نظرتك للرغبة من "مشكلة" لـ"فرصة" وتكتشف إن كل موجة فرصة تدريب بتبنيك مش بتهدمك.</p>
+
+        <div class="points-explain">
+            <div class="pt-card"><div class="pt-pts">5</div><div class="pt-lbl">رغبة خفيفة</div></div>
+            <div class="pt-card"><div class="pt-pts">10</div><div class="pt-lbl">رغبة متوسطة</div></div>
+            <div class="pt-card"><div class="pt-pts">15</div><div class="pt-lbl">رغبة قوية جداً</div></div>
+        </div>
+
+        <p class="ch-phase">في كل مرة تيجيلك رغبة:</p>
+        <div class="ch-steps">
+            <div class="ch-step"><div class="ch-num">1</div><p><strong>أعد تسمية الإحساس:</strong> قول بصوت عالٍ: "دي فرصة أثبت فيها قوتي!"</p></div>
+            <div class="ch-step"><div class="ch-num">2</div><p><strong>رحّب بالرغبة:</strong> "أهلاً يا رغبة. أنا شايفك. مش هستسلم. دي فرصتي أتدرب."</p></div>
+            <div class="ch-step"><div class="ch-num">3</div><p><strong>قاوم بأي تقنية</strong> من الـ7 تقنيات اللي اتعلمتها.</p></div>
+            <div class="ch-step"><div class="ch-num">4</div><p><strong>سجّل النقاط</strong> في السجل التفاعلي أعلاه — وشوف مجموعك بيكبر.</p></div>
+            <div class="ch-step"><div class="ch-num">5</div><p><strong>احتفل بكل انتصار:</strong> اكتب "انتصار! أنا أقوى مما كنت أعتقد."</p></div>
+        </div>
+
+        <div class="info-box" style="margin-top:1.2rem;">
+            <div class="ib-icon">🏆</div>
+            <h3>المكافأة النهائية</h3>
+            <p>لو جمعت <strong>20 نقطة أو أكتر</strong> في الـ3 أيام، كافئ نفسك بحاجة كنت عايزها من زمان (حلال وصحية). <strong>أنت تستاهل!</strong></p>
+        </div>
+
+        <button class="modal-close" onclick="closeChallenge()">فهمت — سأبدأ التحدي الأخير اليوم ✓</button>
+    </div>
+</div>
+
+<script>
+/* ===== Accordions ===== */
+function toggleStep(card){
+    const open=card.classList.contains('open');
+    document.querySelectorAll('.step-card').forEach(c=>c.classList.remove('open'));
+    if(!open) card.classList.add('open');
+}
+function toggleProblem(card){
+    const open=card.classList.contains('open');
+    document.querySelectorAll('.problem-card').forEach(c=>c.classList.remove('open'));
+    if(!open) card.classList.add('open');
+}
+
+/* ===== Modal ===== */
+function showChallenge(){
+    document.getElementById('challengeModal').classList.add('show');
+    document.body.style.overflow='hidden';
+}
+function closeChallenge(){
+    document.getElementById('challengeModal').classList.remove('show');
+    document.body.style.overflow='auto';
+}
+document.getElementById('challengeModal').addEventListener('click',function(e){
+    if(e.target===this) closeChallenge();
+});
+
+/* ===== Intersection Observer ===== */
+const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.08});
+document.querySelectorAll('.section').forEach(el=>obs.observe(el));
+
+/* ===== Points Tracker ===== */
+const STORAGE_KEY = 'willpower_tracker_v1';
+let selectedPts  = null;
+let selectedRes  = null;
+
+function selectStr(btn){
+    document.querySelectorAll('.str-btn').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+    selectedPts = parseInt(btn.dataset.pts);
+}
+function selectRes(btn,res){
+    document.querySelectorAll('.res-btn').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+    selectedRes = res;
+}
+
+function loadData(){
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : { entries:[], totalScore:0, wins:0 };
+    } catch(e){ return { entries:[], totalScore:0, wins:0 }; }
+}
+function saveData(data){ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+
+function addEntry(){
+    if(!selectedPts){ alert('اختار قوة الرغبة الأول!'); return; }
+    if(!selectedRes){ alert('اختار النتيجة (قاومت أو انتكست)!'); return; }
+
+    const data = loadData();
+    const isWin = selectedRes === 'win';
+    const pts   = isWin ? selectedPts : -5;
+    const strLabels = {5:'خفيفة', 10:'متوسطة', 15:'قوية جداً'};
+
+    const entry = {
+        id: Date.now(),
+        pts,
+        isWin,
+        strength: strLabels[selectedPts],
+        time: new Date().toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'})
+    };
+
+    data.entries.unshift(entry);
+    data.totalScore = Math.max(0, data.totalScore + pts);
+    if(isWin) data.wins++;
+    saveData(data);
+    renderTracker();
+
+    // reset form
+    document.querySelectorAll('.str-btn,.res-btn').forEach(b=>b.classList.remove('selected'));
+    selectedPts = null; selectedRes = null;
+
+    // check milestones
+    checkMilestone(data.totalScore);
+}
+
+function deleteEntry(id){
+    const data = loadData();
+    const idx  = data.entries.findIndex(e=>e.id===id);
+    if(idx===-1) return;
+    const e = data.entries[idx];
+    data.totalScore = Math.max(0, data.totalScore - e.pts);
+    if(e.isWin) data.wins = Math.max(0, data.wins-1);
+    data.entries.splice(idx,1);
+    saveData(data);
+    renderTracker();
+}
+
+function clearTracker(){
+    if(!confirm('هتمسح كل السجل؟')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    renderTracker();
+}
+
+function checkMilestone(score){
+    const milestones = [{pts:25,msg:'🥉 مبروك! وصلت لـ 25 نقطة — أنت على الطريق!'},{pts:50,msg:'🥈 رائع! 50 نقطة — نص الطريق لمكافأتك!'},{pts:75,msg:'🥇 ممتاز! 75 نقطة — قريب جداً من الـ100!'},{pts:100,msg:'💎 مبروك!! 100 نقطة — أنت تستاهل مكافأتك الكبيرة!'},{pts:150,msg:'🌟 أسطورة! 150 نقطة — استمر هكذا!'},{pts:200,msg:'👑 بطل! 200 نقطة — أنت ملك الإرادة!'}];
+    const hit = milestones.find(m=>score>=m.pts && score-Math.abs(score%m.pts===0?m.pts:score%m.pts)< m.pts && score%m.pts===0);
+    if(hit || milestones.find(m=>score===m.pts)){
+        const m = milestones.find(m=>score===m.pts) || milestones.filter(m=>score>=m.pts).pop();
+        if(m){
+            const cel = document.getElementById('celebration');
+            document.getElementById('celebrationText').textContent = m.msg;
+            cel.classList.add('show');
+            setTimeout(()=>cel.classList.remove('show'),4000);
+        }
+    }
+}
+
+function renderTracker(){
+    const data = loadData();
+    const circumference = 283;
+
+    // score
+    document.getElementById('totalScore').textContent = data.totalScore;
+    document.getElementById('winsCount').textContent  = data.wins;
+
+    // ring
+    const pct = Math.min(data.totalScore/100, 1);
+    const offset = circumference - pct * circumference;
+    document.getElementById('ringFill').style.strokeDashoffset = offset;
+    document.getElementById('ringPct').innerHTML = Math.round(pct*100)+'%<br><small style="font-size:.65rem;color:rgba(255,255,255,.5);">من 100</small>';
+
+    // goal pills
+    [{id:'gp25',v:25},{id:'gp50',v:50},{id:'gp75',v:75},{id:'gp100',v:100}].forEach(g=>{
+        document.getElementById(g.id).classList.toggle('reached', data.totalScore >= g.v);
+    });
+
+    // entries
+    const list = document.getElementById('entriesList');
+    const empty = document.getElementById('emptyMsg');
+    if(data.entries.length===0){
+        list.innerHTML='';
+        list.appendChild(empty);
+        empty.style.display='block';
+        return;
+    }
+    empty.style.display='none';
+    list.innerHTML='';
+    data.entries.forEach(e=>{
+        const div = document.createElement('div');
+        div.className='entry-item';
+        div.innerHTML=`
+            <div class="entry-icon">${e.isWin?'✅':'❌'}</div>
+            <div class="entry-txt">
+                <strong>${e.isWin?'قاومت':'انتكست'}</strong> — رغبة ${e.strength}
+                <br><small style="color:rgba(255,255,255,.4);">${e.time}</small>
+            </div>
+            <div class="entry-pts ${e.pts>0?'pos':'neg'}">${e.pts>0?'+'+e.pts:e.pts}</div>
+            <button class="entry-del" onclick="deleteEntry(${e.id})" title="حذف">✕</button>
+        `;
+        list.appendChild(div);
+    });
+}
+
+function copyTracker(){
+    const data = loadData();
+    if(!data.entries.length){ alert('السجل فارغ!'); return; }
+    let text = `💎 سجل الانتصارات\nالنقاط الكلية: ${data.totalScore} | الانتصارات: ${data.wins}\n\n`;
+    data.entries.forEach(e=>{
+        text += `${e.isWin?'✅':'❌'} ${e.isWin?'قاومت':'انتكست'} — رغبة ${e.strength} (${e.pts>0?'+':''}${e.pts} نقطة) — ${e.time}\n`;
+    });
+    navigator.clipboard.writeText(text).then(()=>alert('تم النسخ! ✅'));
+}
+
+// init
+renderTracker();
+</script>
+
+</body>
+</html>

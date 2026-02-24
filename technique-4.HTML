@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التقنية 4: 🔄 الاستبدال الذكي - بناء لا هروب</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --leaf:      #16A34A;
+            --forest:    #15803D;
+            --deep:      #14532D;
+            --abyss:     #052E16;
+            --mint:      #86EFAC;
+            --foam:      #F0FDF4;
+            --ocean-deep:#052E16;
+            --danger:    #DC2626;
+            --warning:   #F59E0B;
+            --sky:       #0EA5E9;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans Arabic', 'Tajawal', sans-serif;
+            background: var(--foam);
+            color: var(--ocean-deep);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========= NAV ========= */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(22,163,74,.15);
+            padding: 1rem 2rem; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,.05);
+        }
+        nav a { text-decoration: none; color: var(--ocean-deep); font-weight: 600; transition: color .3s; }
+        nav a:hover { color: var(--leaf); }
+        .nav-title { font-family: 'Tajawal', sans-serif; font-weight: 700; font-size: 1.1rem; }
+
+        /* ========= HERO ========= */
+        .hero {
+            background: linear-gradient(160deg, #16A34A 0%, #15803D 35%, #14532D 65%, #052E16 100%);
+            padding: 8rem 2rem 0;
+            text-align: center;
+            position: relative; overflow: hidden;
+            min-height: 460px;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+        }
+        .hero::before {
+            content: '4';
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            font-size: 28rem; font-weight: 900;
+            color: rgba(255,255,255,.04);
+            font-family: 'Tajawal', sans-serif;
+            pointer-events: none; line-height: 1;
+        }
+        .hero-content { position: relative; z-index: 2; max-width: 800px; padding-bottom: 3rem; }
+        .hero .icon {
+            font-size: 5rem; display: block; margin-bottom: 1rem;
+            animation: sprout 3s ease-in-out infinite;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,.3));
+        }
+        @keyframes sprout {
+            0%,100% { transform: scale(1) rotate(-2deg); }
+            50%      { transform: scale(1.1) rotate(2deg); }
+        }
+        .hero h1 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: clamp(2rem,5vw,3.5rem); font-weight: 900;
+            color: white; text-shadow: 2px 2px 6px rgba(0,0,0,.35);
+            margin-bottom: .5rem;
+        }
+        .hero .subtitle { font-size: 1.15rem; color: rgba(134,239,172,.95); margin-bottom: 1.5rem; }
+        .hero-badges { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
+        .badge {
+            background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.22);
+            padding: .45rem 1.1rem; border-radius: 50px; color: white;
+            font-size: .9rem; font-weight: 600; backdrop-filter: blur(8px);
+        }
+
+        /* Hero waves */
+        .hero-waves { position: relative; width: 100%; height: 90px; z-index: 1; margin-top: auto; }
+        .hero-waves svg { position: absolute; bottom: 0; width: 200%; height: 100%; }
+        .wave1 { animation: moveWave 7s linear infinite; fill: rgba(134,239,172,.2); }
+        .wave2 { animation: moveWave 10s linear infinite reverse; fill: rgba(134,239,172,.12); }
+        .wave3 { animation: moveWave 13s linear infinite; fill: var(--foam); }
+        @keyframes moveWave { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+        /* ========= MAIN ========= */
+        .main { max-width: 1000px; margin: -2px auto 0; padding: 0 2rem 4rem; }
+
+        /* ========= SECTION ========= */
+        .section {
+            background: white; border-radius: 24px;
+            padding: 3rem; margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,.07);
+            opacity: 0; transform: translateY(28px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+        .section.visible { opacity: 1; transform: translateY(0); }
+        .section h2 {
+            font-family: 'Tajawal', sans-serif; font-size: 1.9rem; font-weight: 700;
+            color: var(--ocean-deep); margin-bottom: 1.4rem;
+            padding-bottom: .9rem; border-bottom: 3px solid #DCFCE7;
+        }
+        .section p { font-size: 1.08rem; color: #4a5568; line-height: 1.95; margin-bottom: 1.1rem; }
+
+        /* ========= INFO BOX ========= */
+        .info-box {
+            background: linear-gradient(135deg,rgba(22,163,74,.09),rgba(21,128,61,.06));
+            border-right: 4px solid var(--leaf);
+            padding: 1.4rem 1.6rem; border-radius: 12px; margin: 1.8rem 0;
+        }
+        .info-box .ib-icon { font-size: 1.8rem; margin-bottom: .4rem; }
+        .info-box h3 { font-family:'Tajawal',sans-serif; font-size:1.2rem; font-weight:700; color:var(--forest); margin-bottom:.4rem; }
+        .info-box p { font-size:1rem; color:var(--ocean-deep); margin:0; }
+
+        /* ========= STAT PILL ========= */
+        .stat-pill {
+            display: inline-flex; align-items: center; gap: .6rem;
+            background: linear-gradient(135deg,var(--leaf),var(--forest));
+            color: white; padding: .6rem 1.4rem; border-radius: 50px;
+            font-family: 'Tajawal',sans-serif; font-weight: 700; font-size: 1.05rem;
+            margin: .8rem 0; box-shadow: 0 4px 15px rgba(22,163,74,.35);
+        }
+        .stat-pill.danger { background: linear-gradient(135deg,#DC2626,#B91C1C); box-shadow: 0 4px 15px rgba(220,38,38,.35); }
+
+        /* ========= COMPARISON ========= */
+        .comparison {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 1.5rem; margin: 2rem 0;
+        }
+        .cmp-card { border-radius: 16px; padding: 1.8rem; border: 2px solid; }
+        .cmp-card.bad {
+            background: linear-gradient(135deg,rgba(220,38,38,.06),rgba(248,113,113,.04));
+            border-color: rgba(220,38,38,.2);
+        }
+        .cmp-card.good {
+            background: linear-gradient(135deg,rgba(22,163,74,.08),rgba(21,128,61,.05));
+            border-color: rgba(22,163,74,.2);
+        }
+        .cmp-card h3 {
+            font-family:'Tajawal',sans-serif; font-size:1.25rem; font-weight:700;
+            margin-bottom:1.2rem; display:flex; align-items:center; gap:.5rem;
+        }
+        .cmp-card.bad h3 { color: var(--danger); }
+        .cmp-card.good h3 { color: var(--forest); }
+        .cmp-item {
+            background: white; border-radius: 10px;
+            padding: .85rem 1rem; margin-bottom: .75rem;
+            font-size: .97rem; color: #555; line-height: 1.6;
+        }
+
+        /* ========= NEGATIVE HABITS ACCORDION ========= */
+        .neg-card {
+            border: 2px solid rgba(220,38,38,.12);
+            border-radius: 14px; margin-bottom: .9rem;
+            overflow: hidden; transition: border-color .3s; cursor: pointer;
+        }
+        .neg-card:hover { border-color: rgba(220,38,38,.35); }
+        .neg-card.open  { border-color: var(--danger); }
+        .neg-header {
+            display: flex; align-items: center; gap: 1rem;
+            padding: 1.2rem 1.4rem; user-select: none;
+        }
+        .neg-icon { font-size: 1.8rem; flex-shrink: 0; }
+        .neg-title { flex: 1; font-family:'Tajawal',sans-serif; font-size:1.05rem; font-weight:700; color:var(--danger); }
+        .neg-toggle { color:rgba(220,38,38,.7); font-size:1.4rem; font-weight:300; transition:transform .3s; }
+        .neg-card.open .neg-toggle { transform: rotate(45deg); }
+        .neg-body { max-height:0; overflow:hidden; transition:max-height .45s ease; }
+        .neg-card.open .neg-body { max-height:250px; }
+        .neg-body-inner { padding:0 1.4rem 1.5rem; border-top:1px solid rgba(220,38,38,.1); padding-top:1.2rem; }
+        .neg-body-inner p { font-size:.97rem; color:#555; margin-bottom:.5rem; }
+        .neg-fix {
+            display:inline-block; background:rgba(220,38,38,.08);
+            border-right:3px solid var(--danger); border-radius:0 8px 8px 0;
+            padding:.6rem 1rem; font-size:.9rem; color:var(--danger);
+            font-weight:600; margin-top:.5rem; line-height:1.6;
+        }
+
+        /* ========= SCIENCE CARDS ========= */
+        .science-grid {
+            display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+            gap: 1.4rem; margin: 2rem 0;
+        }
+        .sci-card {
+            background: linear-gradient(160deg,rgba(22,163,74,.08),rgba(21,128,61,.04));
+            border: 2px solid rgba(22,163,74,.15);
+            border-radius: 18px; padding: 1.8rem 1.5rem;
+            text-align: center; transition: all .3s;
+        }
+        .sci-card:hover { transform:translateY(-5px); border-color:var(--leaf); box-shadow:0 15px 35px rgba(22,163,74,.15); }
+        .sci-card .sc-icon { font-size:2.6rem; margin-bottom:.8rem; }
+        .sci-card h3 { font-family:'Tajawal',sans-serif; font-size:1.1rem; font-weight:700; color:var(--forest); margin-bottom:.6rem; }
+        .sci-card p { font-size:.93rem; color:#555; margin:0; line-height:1.75; }
+
+        /* ========= STEPS ========= */
+        .step-card {
+            background: white; border: 2px solid rgba(22,163,74,.12);
+            border-radius: 16px; margin-bottom: 1rem;
+            overflow: hidden; transition: border-color .3s, box-shadow .3s; cursor: pointer;
+        }
+        .step-card:hover { border-color: var(--leaf); }
+        .step-card.open  { border-color: var(--forest); box-shadow: 0 8px 25px rgba(22,163,74,.15); }
+        .step-header { display:flex; align-items:center; gap:1.2rem; padding:1.4rem; user-select:none; }
+        .step-num {
+            background: linear-gradient(135deg,var(--leaf),var(--forest));
+            color: white; width:48px; height:48px; border-radius:50%;
+            display:flex; align-items:center; justify-content:center;
+            font-family:'Tajawal',sans-serif; font-weight:900; font-size:1.35rem;
+            flex-shrink:0; box-shadow:0 4px 12px rgba(22,163,74,.3);
+        }
+        .step-title-wrap { flex:1; }
+        .step-title { font-family:'Tajawal',sans-serif; font-size:1.2rem; font-weight:700; color:var(--ocean-deep); }
+        .step-subtitle { font-size:.88rem; color:#888; margin-top:.15rem; }
+        .step-toggle { color:var(--leaf); font-size:1.6rem; font-weight:300; transition:transform .3s; }
+        .step-card.open .step-toggle { transform:rotate(45deg); }
+        .step-body { max-height:0; overflow:hidden; transition:max-height .5s ease; }
+        .step-card.open .step-body { max-height:800px; }
+        .step-body-inner { padding:0 1.5rem 1.8rem; border-top:1px solid rgba(22,163,74,.1); padding-top:1.4rem; }
+        .step-body-inner p { font-size:1rem; color:#555; margin-bottom:.9rem; line-height:1.85; }
+
+        /* ========= ACTIVITIES GRID ========= */
+        .act-grid {
+            display: grid; grid-template-columns: repeat(auto-fill,minmax(170px,1fr));
+            gap: .8rem; margin-top: 1rem;
+        }
+        .act-chip {
+            background: linear-gradient(135deg,rgba(22,163,74,.09),rgba(21,128,61,.06));
+            border: 2px solid rgba(22,163,74,.15); border-radius: 12px;
+            padding: .85rem; text-align: center;
+            font-size: .9rem; font-weight: 500; color: var(--ocean-deep);
+            transition: all .25s; line-height: 1.5;
+        }
+        .act-chip:hover { background:linear-gradient(135deg,var(--leaf),var(--forest)); color:white; border-color:transparent; transform:translateY(-2px); }
+        .act-chip .chip-warn { font-size:.75rem; color:var(--warning); display:block; margin-top:.3rem; }
+
+        /* ========= CONDITIONS ========= */
+        .conditions-list { display:flex; flex-direction:column; gap:.9rem; margin:1.5rem 0; }
+        .cond-item {
+            display:flex; align-items:flex-start; gap:1rem;
+            background:linear-gradient(135deg,rgba(22,163,74,.07),rgba(21,128,61,.04));
+            border-radius:14px; padding:1.1rem 1.3rem;
+            border-right:4px solid var(--leaf);
+        }
+        .cond-icon { font-size:1.6rem; flex-shrink:0; }
+        .cond-text { font-size:.98rem; color:#444; line-height:1.7; }
+        .cond-text strong { color:var(--forest); }
+
+        /* ========= MESSAGE ========= */
+        .message-section {
+            background: linear-gradient(160deg,#052E16,#14532D);
+            border-radius: 24px; padding: 3rem; margin-bottom: 2rem;
+            text-align: center; position: relative; overflow: hidden;
+        }
+        .message-section::before {
+            content:'🌱'; position:absolute; font-size:16rem;
+            top:50%; left:50%; transform:translate(-50%,-50%);
+            opacity:.04; pointer-events:none;
+        }
+        .message-section h2 {
+            font-family:'Tajawal',sans-serif; font-size:1.8rem; font-weight:700;
+            color:white; margin-bottom:1.5rem;
+            border-bottom:2px solid rgba(134,239,172,.25); padding-bottom:1rem;
+        }
+        .big-quote {
+            font-family:'Tajawal',sans-serif;
+            font-size:clamp(1.2rem,3vw,1.65rem); font-weight:700;
+            color:white; line-height:1.75; margin-bottom:2rem;
+        }
+        .big-quote span { color:var(--mint); }
+        .msg-bullets { display:flex; flex-direction:column; gap:.9rem; text-align:right; max-width:560px; margin:0 auto 1.5rem; }
+        .mb-item {
+            display:flex; align-items:flex-start; gap:.8rem;
+            background:rgba(255,255,255,.07); border-radius:12px;
+            padding:.9rem 1.2rem; font-size:1rem; color:rgba(255,255,255,.9);
+        }
+        .mb-icon { font-size:1.3rem; flex-shrink:0; }
+        .final-line { font-family:'Tajawal',sans-serif; font-size:1.15rem; font-weight:700; color:var(--mint); margin-top:1rem; }
+
+        /* ========= CHALLENGE BTN ========= */
+        .challenge-btn {
+            display:block; width:100%;
+            background:linear-gradient(135deg,var(--leaf),var(--forest));
+            color:white; border:none; border-radius:16px; padding:1.4rem 2rem;
+            font-family:'Tajawal',sans-serif; font-size:1.35rem; font-weight:700;
+            cursor:pointer; transition:all .3s;
+            box-shadow:0 10px 30px rgba(22,163,74,.3); margin-bottom:2rem;
+        }
+        .challenge-btn:hover { transform:translateY(-3px) scale(1.02); box-shadow:0 15px 40px rgba(22,163,74,.4); }
+
+        /* ========= NAV ARROWS ========= */
+        .nav-arrows { display:flex; justify-content:space-between; gap:1rem; margin-bottom:4rem; }
+        .nav-arrow {
+            display:flex; align-items:center; gap:.7rem;
+            text-decoration:none; background:white;
+            border:2px solid rgba(22,163,74,.15); border-radius:14px;
+            padding:1.1rem 1.5rem; color:var(--ocean-deep);
+            font-weight:600; transition:all .3s;
+            box-shadow:0 4px 14px rgba(0,0,0,.06); font-size:.95rem;
+        }
+        .nav-arrow:hover { border-color:var(--leaf); box-shadow:0 8px 25px rgba(22,163,74,.15); transform:translateX(-3px); }
+        .nav-arrow.next:hover { transform:translateX(3px); }
+
+        /* ========= MODAL ========= */
+        .modal {
+            display:none; position:fixed; inset:0;
+            background:rgba(5,46,22,.75); z-index:2000;
+            align-items:center; justify-content:center;
+            padding:2rem; backdrop-filter:blur(4px);
+        }
+        .modal.show { display:flex; }
+        .modal-content {
+            background:white; border-radius:24px; padding:2.5rem;
+            max-width:660px; width:100%; max-height:92vh; overflow-y:auto;
+            box-shadow:0 30px 80px rgba(0,0,0,.3);
+            animation:modalIn .4s ease;
+        }
+        @keyframes modalIn { from{opacity:0;transform:scale(.92) translateY(18px)} to{opacity:1;transform:scale(1) translateY(0)} }
+        .modal-content .ch-icon { font-size:3.5rem; text-align:center; display:block; margin-bottom:.8rem; }
+        .modal-content h3 { font-family:'Tajawal',sans-serif; font-size:1.8rem; font-weight:900; color:var(--ocean-deep); text-align:center; margin-bottom:.3rem; }
+        .modal-content h4 { font-family:'Tajawal',sans-serif; font-size:1.1rem; color:var(--forest); text-align:center; margin-bottom:1.4rem; }
+        .modal-content p { font-size:.98rem; color:#555; margin-bottom:.75rem; line-height:1.8; }
+        .ch-phase { font-family:'Tajawal',sans-serif; font-size:1.1rem; font-weight:700; color:var(--forest); margin:1.5rem 0 .8rem; border-right:4px solid var(--leaf); padding-right:.75rem; }
+        .ch-steps { display:flex; flex-direction:column; gap:.75rem; }
+        .ch-step { display:flex; gap:.9rem; align-items:flex-start; background:#F0FDF4; border-radius:12px; padding:.95rem 1.1rem; }
+        .ch-num { background:linear-gradient(135deg,var(--leaf),var(--forest)); color:white; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.85rem; flex-shrink:0; margin-top:.1rem; }
+        .ch-step p { font-size:.95rem; color:var(--ocean-deep); margin:0; line-height:1.7; }
+        .modal-close { display:block; width:100%; background:linear-gradient(135deg,var(--leaf),var(--forest)); color:white; border:none; border-radius:12px; padding:1.1rem; font-family:'Tajawal',sans-serif; font-size:1.05rem; font-weight:700; cursor:pointer; margin-top:1.8rem; transition:all .3s; }
+        .modal-close:hover { transform:scale(1.02); }
+
+        /* ========= NEURAL PATH VISUAL ========= */
+        .neural-wrap {
+            background:linear-gradient(160deg,#052E16,#14532D);
+            border-radius:20px; padding:2rem; margin:2rem 0;
+        }
+        .neural-wrap h3 { font-family:'Tajawal',sans-serif; font-size:1.3rem; font-weight:700; color:white; text-align:center; margin-bottom:1.8rem; }
+        .neural-paths { display:flex; flex-direction:column; gap:1rem; }
+        .np-row { background:rgba(255,255,255,.07); border-radius:14px; padding:1.2rem 1.5rem; }
+        .np-label { font-size:.8rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:.8rem; }
+        .np-row.old .np-label { color:rgba(252,165,165,.8); }
+        .np-row.new .np-label { color:rgba(134,239,172,.8); }
+        .np-nodes { display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
+        .np-node { border-radius:8px; padding:.45rem .85rem; font-size:.88rem; font-weight:500; color:white; }
+        .np-row.old .np-node { background:rgba(220,38,38,.3); }
+        .np-row.new .np-node { background:rgba(22,163,74,.35); }
+        .np-row.new2 .np-node { background:rgba(14,165,233,.3); }
+        .np-row.new2 .np-label { color:rgba(125,211,252,.8); }
+        .np-arrow { color:rgba(255,255,255,.4); font-size:1.1rem; }
+        .np-row.old .np-arrow { color:rgba(252,165,165,.5); }
+        .np-row.new .np-arrow { color:rgba(134,239,172,.5); }
+        .np-row.new2 .np-arrow { color:rgba(125,211,252,.5); }
+        .neural-note { background:rgba(255,255,255,.07); border-radius:10px; padding:.9rem 1.2rem; margin-top:1.2rem; font-size:.93rem; color:rgba(255,255,255,.82); border-right:3px solid var(--mint); text-align:right; }
+
+        /* ========= REFERENCE TAG ========= */
+        .ref { font-size:.78rem; color:#94a3b8; font-style:italic; display:block; margin-top:.3rem; }
+
+        @media(max-width:600px){
+            .section { padding:2rem 1.4rem; }
+            nav { padding:1rem; }
+            .nav-arrow { padding:.9rem 1rem; font-size:.85rem; }
+            .comparison { grid-template-columns:1fr; }
+            .science-grid { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="nav-title">← الرئيسية</a>
+    <span class="nav-title" style="font-size:.9rem;color:#888;">🔄 التقنية 4: الاستبدال الذكي</span>
+    <a href="technique-5.html">التالية ←</a>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <div class="hero-content">
+        <span class="icon">🔄</span>
+        <h1>الاستبدال الذكي</h1>
+        <p class="subtitle">بناء لا هدم — د. نورا فولكو</p>
+        <div class="hero-badges">
+            <span class="badge">🔬 NIDA — 13,000 حالة</span>
+            <span class="badge">🧠 Neuroplasticity</span>
+            <span class="badge">⏱️ 10-15 دقيقة</span>
+            <span class="badge">📈 تعافي دائم</span>
+        </div>
+    </div>
+    <div class="hero-waves">
+        <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path class="wave1" d="M0,40 C180,75 360,5 540,40 C720,75 900,5 1080,40 C1260,75 1440,20 1440,40 L1440,90 L0,90 Z"/></svg>
+        <svg viewBox="0 0 1440 90" preserveAspectRatio="none" style="animation-delay:-3.5s"><path class="wave2" d="M0,50 C200,18 400,68 600,50 C800,28 1000,68 1200,50 C1300,36 1380,54 1440,50 L1440,90 L0,90 Z"/></svg>
+        <svg viewBox="0 0 1440 90" preserveAspectRatio="none" style="animation-delay:-7s"><path class="wave3" d="M0,58 C240,28 480,76 720,58 C960,38 1200,72 1440,58 L1440,90 L0,90 Z"/></svg>
+    </div>
+</div>
+
+<div class="main">
+
+    <!-- Intro -->
+    <section class="section">
+        <h2>هل بتتعافى فعلاً — ولا بس بتبدل؟</h2>
+        <p>بصراحة، اسأل نفسك: لما قررت توقف أو تقلل، لقيت نفسك بتعمل إيه بدل كده؟</p>
+        <p>بتاكل أكتر من الأول؟ بتقعد قدام نتفليكس 6 ساعات متواصلة؟ بتلعب ألعاب موبايل لحد الفجر؟ بتسكرول في السوشيال ميديا بلا توقف؟ ولا بقيت مدخن وإنت مكنتش؟</p>
+        <p>ممكن يكون ده مش حاجة جديدة — ممكن ده نمط كنت عايش فيه من قبل، بس بعد قرار التوقف بقى أوضح أو زاد.</p>
+        <p>في الحالتين، ده مش تعافي. ده <strong>Addiction Substitution</strong> — استبدال الإدمان. وده ثابت علمياً وأثبتته أبحاث على آلاف الحالات.</p>
+    </section>
+
+    <!-- Volkow Story -->
+    <section class="section">
+        <h2>📖 ماذا وجدت د. نورا فولكو في 13,000 حالة؟</h2>
+        <p>د. نورا فولكو مديرة المعهد الوطني لإساءة استخدام المخدرات في أمريكا (NIDA)، وواحدة من أكبر الباحثين في علم الإدمان. باستخدام تصوير PET للمخ، وثّقت ولأول مرة كيف يعمل الإدمان على مستوى بيولوجي: <strong>انخفاض في كفاءة نظام الدوبامين، وتدهور واضح في وظائف قشرة الفص الجبهي (PFC)</strong> — المنطقة المسؤولة عن التحكم في الدوافع واتخاذ القرار.</p>
+        <p>في دراسة كبيرة تابعت أكثر من <strong>13,000 شخص</strong> في رحلة التعافي لمدة 3 سنوات، خرجت نتيجة مفاجئة:</p>
+
+        <div class="stat-pill danger">📊 13.1% منهم انتقلوا لإدمان مادة مختلفة تماماً</div>
+
+        <p>يعني حد كان مدمن كحول، بقى مدمن سجاير. وحد كان مدمن مسكنات، بقى مدمن حشيش. لكن الأخطر من كده — وهو ما رصدته أبحاث أخرى — إن <strong>أعداد أكبر بكتير</strong> بدّلوا الإدمان بسلوكيات إدمانية زي الأكل القهري والألعاب والتسوق.</p>
+
+        <div class="info-box">
+            <div class="ib-icon">💬</div>
+            <h3>بكلام د. فولكو — New England Journal of Medicine 2016</h3>
+            <p>"المشكلة مش في المادة نفسها. المشكلة في دماغ بيدور على مكافأة سريعة. لو ما أديتوش بديل صحي، هيلاقي بديل سريع بنفسه — وغالباً هيكون مدمر برضو."</p>
+        </div>
+    </section>
+
+    <!-- Why bad habits are bad -->
+    <section class="section">
+        <h2>⚠️ ليه نمط الحياة الغير صحي بيضر رحلة التعافي؟</h2>
+        <p>دماغك مش بيفكر "أنا محتاج العادة دي". دماغك بيفكر: <strong>"أنا محتاج دوبامين — دلوقتي!"</strong></p>
+        <p>الإدمان كان بيرفع الدوبامين بشكل غير طبيعي ومبالغ فيه. مع الوقت، دماغك عمل <strong>Tolerance</strong> — بدأ يحتاج جرعات أكبر عشان يحس بنفس الإحساس، وفي نفس الوقت الـ PFC ضعفت وبقيت أقل قدرة على السيطرة على الدوافع.</p>
+        <p>المشكلة إن الأكل القهري، وساعات الشاشات، والألعاب المفرطة، والسكرول بلا نهاية — <strong>كلها بتفعل نفس الشيء بالضبط</strong> على نظام الدوبامين في دماغك:</p>
+
+        <div class="stat-pill danger">🔬 دراسة نشرتها Frontiers in Public Health 2023: الألعاب والشاشات المفرطة تسبب نفس اضطراب مستقبلات D2 المرتبط بالإدمان</div>
+
+        <p>النتيجة: بدل ما دماغك يتعافى ويعيد بناء كفاءة الـ PFC ونظام المكافأة، هو بيفضل في نفس الدوامة — <strong>بمادة مختلفة، ونفس الضرر.</strong></p>
+
+        <div class="comparison">
+            <div class="cmp-card bad">
+                <h3>❌ نمط الحياة الغير صحي</h3>
+                <div class="cmp-item">بيرفع الدوبامين بشكل مبالغ فيه وغير طبيعي</div>
+                <div class="cmp-item">بيعمل Tolerance — دماغك يحتاج أكتر دايماً</div>
+                <div class="cmp-item">بيبقي الـ PFC ضعيفة ومش قادرة تسيطر</div>
+                <div class="cmp-item">بيعيق تعافي نظام المكافأة</div>
+            </div>
+            <div class="cmp-card good">
+                <h3>✅ نمط الحياة الصحي</h3>
+                <div class="cmp-item">بيسد حاجة الدماغ للدوبامين بمستويات طبيعية</div>
+                <div class="cmp-item">بيسمح لمستقبلات D2 تتعافى وترجع لطبيعتها</div>
+                <div class="cmp-item">بيقوّي الـ PFC ويحسّن قدرتها على التحكم</div>
+                <div class="cmp-item">بيسمح لنظام المكافأة يتعافى كاملاً</div>
+            </div>
+        </div>
+
+        <p>ده مش كلام في الهوا — الـ Neuropsychopharmacology نشرت دراسة على مدمني ميثامفيتامين: المجموعة اللي أضافت الرياضة لبرنامج التعافي أظهرت <strong>ارتفاعاً ملحوظاً في مستقبلات D2/D3</strong> في الـ striatum — المنطقة اللي الإدمان كان أضرها. المجموعة التانية بدون رياضة؟ بقيت مستوياتها منخفضة.</p>
+        <span class="ref">— Neuropsychopharmacology, 2015: "Effect of Exercise Training on Striatal Dopamine D2/D3 Receptors in Methamphetamine Users"</span>
+    </section>
+
+    <!-- Healthy lifestyle & avoiding weak moments -->
+    <section class="section">
+        <h2>🌱 نمط الحياة الصحي بيعمل أكتر من كده بكتير</h2>
+        <p>تعافي الدماغ ده جزء واحد من الصورة. الجزء التاني هو إن نمط الحياة الصحي <strong>بيقلل مواقف الضعف أصلاً</strong> — قبل ما الرغبة تجي.</p>
+        <p>الأبحاث حددت نموذجاً اسمه <strong>HALT</strong> — وهو اختصار لأربع حالات إنسانية ثبت إنها المسؤولة عن غالبية الانتكاسات:</p>
+
+        <div class="conditions-list">
+            <div class="cond-item">
+                <div class="cond-icon">🍔</div>
+                <div class="cond-text"><strong>Hungry — الجوع:</strong> نقص السكر في الدم يضعف الـ PFC ويقلل القدرة على المقاومة بشكل مباشر وقابل للقياس.</div>
+            </div>
+            <div class="cond-item">
+                <div class="cond-icon">😡</div>
+                <div class="cond-text"><strong>Angry — الغضب والتوتر:</strong> هرمون الكورتيزول بيضعف قشرة الفص الجبهي ويقوّي الجزء العاطفي من الدماغ — وده بيخليك أقل قدرة على اتخاذ قرارات واعية.</div>
+            </div>
+            <div class="cond-item">
+                <div class="cond-icon">😔</div>
+                <div class="cond-text"><strong>Lonely — الوحدة:</strong> الباحث يوهان هاري أثبت في أبحاثه إن "عكس الإدمان مش الامتناع — عكس الإدمان هو التواصل الإنساني." الإدمان بيزدهر في العزلة.</div>
+            </div>
+            <div class="cond-item">
+                <div class="cond-icon">😴</div>
+                <div class="cond-text"><strong>Tired — الإرهاق وقلة النوم:</strong> الحرمان من النوم بيخفض نشاط الـ PFC بما يعادل حالة السُّكر خفيفة — ده من أبحاث Matthew Walker في كتابه "Why We Sleep".</div>
+            </div>
+        </div>
+
+        <p>نمط الحياة الصحي — النوم المنتظم، الأكل المنتظم، العلاقات الاجتماعية، الرياضة — بيعالج الحالات دي <strong>قبل ما تحصل</strong>. بيقلل عدد مواقف الضعف اللي بتقابلها أصلاً. بيخليك تدخل أيامك بـ PFC أقوى وأكثر استعداداً.</p>
+
+        <div class="info-box">
+            <div class="ib-icon">🧪</div>
+            <h3>الدراسة: الرياضة تقوّي الـ PFC مباشرة</h3>
+            <p>دراسة نشرتها ScienceDirect 2024 على مدمني الميثامفيتامين: بعد 10 أسابيع من التمرين المعتدل، ظهرت <strong>زيادة ملحوظة في نشاط الـ right dorsolateral PFC</strong> — المنطقة المسؤولة مباشرة عن التحكم في الدوافع ومقاومة الرغبات.</p>
+            <span class="ref">— ScienceDirect 2024: "The role of physical exercise on the brain and cognitive functions of patients in recovery from SUD"</span>
+        </div>
+
+        <!-- Negative habits accordion -->
+        <p style="margin-top:2rem;">لكن نمط الحياة الصحي وحده، مهما كان قوياً، <strong>مش هيمنع الرغبة تماماً</strong>. الرغبة ممكن تيجي في أي وقت — حتى في يوم جيد. وهنا بييجي دور التقنية.</p>
+    </section>
+
+    <!-- Substitution technique -->
+    <section class="section">
+        <h2>🔄 تقنية الاستبدال — لحظة ظهور الرغبة</h2>
+        <p>لما الرغبة تيجي، دماغك محتاج حاجة واحدة: <strong>دوبامين — دلوقتي.</strong> التقنية دي مش بتقاوم الرغبة ومش بتحاربها — هي بتسد الحاجة دي بطريقة مختلفة.</p>
+        <p>ولو عايز تتأكد إن سبب الرغبة مش مجرد دوبامين، اسأل نفسك: هل أنا تعبان؟ جعان؟ وحيد؟ قلقان؟ لو الإجابة آه — <strong>الرغبة بتتكلم عن الحالة دي</strong>، مش عن الإدمان نفسه.</p>
+
+        <div class="info-box">
+            <div class="ib-icon">💡</div>
+            <h3>ملاحظة مهمة قبل البدء</h3>
+            <p>التقنية دي هي <strong>هروب ذكي</strong>، مش مواجهة للرغبة. مناسبة للمبتدئين ولحالات الرغبة المتوسطة. التقنيات الأصعب زي "ركوب الموجة" وغيرها بتعلمك تواجه الرغبة مباشرة — وهي جاية في التقنيات القادمة.</p>
+        </div>
+
+        <p>على <strong>المدى القصير</strong>، البديل الصحي بيشغل دماغك ويحوّل انتباهه لحد ما الموجة تعدي ذروتها (10-15 دقيقة)، وفي نفس الوقت بيسد حاجة الدماغ للدوبامين بشكل طبيعي بدل الانتظار، ويحل حالة الضعف اللي إنت فيها دلوقتي.</p>
+        <p>على <strong>المدى الطويل</strong>، مع التكرار، بيحصل شيء أعمق بكتير — بيبدأ بإعادة تشكيل المسارات العصبية في دماغك.</p>
+
+        <!-- Neural paths visual -->
+        <div class="neural-wrap">
+            <h3>🧬 كيف تتغير المسارات العصبية مع الوقت</h3>
+            <div class="neural-paths">
+                <div class="np-row old">
+                    <div class="np-label">❌ المسار القديم — بيضعف مع كل رفض</div>
+                    <div class="np-nodes">
+                        <div class="np-node">محفز</div>
+                        <div class="np-arrow">←</div>
+                        <div class="np-node">رغبة قوية</div>
+                        <div class="np-arrow">←</div>
+                        <div class="np-node">الإدمان</div>
+                        <div class="np-arrow">←</div>
+                        <div class="np-node">مكافأة مؤقتة</div>
+                    </div>
+                </div>
+                <div class="np-row new">
+                    <div class="np-label">✅ المسار الجديد — يتقوّى مع كل تكرار</div>
+                    <div class="np-nodes">
+                        <div class="np-node">محفز</div>
+                        <div class="np-arrow">←</div>
+                        <div class="np-node">رغبة أضعف</div>
+                        <div class="np-arrow">←</div>
+                        <div class="np-node">نشاط بديل</div>
+                        <div class="np-arrow">←</div>
+                        <div class="np-node">راحة حقيقية</div>
+                    </div>
+                </div>
+                <div class="np-row new2">
+                    <div class="np-label">🎯 بعد أسابيع — المسار البديل يصبح التلقائي</div>
+                    <div class="np-nodes">
+                        <div class="np-node">محفز</div>
+                        <div class="np-arrow">←</div>
+                        <div class="np-node">رغبة في النشاط البديل</div>
+                        <div class="np-arrow">←</div>
+                        <div class="np-node">النشاط</div>
+                        <div class="np-arrow">←</div>
+                        <div class="np-node">مكافأة مرضية</div>
+                    </div>
+                </div>
+            </div>
+            <div class="neural-note">
+                💡 د. نورمان دويدج في "The Brain That Changes Itself": "المسارات القديمة لا تُمحى تماماً، لكنها تضعف لدرجة تصبح فيها غير نشطة. والمسارات الجديدة تصبح هي الطريق الافتراضي."
+            </div>
+        </div>
+    </section>
+
+    <!-- Science cards -->
+    <section class="section">
+        <h2>⚙️ ليه بتشتغل؟ — الأساس العلمي</h2>
+        <p>التقنية دي مش مجرد "شغل الوقت". هي قائمة على 4 مبادئ عصبية ثابتة:</p>
+        <div class="science-grid">
+            <div class="sci-card">
+                <div class="sc-icon">🧠</div>
+                <h3>Neuroplasticity<br>مرونة الدماغ</h3>
+                <p>الدماغ قادر يغير بنيته ووظيفته استجابةً للسلوكيات المتكررة. كل سلوك جديد تكرره بيخلق روابط عصبية حقيقية وقابلة للقياس.</p>
+            </div>
+            <div class="sci-card">
+                <div class="sc-icon">⬆️</div>
+                <h3>LTP — تقوية المسارات</h3>
+                <p>Long-Term Potentiation: كل مرة تختار النشاط البديل، الروابط العصبية لهذا المسار تتقوى. التكرار = مسار أسرع وأكثر تلقائية.</p>
+            </div>
+            <div class="sci-card">
+                <div class="sc-icon">⬇️</div>
+                <h3>LTD — إضعاف المسارات</h3>
+                <p>Long-Term Depression: كل مرة ما تستجيبش للرغبة بالاستسلام، المسار القديم يضعف. التوقف عن تغذية المسار = اضمحلاله التدريجي.</p>
+            </div>
+            <div class="sci-card">
+                <div class="sc-icon">🔗</div>
+                <h3>S-R Association<br>كسر الرابط</h3>
+                <p>التقنية تكسر الرابط التلقائي بين المثير Trigger والاستجابة القديمة، وتبني رابطاً جديداً: نفس المثير → استجابة صحية.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practical section -->
+    <section class="section">
+        <h2>🛠️ الجزء العملي — ازاي تطبق التقنية؟</h2>
+        <p>التطبيق بسيط ومباشر. اضغط على كل خطوة للتفاصيل.</p>
+
+        <div id="stepsWrap">
+
+            <div class="step-card" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-num">1</div>
+                    <div class="step-title-wrap">
+                        <div class="step-title">اختار نشاطك البديل — فوراً وتلقائياً</div>
+                        <div class="step-subtitle">من غير ما تناقش نفسك ولا تفكر</div>
+                    </div>
+                    <div class="step-toggle">+</div>
+                </div>
+                <div class="step-body"><div class="step-body-inner">
+                    <p>لما الرغبة تيجي، <strong>ماتفكرش — تصرف فوراً.</strong> النقاش الداخلي ("هعمل ولا ماعملش؟") ده نفسه خسارة للـ willpower وبيضعفك.</p>
+                    <p>لازم يكون عندك نشاط محدد جاهز مسبقاً. اختار من القائمة دي — أو اختار اللي يناسبك أنت:</p>
+                    <div class="act-grid">
+                        <div class="act-chip">☕ قهوة أو شاي<span class="chip-warn">⚠️ مش أكتر من كوبين يومياً</span></div>
+                        <div class="act-chip">🍫 قطعة شوكولاتة<span class="chip-warn">⚠️ بدون مبالغة</span></div>
+                        <div class="act-chip">🎵 سماع قرآن<span class="chip-warn">✓ آمن دايماً</span></div>
+                        <div class="act-chip">🎧 موسيقى هادئة<span class="chip-warn">✓ مش مثيرة للذكريات</span></div>
+                        <div class="act-chip">📺 فيديو بتحبه<span class="chip-warn">⚠️ خالي من المحفزات</span></div>
+                        <div class="act-chip">🚶 نزهة قصيرة<span class="chip-warn">✓ الأفضل</span></div>
+                        <div class="act-chip">🎮 لعبة — جولة واحدة<span class="chip-warn">⚠️ مش أكتر</span></div>
+                        <div class="act-chip">👥 الجلوس مع أحد<span class="chip-warn">✓ ممتاز</span></div>
+                    </div>
+                </div></div>
+            </div>
+
+            <div class="step-card" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-num">2</div>
+                    <div class="step-title-wrap">
+                        <div class="step-title">اعمله 10-15 دقيقة — واستمتع به</div>
+                        <div class="step-subtitle">ركّز على النشاط نفسه، مش على الرغبة</div>
+                    </div>
+                    <div class="step-toggle">+</div>
+                </div>
+                <div class="step-body"><div class="step-body-inner">
+                    <p>مش المهم تفكر في الرغبة أو تقاومها. المهم إنك <strong>تشغل دماغك فعلاً في النشاط البديل.</strong></p>
+                    <p>لو شايل الشاي — احس بالدفا، ريحته، طعمه. لو بتتمشى — ركز على الهواء والصوت. لو بتسمع قرآن — ركز على المعنى.</p>
+                    <p><strong>هم 10 دقائق بس.</strong> بعدها ارجع للنشاط الأصلي اللي كنت عليه — <strong>طالما مكانش هو اللي فيه المحفز أو كان سبب الرغبة</strong>. لو كان كده، روح لأي نشاط نافع تاني.</p>
+                </div></div>
+            </div>
+
+            <div class="step-card" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-num">3</div>
+                    <div class="step-title-wrap">
+                        <div class="step-title">لاحظ وسجّل النتيجة</div>
+                        <div class="step-subtitle">الملاحظة بتعزز المسار الجديد</div>
+                    </div>
+                    <div class="step-toggle">+</div>
+                </div>
+                <div class="step-body"><div class="step-body-inner">
+                    <p>بعد الـ10 دقائق، اسأل نفسك: <strong>الرغبة لسه موجودة ولا ضعفت؟ حاسس بإيه دلوقتي؟</strong></p>
+                    <p>اكتب في نوتة أو في موبايلك: النشاط اللي عملته — الرغبة ضعفت ولا راحت — الإحساس الحالي.</p>
+                    <p>الكتابة دي مش مجرد تسجيل. هي بتقوّي الربط العصبي بين "النشاط البديل" و"الراحة الحقيقية" في دماغك — بتسرّع بناء المسار الجديد.</p>
+                </div></div>
+            </div>
+
+            <div class="step-card" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-num">4</div>
+                    <div class="step-title-wrap">
+                        <div class="step-title">كرّر — ده هو السر</div>
+                        <div class="step-subtitle">الـ LTP بتحتاج تكرار مستمر</div>
+                    </div>
+                    <div class="step-toggle">+</div>
+                </div>
+                <div class="step-body"><div class="step-body-inner">
+                    <p>المرة الواحدة مش كفاية. الأبحاث العصبية بتقول إن المسارات الجديدة بتحتاج تكرار مستمر على مدى أسابيع عشان تتقوى بما يكفي إنها تصبح تلقائية.</p>
+                    <p>البحث الكلاسيكي بتاع Phillippa Lally من UCL لقى إن متوسط تكوين العادة الجديدة بيتراوح بين <strong>18 و 254 يوماً</strong>، والمتوسط كان <strong>66 يوماً</strong> — مش 21 يوم زي ما الناس بتقول.</p>
+                    <p>الاستمرار هو اللي بيبني المسار. كل انتكاسة مش نهاية — هي بس تأخير بسيط على الطريق.</p>
+                    <span class="ref">— Lally et al., European Journal of Social Psychology, 2010</span>
+                </div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conditions for success -->
+    <section class="section">
+        <h2>✅ شروط نجاح التقنية</h2>
+        <div class="conditions-list">
+            <div class="cond-item">
+                <div class="cond-icon">⚡</div>
+                <div class="cond-text"><strong>الفورية والتلقائية:</strong> لازم تروح للنشاط البديل من غير ما تناقش نفسك ولا توازن بين الخيارات. كل لحظة تفكر فيها بعد ظهور الرغبة بتستنزف قوة الإرادة.</div>
+            </div>
+            <div class="cond-item">
+                <div class="cond-icon">🔁</div>
+                <div class="cond-text"><strong>الاستمرارية:</strong> المرة الواحدة أو الاتنين مش هتبني مسار عصبي. محتاج تكرار مستمر على مدى أسابيع. كل مرة بتكمل فيها بتقوّي المسار الجديد.</div>
+            </div>
+            <div class="cond-item">
+                <div class="cond-icon">⏱️</div>
+                <div class="cond-text"><strong>10 دقائق بس:</strong> النشاط البديل مش جلسة مطوّلة — هو 10 دقائق عشان تعدّي ذروة الموجة. بعدها ارجع لحياتك الطبيعية.</div>
+            </div>
+            <div class="cond-item">
+                <div class="cond-icon">🎯</div>
+                <div class="cond-text"><strong>الانتباه للنشاط نفسه:</strong> ركّز على الاستمتاع بالنشاط البديل، مش على محاولة نسيان الرغبة. الانتباه المباشر للرغبة بيقويها — الانتباه للنشاط البديل يضعّفها.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Message -->
+    <div class="message-section">
+        <h2>رسالتك من التقنية دي</h2>
+        <p class="big-quote">التعافي الحقيقي مش بس إنك تسيب الإدمان.<br>التعافي إنك <span>تبني حياة جديدة</span> مليانة بحاجات ترفعك.</p>
+        <div class="msg-bullets">
+            <div class="mb-item">
+                <span class="mb-icon">🧬</span>
+                نمط الحياة الصحي بيسمح لدماغك يتعافى فعلاً — بيصلح مستقبلات الدوبامين ويقوّي الـ PFC
+            </div>
+            <div class="mb-item">
+                <span class="mb-icon">🛡️</span>
+                بيقلل مواقف الضعف اللي بتقابلها أصلاً — بتدخل كل يوم أقوى وأكثر استعداداً
+            </div>
+            <div class="mb-item">
+                <span class="mb-icon">🔄</span>
+                تقنية الاستبدال بتعيد برمجة دماغك عصبياً — المسار القديم بيضعف، والجديد يتقوّى
+            </div>
+            <div class="mb-item">
+                <span class="mb-icon">🌱</span>
+                إنت مش بتبطل عادة عشان تعيش حياة فاضية — بتبطل عشان تحرر طاقتك لحاجات أعظم
+            </div>
+        </div>
+        <p class="final-line">الفراغ خطر. البديل السلبي أخطر. البديل الصحي هو الطريق الوحيد للحرية الحقيقية. 🌱</p>
+    </div>
+
+    <button class="challenge-btn" onclick="showChallenge()">🎯 شاهد تحدي الـ3 أيام</button>
+
+    <div class="nav-arrows">
+        <a href="technique-3.html" class="nav-arrow">
+            <span>→</span><span>التقنية السابقة: اركب الموجة</span>
+        </a>
+        <a href="technique-5.html" class="nav-arrow next">
+            <span>التقنية التالية: الإسعافات الأولى</span><span>←</span>
+        </a>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="challengeModal">
+    <div class="modal-content">
+        <span class="ch-icon">🌱</span>
+        <h3>تحدي الـ3 أيام القادمة</h3>
+        <h4>"اختبار الاستبدال الذكي"</h4>
+
+        <p><strong>الهدف:</strong> تكتشف بنفسك إن نمط حياتك له تأثير مباشر على قوة رغباتك — وإن الاستبدال الفوري فعلاً بيضعّف الرغبة في اللحظة.</p>
+
+        <p class="ch-phase">المرحلة الأولى: الوعي — اليوم 1 و2</p>
+        <div class="ch-steps">
+            <div class="ch-step">
+                <div class="ch-num">1</div>
+                <p>حدد عادة سلبية كنت بتروح لها أكتر بعد قرار التوقف — سكرول مفرط؟ أكل قهري؟ ألعاب ساعات؟ اكتبها.</p>
+            </div>
+            <div class="ch-step">
+                <div class="ch-num">2</div>
+                <p>في نهاية كل يوم، صنّف البدائل اللي لجأتلها: ✅ صحي — ❌ سلبي — ⚠️ مش واضح.</p>
+            </div>
+            <div class="ch-step">
+                <div class="ch-num">3</div>
+                <p>اسأل نفسك بصدق: أنا بتعافى فعلاً — ولا بس بستبدل إدمان بإدمان تاني؟</p>
+            </div>
+        </div>
+
+        <p class="ch-phase">المرحلة التانية: التطبيق — اليوم 3</p>
+        <div class="ch-steps">
+            <div class="ch-step">
+                <div class="ch-num">1</div>
+                <p>حضّر قائمة بـ 3 بدائل فورية جاهزة تقدر تعملها في أي وقت — واكتبها في مكان واضح.</p>
+            </div>
+            <div class="ch-step">
+                <div class="ch-num">2</div>
+                <p>كل مرة تيجيلك رغبة: وقّف فوراً — اختار بديل من قائمتك — اعمله 10 دقائق — لاحظ الإحساس بعدها.</p>
+            </div>
+            <div class="ch-step">
+                <div class="ch-num">3</div>
+                <p>سجّل: البديل اللي اخترته — هل الرغبة ضعفت أو راحت — هل استسلمت بعد كده ولا عديت الموجة؟</p>
+            </div>
+        </div>
+
+        <div class="info-box" style="margin-top:1.2rem;">
+            <div class="ib-icon">🎁</div>
+            <h3>الهدف النهائي</h3>
+            <p>إنك تجرب الاستبدال <strong>3 مرات على الأقل</strong> وتلاحظ بنفسك إن الرغبة فعلاً بتضعف بعد 10 دقائق — مش بالقوة، لكن لأن دماغك اتشغّل بحاجة تانية.</p>
+        </div>
+
+        <button class="modal-close" onclick="closeChallenge()">فهمت — سأبدأ التحدي اليوم ✓</button>
+    </div>
+</div>
+
+<script>
+function toggleStep(card){
+    const open = card.classList.contains('open');
+    document.querySelectorAll('.step-card').forEach(c=>c.classList.remove('open'));
+    if(!open) card.classList.add('open');
+}
+function toggleNeg(card){
+    const open = card.classList.contains('open');
+    document.querySelectorAll('.neg-card').forEach(c=>c.classList.remove('open'));
+    if(!open) card.classList.add('open');
+}
+function showChallenge(){
+    document.getElementById('challengeModal').classList.add('show');
+    document.body.style.overflow='hidden';
+}
+function closeChallenge(){
+    document.getElementById('challengeModal').classList.remove('show');
+    document.body.style.overflow='auto';
+}
+document.getElementById('challengeModal').addEventListener('click',function(e){
+    if(e.target===this) closeChallenge();
+});
+const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.1});
+document.querySelectorAll('.section').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

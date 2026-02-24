@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التقنية 3: 🌊 اركب الموجة - الصبر 10 دقائق فقط</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --sky:       #0EA5E9;
+            --ocean:     #0369A1;
+            --deep:      #0C4A6E;
+            --abyss:     #082F49;
+            --accent:    #7DD3FC;
+            --foam:      #E0F2FE;
+            --cloud-white: #F0F8FF;
+            --ocean-deep: #082F49;
+            --success:   #059669;
+            --warning:   #F59E0B;
+            --danger:    #DC2626;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans Arabic', 'Tajawal', sans-serif;
+            background: var(--cloud-white);
+            color: var(--ocean-deep);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===================== NAV ===================== */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(14,165,233,0.15);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        nav a {
+            text-decoration: none;
+            color: var(--ocean-deep);
+            font-weight: 600;
+            transition: color .3s;
+        }
+        nav a:hover { color: var(--sky); }
+        .nav-title { font-family: 'Tajawal', sans-serif; font-weight: 700; font-size: 1.1rem; }
+
+        /* ===================== HERO ===================== */
+        .hero {
+            background: linear-gradient(160deg, #0EA5E9 0%, #0369A1 35%, #0C4A6E 65%, #082F49 100%);
+            padding: 8rem 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 480px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* big ghost number */
+        .hero::before {
+            content: '3';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 28rem;
+            font-weight: 900;
+            color: rgba(255,255,255,0.04);
+            font-family: 'Tajawal', sans-serif;
+            pointer-events: none;
+            line-height: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding-bottom: 3rem;
+        }
+
+        .hero .icon {
+            font-size: 5rem;
+            display: block;
+            margin-bottom: 1rem;
+            animation: waveFloat 3s ease-in-out infinite;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+        }
+
+        @keyframes waveFloat {
+            0%,100% { transform: translateY(0) rotate(-3deg); }
+            50%      { transform: translateY(-12px) rotate(3deg); }
+        }
+
+        .hero h1 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: clamp(2rem,5vw,3.5rem);
+            font-weight: 900;
+            color: white;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.35);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .subtitle {
+            font-size: 1.15rem;
+            color: rgba(125,211,252,0.95);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: .75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.13);
+            border: 1px solid rgba(255,255,255,0.22);
+            padding: .45rem 1.1rem;
+            border-radius: 50px;
+            color: white;
+            font-size: .9rem;
+            font-weight: 600;
+            backdrop-filter: blur(8px);
+        }
+
+        /* ---- CSS Ocean Wave ---- */
+        .hero-waves {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            z-index: 1;
+            margin-top: auto;
+        }
+
+        .hero-waves svg {
+            position: absolute;
+            bottom: 0;
+            width: 200%;
+            height: 100%;
+        }
+
+        .wave1 { animation: moveWave 6s linear infinite; fill: rgba(125,211,252,0.25); }
+        .wave2 { animation: moveWave 9s linear infinite reverse; fill: rgba(125,211,252,0.15); }
+        .wave3 { animation: moveWave 12s linear infinite; fill: var(--cloud-white); }
+
+        @keyframes moveWave {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ===================== MAIN ===================== */
+        .main {
+            max-width: 1000px;
+            margin: -2px auto 0;
+            padding: 0 2rem 4rem;
+        }
+
+        /* ===================== SECTION ===================== */
+        .section {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.07);
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+        .section.visible { opacity: 1; transform: translateY(0); }
+
+        .section h2 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--ocean-deep);
+            margin-bottom: 1.4rem;
+            padding-bottom: .9rem;
+            border-bottom: 3px solid var(--foam);
+        }
+
+        .section p {
+            font-size: 1.08rem;
+            color: #4a5568;
+            line-height: 1.95;
+            margin-bottom: 1.1rem;
+        }
+
+        /* ===================== INFO BOX ===================== */
+        .info-box {
+            background: linear-gradient(135deg,rgba(14,165,233,.09),rgba(3,105,161,.06));
+            border-right: 4px solid var(--sky);
+            padding: 1.4rem 1.6rem;
+            border-radius: 12px;
+            margin: 1.8rem 0;
+        }
+        .info-box .ib-icon { font-size: 1.8rem; margin-bottom: .4rem; }
+        .info-box h3 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--ocean);
+            margin-bottom: .4rem;
+        }
+        .info-box p { font-size: 1rem; color: var(--ocean-deep); margin: 0; }
+
+        /* ===================== STAT HIGHLIGHT ===================== */
+        .stat-highlight {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            background: linear-gradient(135deg,var(--sky),var(--ocean));
+            color: white;
+            padding: .6rem 1.4rem;
+            border-radius: 50px;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 15px rgba(14,165,233,.35);
+        }
+
+        /* ===================== WAVE CHART ===================== */
+        .wave-chart-wrap {
+            background: linear-gradient(160deg, #082F49, #0C4A6E);
+            border-radius: 20px;
+            padding: 2rem 2rem 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wave-chart-wrap h3 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        #urgeCanvas {
+            display: block;
+            width: 100%;
+            border-radius: 12px;
+        }
+
+        .chart-legend {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1.2rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            font-size: .9rem;
+            color: rgba(255,255,255,.85);
+        }
+
+        .legend-dot {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .wave-note {
+            background: rgba(255,255,255,.08);
+            border-radius: 10px;
+            padding: .9rem 1.2rem;
+            margin-top: 1.2rem;
+            font-size: .95rem;
+            color: rgba(255,255,255,.82);
+            border-right: 3px solid var(--accent);
+            text-align: right;
+        }
+
+        /* ===================== STEPS ===================== */
+        .steps-container { margin: 2rem 0; }
+
+        .step-card {
+            background: white;
+            border: 2px solid rgba(14,165,233,.12);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: border-color .3s, box-shadow .3s;
+            cursor: pointer;
+        }
+        .step-card:hover { border-color: var(--sky); }
+        .step-card.open  { border-color: var(--ocean); box-shadow: 0 8px 25px rgba(14,165,233,.15); }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            padding: 1.4rem;
+            user-select: none;
+        }
+
+        .step-num {
+            background: linear-gradient(135deg, var(--sky), var(--ocean));
+            color: white;
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 900;
+            font-size: 1.35rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(14,165,233,.3);
+        }
+
+        .step-title-wrap { flex: 1; }
+        .step-title { font-family:'Tajawal',sans-serif; font-size:1.2rem; font-weight:700; color:var(--ocean-deep); }
+        .step-subtitle { font-size:.88rem; color:#888; margin-top:.15rem; }
+
+        .step-toggle { color: var(--sky); font-size:1.6rem; font-weight:300; transition: transform .3s; }
+        .step-card.open .step-toggle { transform: rotate(45deg); }
+
+        .step-body { max-height: 0; overflow: hidden; transition: max-height .5s ease; }
+        .step-card.open .step-body { max-height: 600px; }
+
+        .step-body-inner {
+            padding: 0 1.5rem 1.8rem;
+            border-top: 1px solid rgba(14,165,233,.1);
+            padding-top: 1.4rem;
+        }
+        .step-body-inner p { font-size:1rem; color:#555; margin-bottom:.9rem; line-height:1.85; }
+
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
+            gap: .75rem;
+            margin-top: 1rem;
+        }
+
+        .activity-chip {
+            background: linear-gradient(135deg,rgba(14,165,233,.09),rgba(3,105,161,.06));
+            border: 2px solid rgba(14,165,233,.15);
+            border-radius: 12px;
+            padding: .75rem;
+            text-align: center;
+            font-size: .9rem;
+            font-weight: 500;
+            color: var(--ocean-deep);
+            transition: all .25s;
+        }
+        .activity-chip:hover {
+            background: linear-gradient(135deg,var(--sky),var(--ocean));
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+        }
+
+        /* ===================== 3 REASON CARDS ===================== */
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .reason-card {
+            background: linear-gradient(160deg,rgba(14,165,233,.07),rgba(3,105,161,.04));
+            border: 2px solid rgba(14,165,233,.14);
+            border-radius: 18px;
+            padding: 2rem 1.6rem;
+            text-align: center;
+            transition: all .3s;
+        }
+        .reason-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--sky);
+            box-shadow: 0 15px 35px rgba(14,165,233,.15);
+        }
+        .reason-card .rc-icon { font-size: 2.8rem; margin-bottom: .9rem; }
+        .reason-card h3 {
+            font-family: 'Tajawal',sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--ocean);
+            margin-bottom: .6rem;
+        }
+        .reason-card p { font-size: .95rem; color: #555; margin: 0; line-height: 1.75; }
+
+        /* ===================== PROBLEMS ACCORDION ===================== */
+        .problem-card {
+            border: 2px solid rgba(14,165,233,.1);
+            border-radius: 14px;
+            margin-bottom: .9rem;
+            overflow: hidden;
+            transition: border-color .3s;
+            cursor: pointer;
+        }
+        .problem-card:hover { border-color: rgba(14,165,233,.35); }
+        .problem-card.open  { border-color: var(--sky); }
+
+        .problem-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 1.4rem;
+            user-select: none;
+        }
+
+        .problem-icon { font-size: 1.6rem; flex-shrink: 0; }
+
+        .problem-title {
+            flex: 1;
+            font-family: 'Tajawal',sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--danger);
+        }
+
+        .problem-toggle { color: var(--sky); font-size:1.4rem; font-weight:300; transition: transform .3s; }
+        .problem-card.open .problem-toggle { transform: rotate(45deg); }
+
+        .problem-body { max-height: 0; overflow: hidden; transition: max-height .45s ease; }
+        .problem-card.open .problem-body { max-height: 300px; }
+
+        .problem-body-inner {
+            padding: 0 1.4rem 1.5rem;
+            border-top: 1px solid rgba(14,165,233,.1);
+            padding-top: 1.2rem;
+        }
+
+        .problem-body-inner p { font-size: .98rem; color: #555; margin-bottom: .5rem; }
+
+        .solution-tag {
+            display: inline-block;
+            background: rgba(5,150,105,.1);
+            border-right: 3px solid var(--success);
+            border-radius: 0 8px 8px 0;
+            padding: .6rem 1rem;
+            font-size: .93rem;
+            color: var(--success);
+            font-weight: 600;
+            margin-top: .5rem;
+            line-height: 1.6;
+        }
+
+        /* ===================== MESSAGE ===================== */
+        .message-section {
+            background: linear-gradient(160deg, #082F49, #0C4A6E);
+            border-radius: 24px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .message-section::before {
+            content: '🌊';
+            position: absolute;
+            font-size: 18rem;
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            opacity: 0.04;
+            pointer-events: none;
+        }
+
+        .message-section h2 {
+            font-family: 'Tajawal',sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(125,211,252,.25);
+            padding-bottom: 1rem;
+        }
+
+        .message-section .big-quote {
+            font-family: 'Tajawal',sans-serif;
+            font-size: clamp(1.3rem,3vw,1.75rem);
+            font-weight: 700;
+            color: white;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .message-section .big-quote span { color: var(--accent); }
+
+        .message-bullets {
+            display: flex;
+            flex-direction: column;
+            gap: .9rem;
+            text-align: right;
+            max-width: 540px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .mb-item {
+            display: flex;
+            align-items: flex-start;
+            gap: .8rem;
+            background: rgba(255,255,255,.07);
+            border-radius: 12px;
+            padding: .9rem 1.2rem;
+            font-size: 1.02rem;
+            color: rgba(255,255,255,.9);
+        }
+
+        .mb-icon { font-size: 1.3rem; flex-shrink: 0; }
+
+        .message-section .final-line {
+            font-family: 'Tajawal',sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-top: 1rem;
+        }
+
+        /* ===================== CHALLENGE BTN ===================== */
+        .challenge-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg,var(--sky),var(--ocean));
+            color: white;
+            border: none;
+            border-radius: 16px;
+            padding: 1.4rem 2rem;
+            font-family: 'Tajawal',sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .3s;
+            box-shadow: 0 10px 30px rgba(14,165,233,.3);
+            margin-bottom: 2rem;
+        }
+        .challenge-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 40px rgba(14,165,233,.4); }
+
+        /* ===================== NAV ARROWS ===================== */
+        .nav-arrows {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 4rem;
+        }
+
+        .nav-arrow {
+            display: flex;
+            align-items: center;
+            gap: .7rem;
+            text-decoration: none;
+            background: white;
+            border: 2px solid rgba(14,165,233,.15);
+            border-radius: 14px;
+            padding: 1.1rem 1.5rem;
+            color: var(--ocean-deep);
+            font-weight: 600;
+            transition: all .3s;
+            box-shadow: 0 4px 14px rgba(0,0,0,.06);
+            font-size: .95rem;
+        }
+        .nav-arrow:hover { border-color: var(--sky); box-shadow: 0 8px 25px rgba(14,165,233,.15); transform: translateX(-3px); }
+        .nav-arrow.next:hover { transform: translateX(3px); }
+
+        /* ===================== MODAL ===================== */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(8,47,73,.75);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            backdrop-filter: blur(4px);
+        }
+        .modal.show { display: flex; }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            max-width: 640px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 30px 80px rgba(0,0,0,.3);
+            animation: modalIn .4s ease;
+        }
+
+        @keyframes modalIn {
+            from { opacity:0; transform: scale(.92) translateY(18px); }
+            to   { opacity:1; transform: scale(1) translateY(0); }
+        }
+
+        .modal-content .ch-icon { font-size: 3.5rem; text-align: center; display: block; margin-bottom: .8rem; }
+        .modal-content h3 {
+            font-family: 'Tajawal',sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--ocean-deep);
+            text-align: center;
+            margin-bottom: .3rem;
+        }
+        .modal-content h4 {
+            font-family: 'Tajawal',sans-serif;
+            font-size: 1.15rem;
+            color: var(--ocean);
+            text-align: center;
+            margin-bottom: 1.4rem;
+        }
+        .modal-content p { font-size: 1rem; color: #555; margin-bottom: .75rem; line-height: 1.8; }
+
+        .challenge-steps { display: flex; flex-direction: column; gap: .9rem; margin: 1.2rem 0; }
+
+        .ch-step {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            background: var(--foam);
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+        }
+
+        .ch-step-num {
+            background: linear-gradient(135deg,var(--sky),var(--ocean));
+            color: white;
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: .9rem;
+            flex-shrink: 0;
+            margin-top: .1rem;
+        }
+
+        .ch-step p { font-size: .97rem; color: var(--ocean-deep); margin: 0; line-height: 1.7; }
+
+        .modal-close {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg,var(--sky),var(--ocean));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 1.1rem;
+            font-family: 'Tajawal',sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 1.8rem;
+            transition: all .3s;
+        }
+        .modal-close:hover { transform: scale(1.02); }
+
+        @media(max-width:600px){
+            .section { padding: 2rem 1.4rem; }
+            nav { padding: 1rem; }
+            .nav-arrow { padding: .9rem 1rem; font-size: .85rem; }
+            .reasons-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <a href="index.html" class="nav-title">← الرئيسية</a>
+    <span class="nav-title" style="font-size:.9rem;color:#888;">🌊 التقنية 3: اركب الموجة</span>
+    <a href="technique-4.html">التالية ←</a>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <div class="hero-content">
+        <span class="icon">🌊</span>
+        <h1>اركب الموجة</h1>
+        <p class="subtitle">Urge Surfing — الصبر 10 دقائق فقط</p>
+        <div class="hero-badges">
+            <span class="badge">🔬 د. آلان مارلات — جامعة واشنطن</span>
+            <span class="badge">📉 26% تقليل التدخين</span>
+            <span class="badge">⏱️ 10 دقائق فقط</span>
+            <span class="badge">✅ 80% نجاح</span>
+        </div>
+    </div>
+
+    <!-- Animated Ocean Waves -->
+    <div class="hero-waves">
+        <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+            <path class="wave1" d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1440,20 1440,40 L1440,100 L0,100 Z"/>
+        </svg>
+        <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style="animation-delay:-3s">
+            <path class="wave2" d="M0,50 C200,20 400,70 600,50 C800,30 1000,70 1200,50 C1300,38 1380,55 1440,50 L1440,100 L0,100 Z"/>
+        </svg>
+        <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style="animation-delay:-6s">
+            <path class="wave3" d="M0,60 C240,30 480,80 720,60 C960,40 1200,75 1440,60 L1440,100 L0,100 Z"/>
+        </svg>
+    </div>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+    <!-- Intro -->
+    <section class="section">
+        <h2>الرغبة مش وحش — هي موجة</h2>
+
+        <p>هل حسيت قبل كده إن الرغبة الملحة لو مقاومتهاش دلوقتي هتفضل تزيد وتزيد لحد ما تجنّنك؟</p>
+
+        <p>الحقيقة العلمية مختلفة تماماً. الرغبة الملحة مش وحش — هي <strong>موجة</strong>. بترتفع، بتوصل للذروة، وبعدين — سواء استسلمت ولا لأ — <strong>بتنزل وتختفي</strong>.</p>
+
+        <p>المشكلة إن معظمنا بيستسلم في أول دقيقتين، قبل حتى ما الموجة توصل لقمتها. لو عرفت تصبر <strong>10 دقايق بس</strong> — هتكتشف إن الموجة بتعدي لوحدها.</p>
+    </section>
+
+    <!-- Story -->
+    <section class="section">
+        <h2>📖 قصة د. آلان مارلات</h2>
+
+        <p>في أواخر الثمانينات، كان د. آلان مارلات، أستاذ علم النفس في جامعة واشنطن، يدرس سؤالاً محيراً: <strong>ليه الناس بترجع تدمن تاني بعد ما تبطل؟</strong></p>
+
+        <p>لاحظ حاجة غريبة — معظمهم مش بترجع عشان الرغبة قوية. بترجع عشان <strong>فاكرة إن الرغبة مش هتروح غير لو استسلمت.</strong></p>
+
+        <p>قرر يعلمهم تقنية جديدة: بدل ما تحارب الرغبة أو تهرب منها، <strong>اركبها زي ما بتركب موجة بحر</strong> — بهدوء ووعي — لحد ما تعدي.</p>
+
+        <div class="stat-highlight">
+            📊 النتيجة: المجموعة اللي اتعلمت التقنية قللت التدخين بـ 26% — ضعف المجموعة اللي ماتعلمتهاش
+        </div>
+
+        <p>في دراسات تانية على مدمنين مخدرات وكحول، التقنية نفسها ساعدت الناس يقاوموا الرغبات الملحة <strong>بدون أي أدوية</strong> — بس بالوعي وإعادة توجيه الانتباه.</p>
+
+        <div class="info-box">
+            <div class="ib-icon">💬</div>
+            <h3>بكلام د. مارلات</h3>
+            <p>"الرغبة الملحة زي موجة البحر بالضبط. بترتفع، بتوصل للقمة، وبعدين بتنكسر وتختفي — سواء عملت حاجة ولا لأ. المطلوب منك بس إنك تصبر لحد ما تعدي."</p>
+        </div>
+    </section>
+
+    <!-- Brain Deception + Wave Chart -->
+    <section class="section">
+        <h2>🧠 ليه الدماغ بيخدعك؟</h2>
+
+        <p>لما الرغبة الملحة تبدأ، دماغك بيضخّم الإحساس ويخليك تحس إنها مش هتروح غير لو استسلمت، وإنها هتفضل تزيد لحد ما تجنّنك.</p>
+
+        <p>ده اسمه <strong>cognitive distortion</strong> — تشويه إدراكي. دماغك بيكدب عليك عشان ياخد المكافأة السريعة (الدوبامين) اللي اتعود عليها.</p>
+
+        <p>الحقيقة العلمية؟ الرغبة الملحة ليها <strong>منحنى ثابت</strong> — بترتفع وبتنزل. الرسم التالي بيوضح ده بالظبط:</p>
+
+        <div class="wave-chart-wrap">
+            <h3>📈 منحنى الرغبة الملحة — الموجة الحقيقية</h3>
+            <canvas id="urgeCanvas" height="220"></canvas>
+            <div class="chart-legend">
+                <div class="legend-item"><div class="legend-dot" style="background:#EF4444"></div> معظم الناس بيستسلموا هنا</div>
+                <div class="legend-item"><div class="legend-dot" style="background:#F59E0B"></div> الذروة (5-7 دقائق)</div>
+                <div class="legend-item"><div class="legend-dot" style="background:#10B981"></div> الموجة اتكسرت</div>
+            </div>
+            <div class="wave-note">
+                ⚠️ معظمنا بيستسلم في الدقيقة 2 أو 3 — قبل ما يشوف إن الموجة فعلاً بتعدي! نادراً رغبة بتستمر أكتر من 20-30 دقيقة.
+            </div>
+        </div>
+    </section>
+
+    <!-- Steps -->
+    <section class="section">
+        <h2>🛠️ إزاي تركب الموجة؟ — 5 خطوات</h2>
+        <p>التقنية اللي طوّرها د. مارلات. اضغط على كل خطوة للتفاصيل.</p>
+
+        <div class="steps-container">
+
+            <div class="step-card" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-num">1</div>
+                    <div class="step-title-wrap">
+                        <div class="step-title">لاحظ الموجة — مش تحاربها</div>
+                        <div class="step-subtitle">الملاحظة الحيادية هي الخطوة الأولى</div>
+                    </div>
+                    <div class="step-toggle">+</div>
+                </div>
+                <div class="step-body"><div class="step-body-inner">
+                    <p>أول ما الرغبة تبدأ، <strong>ماتحاولش تقمعها.</strong> بدل كده قول لنفسك: "أوك، الموجة بدأت. ده طبيعي."</p>
+                    <p>لما تحاول تقمع إحساس، دماغك بيركز عليه أكتر — ظاهرة اسمها <strong>Ironic Process Theory.</strong> زي لما حد يقولك "متفكرش في الفيل الوردي" — دماغك فوراً يفكر فيه!</p>
+                    <p>بدل القمع، استخدم الملاحظة الحيادية: <em>"حاسس برغبة دلوقتي" — "ده إحساس مؤقت" — "الموجة بدأت."</em></p>
+                </div></div>
+            </div>
+
+            <div class="step-card" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-num">2</div>
+                    <div class="step-title-wrap">
+                        <div class="step-title">راقب جسمك — فين الإحساس؟</div>
+                        <div class="step-subtitle">الرغبة إحساس جسدي — مش بس في دماغك</div>
+                    </div>
+                    <div class="step-toggle">+</div>
+                </div>
+                <div class="step-body"><div class="step-body-inner">
+                    <p>الرغبة الملحة مش بس في دماغك — هي إحساس <strong>جسدي</strong> كمان. اقعد أو قف في مكان هادي وابدأ "تسكّن" جسمك من فوق لتحت:</p>
+                    <p>راسك: فيه توتر؟ ← رقبتك وكتافك: مشدودة؟ ← صدرك: ضربات قلبك سريعة؟ ← معدتك: حاسس بضيق؟ ← إيديك: مرتعشة؟</p>
+                    <p><strong>الهدف مش إنك "تصلح" الإحساس</strong> — الهدف إنك تلاحظه بس. لما تلاحظ الإحساس بوعي، بتقلل قوته تلقائياً — بيبقى مجرد "إحساس في الجسم"، مش "أمر لازم تنفذه".</p>
+                </div></div>
+            </div>
+
+            <div class="step-card" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-num">3</div>
+                    <div class="step-title-wrap">
+                        <div class="step-title">أعد توجيه انتباهك — 10 دقائق فقط</div>
+                        <div class="step-subtitle">مش عشان تنسى — عشان تعدّي الذروة</div>
+                    </div>
+                    <div class="step-toggle">+</div>
+                </div>
+                <div class="step-body"><div class="step-body-inner">
+                    <p>اختار <strong>نشاط بديل واحد</strong> وعمله لمدة 10 دقائق بس — مش أكتر ولا أقل. مش عشان "تنسى" الرغبة، عشان <strong>تشغل دماغك لحد ما الموجة تعدي ذروتها.</strong></p>
+                    <div class="activities-grid">
+                        <div class="activity-chip">🚶 امشي بسرعة</div>
+                        <div class="activity-chip">💪 20 سكوات</div>
+                        <div class="activity-chip">🕌 اتوضّى واقرأ</div>
+                        <div class="activity-chip">📞 اتصل بصاحب</div>
+                        <div class="activity-chip">🪟 اطلع برة الأوضة</div>
+                        <div class="activity-chip">🚿 دش بارد</div>
+                        <div class="activity-chip">🌬️ تمرين تنفس</div>
+                        <div class="activity-chip">📖 اقرأ صفحة</div>
+                    </div>
+                </div></div>
+            </div>
+
+            <div class="step-card" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-num">4</div>
+                    <div class="step-title-wrap">
+                        <div class="step-title">راجع نفسك — الموجة عدّت؟</div>
+                        <div class="step-subtitle">بعد 10 دقائق، قيّم قوة الرغبة</div>
+                    </div>
+                    <div class="step-toggle">+</div>
+                </div>
+                <div class="step-body"><div class="step-body-inner">
+                    <p>بعد الـ10 دقائق، وقّف واسأل نفسك: الرغبة لسه موجودة؟ قوتها قد إيه دلوقتي مقارنة بالأول؟</p>
+                    <div class="info-box">
+                        <div class="ib-icon">📊</div>
+                        <h3>الإحصاء</h3>
+                        <p>في <strong>80% من الحالات</strong> هتلاقي إن الرغبة إما راحت تماماً أو ضعفت جداً لدرجة إنك تقدر تتجاهلها بسهولة.</p>
+                    </div>
+                    <p>لو لسه موجودة بقوة (ده نادر)، <strong>كرر الخطوات</strong> — 10 دقائق تانية بنشاط بديل مختلف.</p>
+                </div></div>
+            </div>
+
+            <div class="step-card" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-num">5</div>
+                    <div class="step-title-wrap">
+                        <div class="step-title">احتفل بالانتصار — ده مهم!</div>
+                        <div class="step-subtitle">كل انتصار صغير بيقوّي المسار الجديد</div>
+                    </div>
+                    <div class="step-toggle">+</div>
+                </div>
+                <div class="step-body"><div class="step-body-inner">
+                    <p>لو الموجة عدّت ومانتكستش، <strong>احتفل!</strong> حتى لو بابتسامة وكلمة "أنا نجحت" — اكتبها في دفترك.</p>
+                    <p>كل مرة دماغك يتعلم إن الموجة بتعدي لوحدها من غير استسلام، المسار العصبي القديم (رغبة → استسلام) <strong>بيضعف شوية.</strong></p>
+                    <p>بعد 3-4 أسابيع من التطبيق، الرغبات بتيجي أقل وأضعف وأسهل في المقاومة.</p>
+                </div></div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Why it works -->
+    <section class="section">
+        <h2>⚙️ ليه التقنية دي بتشتغل؟</h2>
+        <p>3 أسباب علمية بتشتغلوا معاً في نفس الوقت:</p>
+
+        <div class="reasons-grid">
+            <div class="reason-card">
+                <div class="rc-icon">🔄</div>
+                <h3>Habituation<br>التعود</h3>
+                <p>لما تعرّض نفسك لإحساس من غير ما تستجيب ليه، دماغك بيتعود عليه ويقلل رد فعله تلقائياً. زي الناس اللي بتسكن جنب السكة الحديد — بتتعود وتنام على صوت القطر.</p>
+            </div>
+            <div class="reason-card">
+                <div class="rc-icon">🔍</div>
+                <h3>Cognitive Reappraisal<br>إعادة التقييم</h3>
+                <p>لما تراقب الرغبة بوعي بدل ما تخاف منها، دماغك بيعيد تصنيفها — من "خطر لازم أهرب منه" لـ "إحساس عابر هيروح." التغيير ده بيقلل قوتها فوراً.</p>
+            </div>
+            <div class="reason-card">
+                <div class="rc-icon">🧬</div>
+                <h3>Neuroplasticity<br>مرونة الدماغ</h3>
+                <p>كل مرة تختار الصبر بدل الاستسلام، بتقوّي مسار عصبي جديد. ودراسة جامعة واشنطن لقت إن الممارسة المنتظمة لشهر قللت الرغبات بـ 37% في التكرار و 42% في الشدة.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problems -->
+    <section class="section">
+        <h2>🔧 لو واجهتك مشكلة</h2>
+
+        <div class="problem-card" onclick="toggleProblem(this)">
+            <div class="problem-header">
+                <div class="problem-icon">😤</div>
+                <div class="problem-title">الموجة مش بتروح حتى بعد 10 دقائق</div>
+                <div class="problem-toggle">+</div>
+            </div>
+            <div class="problem-body"><div class="problem-body-inner">
+                <p>ده بيحصل لو في محفز قوي لسه شغّال — موبايل في إيدك؟ صورة قدامك؟ في مكان خطر؟</p>
+                <div class="solution-tag">✓ كرر النشاط البديل 10 دقائق تانية — أو جرب نشاط أقوى (رياضة عنيفة أو دش بارد). لو بعد 30 دقيقة لسه موجودة، غيّر المكان تماماً.</div>
+            </div></div>
+        </div>
+
+        <div class="problem-card" onclick="toggleProblem(this)">
+            <div class="problem-header">
+                <div class="problem-icon">😰</div>
+                <div class="problem-title">بحس بقلق لما براقب الإحساس</div>
+                <div class="problem-toggle">+</div>
+            </div>
+            <div class="problem-body"><div class="problem-body-inner">
+                <p>طبيعي في الأول — دماغك اتعود إنك تهرب من الإحساس ده، مش تراقبه.</p>
+                <div class="solution-tag">✓ بدل ما تركز على الإحساس نفسه، ركز على تنفسك: شهيق 4 ثواني، مسك 4، زفير 4. التنفس هيهدّيك ويخليك تقدر تراقب بدون قلق.</div>
+            </div></div>
+        </div>
+
+        <div class="problem-card" onclick="toggleProblem(this)">
+            <div class="problem-header">
+                <div class="problem-icon">🤔</div>
+                <div class="problem-title">بنسى أطبق التقنية وقت الرغبة</div>
+                <div class="problem-toggle">+</div>
+            </div>
+            <div class="problem-body"><div class="problem-body-inner">
+                <p>الرغبة الشديدة بتضيّق التفكير — فعادي تنسى في اللحظة.</p>
+                <div class="solution-tag">✓ حط تذكير على موبايلك أو ورقة على الحيطة: "الموجة بتعدي في 10 دقائق — اصبر!" لو الرغبة جت، اقرأ التذكير قبل ما تعمل أي حاجة.</div>
+            </div></div>
+        </div>
+
+        <div class="problem-card" onclick="toggleProblem(this)">
+            <div class="problem-header">
+                <div class="problem-icon">😞</div>
+                <div class="problem-title">نجحت مرة واتنين، بعدين انتكست</div>
+                <div class="problem-toggle">+</div>
+            </div>
+            <div class="problem-body"><div class="problem-body-inner">
+                <p>الانتكاسة مش فشل — هي جزء طبيعي من التعلم. المسار القديم في دماغك قوي وعمره سنين.</p>
+                <div class="solution-tag">✓ ارجع طبق التقنية تاني. كل مرة بتنجح فيها — حتى لو بعدها انتكاسة — بتقوّي المسار الجديد. المهم الاستمرار، مش الكمال.</div>
+            </div></div>
+        </div>
+
+    </section>
+
+    <!-- Message -->
+    <div class="message-section">
+        <h2>رسالتك من التقنية دي</h2>
+
+        <p class="big-quote">الرغبة الملحة مش عدو لا يُقهر.<br>هي <span>موجة</span> — بترتفع وبتنزل — سواء استسلمت ولا لأ.</p>
+
+        <div class="message-bullets">
+            <div class="mb-item">
+                <span class="mb-icon">✅</span>
+                كل مرة تصبر 10 دقائق بتثبت لنفسك إن الموجة <strong>بتعدي</strong>
+            </div>
+            <div class="mb-item">
+                <span class="mb-icon">🔓</span>
+                بتكسر الاعتقاد الكاذب إن الاستسلام هو الحل الوحيد
+            </div>
+            <div class="mb-item">
+                <span class="mb-icon">🧠</span>
+                بتبني مسار عصبي جديد يقودك للحرية — كل مرة أقوى من اللي قبلها
+            </div>
+        </div>
+
+        <p class="final-line">السر مش في قوة الإرادة — السر في المعرفة: إن الموجة عمرها ما بتدوم. 🌊</p>
+    </div>
+
+    <!-- Challenge Button -->
+    <button class="challenge-btn" onclick="showChallenge()">
+        🎯 شاهد تحدي الـ3 أيام
+    </button>
+
+    <!-- Nav Arrows -->
+    <div class="nav-arrows">
+        <a href="technique-2.html" class="nav-arrow">
+            <span>→</span>
+            <span>التقنية السابقة: أعد البرمجة</span>
+        </a>
+        <a href="technique-4.html" class="nav-arrow next">
+            <span>التقنية التالية: البديل الصحي</span>
+            <span>←</span>
+        </a>
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal" id="challengeModal">
+    <div class="modal-content">
+        <span class="ch-icon">🌊</span>
+        <h3>تحدي الـ3 أيام القادمة</h3>
+        <h4>"ركوب الموجة — تجربة الـ10 دقائق"</h4>
+
+        <p><strong>الهدف:</strong> تجرب التقنية 3 مرات على الأقل وتكتشف بنفسك إن الموجة فعلاً بتعدي في أغلب الأحيان.</p>
+
+        <div class="challenge-steps">
+            <div class="ch-step">
+                <div class="ch-step-num">1</div>
+                <p><strong>لاحظ الموجة:</strong> قول لنفسك "الموجة بدأت، ده طبيعي" — من غير ما تحاربها.</p>
+            </div>
+            <div class="ch-step">
+                <div class="ch-step-num">2</div>
+                <p><strong>راقب جسمك:</strong> فين الإحساس؟ راس، صدر، معدة؟ لاحظه بدون ما تحاربه.</p>
+            </div>
+            <div class="ch-step">
+                <div class="ch-step-num">3</div>
+                <p><strong>اختار نشاط بديل:</strong> اعمله 10 دقائق بس — مشي، تمرين، اتصال، أي حاجة.</p>
+            </div>
+            <div class="ch-step">
+                <div class="ch-step-num">4</div>
+                <p><strong>راجع نفسك:</strong> بعد 10 دقائق — الرغبة ضعفت؟ راحت؟ قيّمها من 10.</p>
+            </div>
+            <div class="ch-step">
+                <div class="ch-step-num">5</div>
+                <p><strong>سجّل النتيجة:</strong> الوقت، النشاط البديل، النتيجة (راحت / ضعفت / لسه موجودة).</p>
+            </div>
+        </div>
+
+        <div class="info-box" style="margin-top:1.2rem;">
+            <div class="ib-icon">🎁</div>
+            <h3>مكافأة</h3>
+            <p>لو نجحت في ركوب الموجة 3 مرات من غير انتكاسة، كافئ نفسك بحاجة بسيطة بتحبها.</p>
+        </div>
+
+        <button class="modal-close" onclick="closeChallenge()">فهمت — سأبدأ التحدي اليوم ✓</button>
+    </div>
+</div>
+
+<script>
+/* ============ Step Accordion ============ */
+function toggleStep(card) {
+    const isOpen = card.classList.contains('open');
+    document.querySelectorAll('.step-card').forEach(c => c.classList.remove('open'));
+    if (!isOpen) card.classList.add('open');
+}
+
+/* ============ Problem Accordion ============ */
+function toggleProblem(card) {
+    const isOpen = card.classList.contains('open');
+    document.querySelectorAll('.problem-card').forEach(c => c.classList.remove('open'));
+    if (!isOpen) card.classList.add('open');
+}
+
+/* ============ Modal ============ */
+function showChallenge() {
+    document.getElementById('challengeModal').classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+function closeChallenge() {
+    document.getElementById('challengeModal').classList.remove('show');
+    document.body.style.overflow = 'auto';
+}
+document.getElementById('challengeModal').addEventListener('click', function(e) {
+    if (e.target === this) closeChallenge();
+});
+
+/* ============ Intersection Observer ============ */
+const secObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.section').forEach(el => secObserver.observe(el));
+
+/* ============ Urge Wave Canvas ============ */
+const canvas = document.getElementById('urgeCanvas');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+    const w = canvas.parentElement.clientWidth - 64;
+    canvas.width  = w;
+    canvas.height = 220;
+}
+resizeCanvas();
+window.addEventListener('resize', () => { resizeCanvas(); drawWave(animProgress); });
+
+// Build the urge curve: rises to peak at ~45% then falls
+function urgeY(t) {
+    // t: 0..1 (time along the x-axis)
+    if (t < 0.45) {
+        // rise: ease-in-out to peak
+        const r = t / 0.45;
+        return Math.sin(r * Math.PI / 2);
+    } else {
+        // fall: slower
+        const r = (t - 0.45) / 0.55;
+        return Math.cos(r * Math.PI / 2);
+    }
+}
+
+let animProgress = 0;
+let animRunning  = false;
+let animFrame;
+
+function drawWave(progress) {
+    const W = canvas.width, H = canvas.height;
+    const padL = 10, padR = 20, padT = 20, padB = 50;
+    const chartW = W - padL - padR;
+    const chartH = H - padT - padB;
+
+    ctx.clearRect(0, 0, W, H);
+
+    const totalMinutes = 20;
+    const points = 200;
+
+    // ---- Background gradient ----
+    const bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, 'rgba(8,47,73,0)');
+    bg.addColorStop(1, 'rgba(8,47,73,0)');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    // ---- Grid lines ----
+    ctx.strokeStyle = 'rgba(125,211,252,0.12)';
+    ctx.lineWidth = 1;
+    [0, 5, 10, 15, 20].forEach(min => {
+        const x = padL + (min / totalMinutes) * chartW;
+        ctx.beginPath();
+        ctx.moveTo(x, padT);
+        ctx.lineTo(x, padT + chartH);
+        ctx.stroke();
+    });
+
+    // ---- Axes labels ----
+    ctx.fillStyle = 'rgba(125,211,252,0.7)';
+    ctx.font = `${Math.max(10, W * 0.022)}px IBM Plex Sans Arabic, Tajawal, sans-serif`;
+    ctx.textAlign = 'center';
+    [0, 5, 10, 15, 20].forEach(min => {
+        const x = padL + (min / totalMinutes) * chartW;
+        ctx.fillText(min + ' د', x, H - 8);
+    });
+
+    // ---- Y label ----
+    ctx.save();
+    ctx.fillStyle = 'rgba(125,211,252,0.55)';
+    ctx.font = `${Math.max(9, W * 0.018)}px IBM Plex Sans Arabic, Tajawal, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.translate(10, padT + chartH / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillText('شدة الرغبة', 0, 0);
+    ctx.restore();
+
+    // ---- Build path ----
+    const pathPoints = [];
+    const drawCount  = Math.floor(progress * points);
+
+    for (let i = 0; i <= drawCount; i++) {
+        const t  = i / points;
+        const px = padL + t * chartW;
+        const py = padT + chartH - urgeY(t) * chartH * 0.82;
+        pathPoints.push({ x: px, y: py });
+    }
+
+    if (pathPoints.length < 2) return;
+
+    // ---- Filled area ----
+    const fillGrad = ctx.createLinearGradient(0, padT, 0, padT + chartH);
+    fillGrad.addColorStop(0,   'rgba(14,165,233,0.45)');
+    fillGrad.addColorStop(0.5, 'rgba(14,165,233,0.22)');
+    fillGrad.addColorStop(1,   'rgba(14,165,233,0.04)');
+
+    ctx.beginPath();
+    ctx.moveTo(pathPoints[0].x, padT + chartH);
+    pathPoints.forEach(p => ctx.lineTo(p.x, p.y));
+    ctx.lineTo(pathPoints[pathPoints.length - 1].x, padT + chartH);
+    ctx.closePath();
+    ctx.fillStyle = fillGrad;
+    ctx.fill();
+
+    // ---- Wave line ----
+    const lineGrad = ctx.createLinearGradient(padL, 0, padL + chartW, 0);
+    lineGrad.addColorStop(0,    '#7DD3FC');
+    lineGrad.addColorStop(0.45, '#38BDF8');
+    lineGrad.addColorStop(1,    '#0EA5E9');
+
+    ctx.beginPath();
+    pathPoints.forEach((p, i) => (i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y)));
+    ctx.strokeStyle = lineGrad;
+    ctx.lineWidth   = 3;
+    ctx.lineJoin    = 'round';
+    ctx.stroke();
+
+    // ---- Markers (only when animation passed that point) ----
+    function drawMarker(tRatio, color, emoji, label, yOffset) {
+        if (progress < tRatio) return;
+        const i  = Math.min(Math.floor(tRatio * points), pathPoints.length - 1);
+        const pt = pathPoints[i];
+        if (!pt) return;
+
+        // vertical dashed line
+        ctx.setLineDash([4, 4]);
+        ctx.strokeStyle = color;
+        ctx.lineWidth   = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(pt.x, pt.y);
+        ctx.lineTo(pt.x, padT + chartH);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // dot
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, 7, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth   = 2;
+        ctx.stroke();
+
+        // label
+        ctx.fillStyle   = color;
+        ctx.font        = `bold ${Math.max(10, W * 0.022)}px IBM Plex Sans Arabic, Tajawal, sans-serif`;
+        ctx.textAlign   = 'center';
+        ctx.fillText(emoji + ' ' + label, pt.x, pt.y + yOffset);
+    }
+
+    drawMarker(0.13,  '#EF4444', '🔴', 'معظم الناس يستسلموا هنا', -18);
+    drawMarker(0.45,  '#F59E0B', '🟡', 'الذروة', -18);
+    drawMarker(0.78,  '#10B981', '🟢', 'الموجة اتكسرت', -18);
+
+    // ---- Animated water shimmer on the line tip ----
+    if (progress > 0 && progress < 1) {
+        const last = pathPoints[pathPoints.length - 1];
+        ctx.beginPath();
+        ctx.arc(last.x, last.y, 5, 0, Math.PI * 2);
+        ctx.fillStyle = 'white';
+        ctx.fill();
+    }
+}
+
+function animate() {
+    if (animProgress >= 1) { animRunning = false; return; }
+    animProgress = Math.min(animProgress + 0.006, 1);
+    drawWave(animProgress);
+    animFrame = requestAnimationFrame(animate);
+}
+
+// Trigger when chart enters viewport
+const chartObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+        if (e.isIntersecting && !animRunning) {
+            animRunning = true;
+            animProgress = 0;
+            if (animFrame) cancelAnimationFrame(animFrame);
+            animate();
+            chartObserver.unobserve(e.target);
+        }
+    });
+}, { threshold: 0.4 });
+
+chartObserver.observe(canvas);
+</script>
+
+</body>
+</html>

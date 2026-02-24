@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التقنية 2: 🧠 أعد برمجة دماغك - العلاج التنفيري</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-light: #A8E6E3;
+            --primary-medium: #5BBFBC;
+            --primary-dark: #2C6B7F;
+            --deep-blue: #1A4D5C;
+            --ocean-deep: #0D3B4A;
+            --cloud-white: #F0F8F8;
+            --purple-light: #C4B5FD;
+            --purple-medium: #7C3AED;
+            --purple-dark: #4C1D95;
+            --purple-accent: #8B5CF6;
+            --disgust: #DC2626;
+            --success: #059669;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans Arabic', 'Tajawal', sans-serif;
+            background: var(--cloud-white);
+            color: var(--ocean-deep);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.15);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--ocean-deep);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover { color: var(--purple-accent); }
+
+        .nav-title {
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #7C3AED 0%, #4C1D95 50%, #1E1B4B 100%);
+            padding: 8rem 2rem 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '2';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.04);
+            font-family: 'Tajawal', sans-serif;
+            pointer-events: none;
+        }
+
+        /* Floating particles */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(196, 181, 253, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.2) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero .icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.3));
+            animation: brainPulse 2.5s ease-in-out infinite;
+            display: block;
+        }
+
+        @keyframes brainPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1) rotate(3deg); }
+        }
+
+        .hero h1 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 0.75rem;
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            color: rgba(196, 181, 253, 0.95);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.25);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Main Content */
+        .main {
+            max-width: 1000px;
+            margin: -3rem auto 0;
+            padding: 0 2rem 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Section */
+        .section {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section h2 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--ocean-deep);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--purple-light);
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.9;
+            margin-bottom: 1.2rem;
+        }
+
+        /* Hook Cards */
+        .hook-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .hook-card {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(139, 92, 246, 0.05));
+            border: 2px solid rgba(124, 58, 237, 0.15);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .hook-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--purple-accent);
+            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.15);
+        }
+
+        .hook-card .icon { font-size: 3rem; margin-bottom: 1rem; }
+
+        .hook-card h3 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--purple-medium);
+            margin-bottom: 0.5rem;
+        }
+
+        .hook-card p { font-size: 0.95rem; margin: 0; }
+
+        /* Timeline Story */
+        .timeline {
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            right: 30px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--purple-light), var(--purple-medium));
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            align-items: flex-start;
+            padding-right: 70px;
+            position: relative;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            right: 18px;
+            top: 12px;
+            width: 26px;
+            height: 26px;
+            background: var(--purple-medium);
+            border: 3px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            background: linear-gradient(135deg, rgba(196, 181, 253, 0.12), rgba(139, 92, 246, 0.06));
+            border-radius: 16px;
+            padding: 1.5rem;
+            border-right: 3px solid var(--purple-light);
+            flex: 1;
+        }
+
+        .timeline-year {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--purple-accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content h3 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--ocean-deep);
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-content p { font-size: 1rem; color: #555; margin: 0; line-height: 1.8; }
+
+        /* Brain Rewiring Visual */
+        .brain-visual {
+            background: linear-gradient(135deg, #1E1B4B, #2D1B69);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brain-visual h3 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .brain-paths {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .brain-path {
+            background: rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .brain-path.old { border: 2px solid rgba(220, 38, 38, 0.5); }
+        .brain-path.new { border: 2px solid rgba(5, 150, 105, 0.5); }
+
+        .brain-path .path-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .path-old .path-label { color: #FCA5A5; }
+        .path-new .path-label { color: #6EE7B7; }
+
+        .path-nodes {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .path-node {
+            background: rgba(255,255,255,0.12);
+            border-radius: 8px;
+            padding: 0.5rem 0.8rem;
+            font-size: 0.9rem;
+            color: white;
+            font-weight: 500;
+        }
+
+        .path-old .path-node { background: rgba(220, 38, 38, 0.25); }
+        .path-new .path-node { background: rgba(5, 150, 105, 0.25); }
+
+        .path-arrow {
+            color: rgba(255,255,255,0.5);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .path-old .path-arrow { color: #FCA5A5; }
+        .path-new .path-arrow { color: #6EE7B7; }
+
+        .vs-divider {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .vs-circle {
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 900;
+            font-size: 1.1rem;
+            color: white;
+        }
+
+        .brain-note {
+            background: rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.85);
+            border-right: 3px solid var(--purple-light);
+            text-align: right;
+        }
+
+        /* Steps */
+        .steps-container { margin: 2rem 0; }
+
+        .step-card {
+            background: white;
+            border: 2px solid rgba(124, 58, 237, 0.1);
+            border-radius: 16px;
+            margin-bottom: 1.2rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .step-card:hover { border-color: var(--purple-accent); }
+        .step-card.open { border-color: var(--purple-medium); box-shadow: 0 8px 25px rgba(124, 58, 237, 0.15); }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            user-select: none;
+        }
+
+        .step-num {
+            background: linear-gradient(135deg, var(--purple-medium), var(--purple-accent));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 900;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        }
+
+        .step-title-wrap { flex: 1; }
+
+        .step-title {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--ocean-deep);
+        }
+
+        .step-subtitle {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 0.2rem;
+        }
+
+        .step-toggle {
+            color: var(--purple-accent);
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+            font-weight: 300;
+        }
+
+        .step-card.open .step-toggle { transform: rotate(45deg); }
+
+        .step-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .step-card.open .step-body { max-height: 800px; }
+
+        .step-body-inner {
+            padding: 0 1.5rem 2rem;
+            border-top: 1px solid rgba(124, 58, 237, 0.1);
+            padding-top: 1.5rem;
+        }
+
+        .step-body-inner p { font-size: 1rem; color: #555; margin-bottom: 1rem; line-height: 1.8; }
+
+        /* Scenario Player */
+        .scenario-box {
+            background: linear-gradient(135deg, #1E1B4B, #312E81);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scenario-box .scenario-label {
+            font-size: 0.8rem;
+            color: rgba(196, 181, 253, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .scenario-text {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.9;
+            font-style: italic;
+            direction: rtl;
+            min-height: 80px;
+        }
+
+        .scenario-text .highlight-bad { color: #FCA5A5; font-weight: 600; }
+        .scenario-text .highlight-good { color: #6EE7B7; font-weight: 600; }
+
+        .play-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--purple-medium), var(--purple-accent));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+        }
+
+        .play-btn:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4); }
+
+        /* Mistakes Grid */
+        .mistakes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .mistake-card {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.06), rgba(248, 113, 113, 0.04));
+            border: 2px solid rgba(220, 38, 38, 0.2);
+            border-radius: 16px;
+            padding: 1.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .mistake-card:hover {
+            border-color: rgba(220, 38, 38, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.1);
+        }
+
+        .mistake-card .icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+
+        .mistake-card h3 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--disgust);
+            margin-bottom: 0.75rem;
+        }
+
+        .mistake-card p { font-size: 0.95rem; color: #666; margin: 0; line-height: 1.7; }
+
+        .mistake-fix {
+            background: rgba(5, 150, 105, 0.08);
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--success);
+            border-right: 3px solid var(--success);
+            font-weight: 500;
+        }
+
+        /* Timeline progress bar */
+        .results-timeline {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.05), rgba(139, 92, 246, 0.03));
+            border: 2px solid rgba(124, 58, 237, 0.12);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .results-timeline h3 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--ocean-deep);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .timeline-bar {
+            position: relative;
+            margin: 0 1rem;
+        }
+
+        .bar-track {
+            height: 8px;
+            background: rgba(124, 58, 237, 0.1);
+            border-radius: 10px;
+            position: relative;
+            margin: 0 0 2.5rem;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--purple-light), var(--purple-medium));
+            width: 0;
+            transition: width 1.5s ease;
+        }
+
+        .bar-fill.animated { width: var(--target-width); }
+
+        .bar-milestones {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-top: -2rem;
+        }
+
+        .milestone {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+        }
+
+        .milestone-dot {
+            width: 18px;
+            height: 18px;
+            background: white;
+            border: 3px solid rgba(124, 58, 237, 0.3);
+            border-radius: 50%;
+            margin-top: -1.5rem;
+        }
+
+        .milestone.reached .milestone-dot {
+            background: var(--purple-medium);
+            border-color: var(--purple-medium);
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
+        }
+
+        .milestone-day {
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--ocean-deep);
+        }
+
+        .milestone-desc {
+            font-size: 0.8rem;
+            color: #888;
+            text-align: center;
+            max-width: 80px;
+        }
+
+        /* Comparison willpower vs technique */
+        .willpower-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .wc-card {
+            border-radius: 16px;
+            padding: 2rem;
+            border: 2px solid;
+        }
+
+        .wc-card.willpower {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.06), rgba(248, 113, 113, 0.04));
+            border-color: rgba(220, 38, 38, 0.2);
+        }
+
+        .wc-card.technique {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(139, 92, 246, 0.05));
+            border-color: rgba(124, 58, 237, 0.2);
+        }
+
+        .wc-card h3 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .wc-card.willpower h3 { color: var(--disgust); }
+        .wc-card.technique h3 { color: var(--purple-medium); }
+
+        .wc-item {
+            background: white;
+            border-radius: 10px;
+            padding: 0.9rem 1rem;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Info box */
+        .info-box {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(139, 92, 246, 0.07));
+            border-right: 4px solid var(--purple-accent);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .info-box .icon { font-size: 2rem; margin-bottom: 0.5rem; }
+
+        .info-box h3 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--purple-medium);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box p { font-size: 1rem; color: var(--ocean-deep); margin: 0; }
+
+        /* Challenge Button */
+        .challenge-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, var(--purple-medium), var(--purple-accent));
+            color: white;
+            border: none;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
+            margin: 2rem 0;
+        }
+
+        .challenge-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(124, 58, 237, 0.4);
+        }
+
+        /* Nav Arrows */
+        .nav-arrows {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin: 2rem 0 4rem;
+        }
+
+        .nav-arrow {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            background: white;
+            border: 2px solid rgba(124, 58, 237, 0.15);
+            border-radius: 16px;
+            padding: 1.25rem 1.75rem;
+            color: var(--ocean-deep);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .nav-arrow:hover {
+            border-color: var(--purple-accent);
+            transform: translateX(-3px);
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.15);
+        }
+
+        .nav-arrow.next:hover { transform: translateX(3px); }
+
+        .nav-arrow span:first-child { font-size: 1.3rem; }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(13, 59, 74, 0.75);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal.show { display: flex; }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 650px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+            animation: modalIn 0.4s ease;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .modal-content .challenge-icon { font-size: 4rem; text-align: center; margin-bottom: 1rem; }
+
+        .modal-content h3 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--ocean-deep);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-content h4 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.3rem;
+            color: var(--purple-medium);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-content p { font-size: 1rem; color: #555; margin-bottom: 0.75rem; line-height: 1.8; }
+
+        .modal-content ol {
+            padding-right: 1.5rem;
+            margin: 1rem 0;
+            counter-reset: item;
+            list-style: none;
+        }
+
+        .modal-content ol li {
+            counter-increment: item;
+            font-size: 1rem;
+            color: #555;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.08);
+            line-height: 1.8;
+            position: relative;
+            padding-right: 2.5rem;
+        }
+
+        .modal-content ol li::before {
+            content: counter(item);
+            position: absolute;
+            right: 0;
+            top: 0.75rem;
+            background: var(--purple-medium);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .modal-content ul {
+            padding-right: 1.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .modal-content ul li { font-size: 0.95rem; color: #666; padding: 0.4rem 0; }
+
+        .modal-close {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, var(--purple-medium), var(--purple-accent));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 1.2rem;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover { transform: scale(1.02); }
+
+        /* Schedule visual */
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+
+        .schedule-slot {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(139, 92, 246, 0.07));
+            border: 2px solid rgba(124, 58, 237, 0.15);
+            border-radius: 12px;
+            padding: 0.9rem 0.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .schedule-slot:hover, .schedule-slot.done {
+            background: linear-gradient(135deg, var(--purple-medium), var(--purple-accent));
+            border-color: transparent;
+            transform: scale(1.05);
+        }
+
+        .schedule-slot.done { background: linear-gradient(135deg, var(--success), #10B981); }
+
+        .schedule-slot .slot-icon { font-size: 1.5rem; }
+
+        .schedule-slot .slot-name {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--ocean-deep);
+            margin-top: 0.3rem;
+        }
+
+        .schedule-slot.done .slot-name,
+        .schedule-slot:hover .slot-name { color: white; }
+
+        /* Quote highlight */
+        .quote-highlight {
+            background: linear-gradient(135deg, #2D1B69, #1E1B4B);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .quote-highlight p {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .quote-highlight span { color: var(--purple-light); }
+
+        @media (max-width: 600px) {
+            .willpower-comparison { grid-template-columns: 1fr; }
+            .brain-paths { flex-direction: column; }
+            .schedule-grid { grid-template-columns: repeat(3, 1fr); }
+            .section { padding: 2rem 1.5rem; }
+            nav { padding: 1rem; }
+            .nav-arrow { padding: 1rem; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <a href="index.html" class="nav-title">← الرئيسية</a>
+    <span class="nav-title" style="font-size: 0.95rem; color: #888;">🧠 التقنية 2: العلاج التنفيري</span>
+    <a href="technique-3.html">التالية ←</a>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <div class="hero-content">
+        <span class="icon">🧠</span>
+        <h1>أعد برمجة دماغك</h1>
+        <p class="subtitle">العلاج التنفيري — Covert Sensitization</p>
+        <div class="hero-badges">
+            <span class="badge">🔬 مجلة علمية 1967</span>
+            <span class="badge">📉 26% تقليل في الرغبات</span>
+            <span class="badge">⏱️ 15 دقيقة يومياً</span>
+            <span class="badge">⚡ نتائج في 4-6 أيام</span>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+
+    <!-- Hook Section -->
+    <section class="section">
+        <h2>ليه بتحس بالإثارة لما تشوف صورة معينة؟</h2>
+        <p>السبب بسيط: <strong>دماغك اتعلّم إن الحاجة دي = متعة.</strong> بعد مئات التكرارات، الربط ده بقى زي طريق سريع — أوتوماتيك، فوري، قوي.</p>
+        <p>بس لو قولتلك إن ممكن <strong>تعيد تدريب دماغك</strong> عكس الاتجاه؟ تخليه يربط نفس الحاجة بالاشمئزاز والكراهية بدل المتعة؟</p>
+
+        <div class="hook-grid">
+            <div class="hook-card">
+                <div class="icon">😍</div>
+                <h3>الحالة الحالية</h3>
+                <p>دماغك يشوف المثير ← يفتكر المتعة ← ترغبه بقوة</p>
+            </div>
+            <div class="hook-card">
+                <div class="icon">🔄</div>
+                <h3>ما ستفعله</h3>
+                <p>ستعيد تدريب دماغك على ربط نفس الحاجة بالاشمئزاز والندم</p>
+            </div>
+            <div class="hook-card">
+                <div class="icon">🎯</div>
+                <h3>النتيجة</h3>
+                <p>دماغك يشوف المثير ← يفتكر القرف ← الرغبة تضعف أو تختفي</p>
+            </div>
+        </div>
+
+        <div class="quote-highlight">
+            <p>لو فكرة العادة نفسها بقت <span>مقززة</span> في دماغك<br>مش مغرية — مش هتحتاج تقاوم أصلاً.</p>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="section">
+        <h2>📖 القصة الحقيقية اللي غيّرت علم النفس</h2>
+        <p>الحكاية بدأت في عيادة جامعية في Boston College...</p>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">📍 بوسطن، الستينات</div>
+                    <h3>المشكلة: مدمن لا يستطيع المقاومة</h3>
+                    <p>عالم النفس الأمريكي <strong>جوزيف كاوتيلا</strong> كان يعالج مدمن كحول في عيادته. الرجل جرّب كل شيء — أدوية، جلسات، دعم نفسي — لكن كل ما يشوف زجاجة خمر، دماغه يطير ومش قادر يقاوم.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">💡 الفكرة الجديدة</div>
+                    <h3>الربط — هو السلاح</h3>
+                    <p>كاوتيلا فكّر: الدماغ بيربط الزجاجة بالمتعة... <strong>ليه ما نربطهاش بحاجة مقززة؟</strong> لكن كان عنده مشكلة — العلاج التنفيري وقتها كان يستخدم صدمات كهربائية حقيقية أو أدوية تسبب التقيؤ، وده كان قاسياً وغير أخلاقي.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">✨ الابتكار</div>
+                    <h3>التخيّل بدل الألم الحقيقي</h3>
+                    <p>اخترع طريقة جديدة كلياً: <strong>التخيّل فقط، من غير أي ألم حقيقي.</strong> قال للمريض: "كل يوم، هتقعد وتتخيل بكل التفاصيل إنك ماسك الزجاجة، بتشمّها، وفجأة بتحس بغثيان رهيب وبتترجّع على نفسك قدام الناس كلها."</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">🏆 النتيجة المذهلة</div>
+                    <h3>بعد 6 أسابيع فقط!</h3>
+                    <p>الرجل عمل كده كل يوم 15 دقيقة لمدة شهر. بعد 6 أسابيع، كل ما يشوف زجاجة حقيقية، دماغه <strong>أوتوماتيك</strong> يفتكر مشهد القرف، والرغبة تختفي تماماً!</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">📚 1967 — نشر علمي</div>
+                    <h3>Covert Sensitization — وُلد علم جديد</h3>
+                    <p>كاوتيلا نشر الطريقة في مجلة <em>Behaviour Research and Therapy</em> سنة 1967، وسميت <strong>الإشراط التنفيري الخفي.</strong> ومن وقتها، صارت أداة علاجية مثبتة علمياً لعلاج الإدمان والعادات السلبية.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="section">
+        <h2>⚙️ إزاي بيشتغل بالظبط؟</h2>
+        <p>دماغك شغّال بنظام واحد: <strong>الربط.</strong> زي تجربة بافلوف مع الكلاب — ربط جرس بالطعام فالكلاب بقت تسيل لعابها لما تسمع الجرس لوحده.</p>
+        <p>أنت هتعمل نفس الشيء، لكن بالعكس — هتربط المثير المغري بالاشمئزاز بدل المتعة.</p>
+
+        <div class="brain-visual">
+            <h3>🔀 تحويل الارتباطات في دماغك</h3>
+            <div class="brain-paths">
+                <div class="brain-path old">
+                    <div class="path-label" style="color: #FCA5A5;">❌ الطريق القديم</div>
+                    <div class="path-nodes">
+                        <div class="path-node">📱 مثير</div>
+                        <div class="path-arrow">←</div>
+                        <div class="path-node">🎯 العادة</div>
+                        <div class="path-arrow">←</div>
+                        <div class="path-node">🔥 متعة دوبامين</div>
+                    </div>
+                </div>
+                <div class="vs-divider">
+                    <div class="vs-circle">↕</div>
+                </div>
+                <div class="brain-path new">
+                    <div class="path-label" style="color: #6EE7B7;">✅ الطريق الجديد</div>
+                    <div class="path-nodes">
+                        <div class="path-node">📱 مثير</div>
+                        <div class="path-arrow">←</div>
+                        <div class="path-node">🎯 العادة</div>
+                        <div class="path-arrow">←</div>
+                        <div class="path-node">🤢 اشمئزاز / ندم</div>
+                    </div>
+                </div>
+            </div>
+            <div class="brain-note">
+                💡 لما تكرر الربط الجديد كتير، دماغك يعيد البرمجة. المتعة المتوقعة تتحول لنفور — وفجأة الرغبة مش بنفس القوة!
+            </div>
+        </div>
+    </section>
+
+    <!-- Steps Section -->
+    <section class="section">
+        <h2>🛠️ إزاي تطبقه على نفسك؟ — 5 خطوات</h2>
+        <p>الخطوات دي مش مجرد نصايح — دي بروتوكول علمي. اضغط على كل خطوة للتفاصيل.</p>
+
+        <div class="steps-container">
+
+            <div class="step-card" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-num">1</div>
+                    <div class="step-title-wrap">
+                        <div class="step-title">حدد لحظة الخطر</div>
+                        <div class="step-subtitle">متى وأين وكيف تأتيك الرغبة؟</div>
+                    </div>
+                    <div class="step-toggle">+</div>
+                </div>
+                <div class="step-body">
+                    <div class="step-body-inner">
+                        <p>قبل أي حاجة، لازم تحدد بدقة: <strong>إمتى بتيجيلك الرغبة؟</strong></p>
+                        <p>لما تشوف صورة معينة؟ لما تكون لوحدك بالليل؟ لما تحس بملل؟ لما تكون مرهقاً؟</p>
+                        <p>اكتب اللحظات دي على ورقة — هما "نقاط الضعف" اللي هتتدرب التقنية عليها.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-num">2</div>
+                    <div class="step-title-wrap">
+                        <div class="step-title">اعمل سيناريو قوي ومفصّل</div>
+                        <div class="step-subtitle">كل ما يكون حي وواقعي، كل ما يشتغل أقوى</div>
+                    </div>
+                    <div class="step-toggle">+</div>
+                </div>
+                <div class="step-body">
+                    <div class="step-body-inner">
+                        <p>تخيّل سيناريو <strong>مفصّل جداً</strong> يربط العادة بأسوأ إحساس عندك. السيناريو لازم يشمل:</p>
+                        <p>✦ المكان والوقت بالتفصيل &nbsp;✦ الإحساس الجسدي بالندم &nbsp;✦ الأثر النفسي &nbsp;✦ الخسائر الحقيقية</p>
+
+                        <p>اضغط الزر عشان تشوف مثال كامل:</p>
+                        <button class="play-btn" onclick="playScenario(event)">▶ اسمع السيناريو النموذجي</button>
+
+                        <div class="scenario-box" id="scenarioBox" style="display:none;">
+                            <div class="scenario-label">📜 السيناريو التنفيري — مثال</div>
+                            <div class="scenario-text" id="scenarioText"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-num">3</div>
+                    <div class="step-title-wrap">
+                        <div class="step-title">استخدم ذكرياتك الحقيقية</div>
+                        <div class="step-subtitle">متخترعش مشاعر — استحضر اللي حصل فعلاً</div>
+                    </div>
+                    <div class="step-toggle">+</div>
+                </div>
+                <div class="step-body">
+                    <div class="step-body-inner">
+                        <p>مش محتاج تخترع مشاعر. اللي حصل فعلاً بعد آخر مرة انتكست أقوى بكتير من أي خيال.</p>
+                        <p>استحضر هذه المشاعر بالتفصيل كل ما تفكر في العادة:</p>
+                        <p>كان إحساسك إيه بعد <strong>5 دقائق</strong> من الانتكاسة؟ الندم الأول؟ بعد <strong>ساعة</strong>؟ الخواء؟ كيف نظرت لنفسك في المراية؟ كيف أثّر على الفجر التالي؟</p>
+                        <p>المشاعر دي <strong>هي سلاحك</strong> — مش خيال مجرد.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-num">4</div>
+                    <div class="step-title-wrap">
+                        <div class="step-title">كرر كثيراً — مش مرة واحدة</div>
+                        <div class="step-subtitle">10-15 مرة يومياً لأسبوعين على الأقل</div>
+                    </div>
+                    <div class="step-toggle">+</div>
+                </div>
+                <div class="step-body">
+                    <div class="step-body-inner">
+                        <p>ده مش تمرين مرة واحدة. لازم <strong>تكرار مكثّف</strong> عشان الدماغ يعيد برمجة الارتباطات.</p>
+                        <p>كل ما تيجيلك رغبة: <strong>وقّف → غمّض عينيك → تخيّل السيناريو كله (30-60 ثانية) → افتح عينيك</strong> — هتلاقي الرغبة ضعفت أو راحت.</p>
+
+                        <p>خطة الجدول اليومي المقترح — اضغط على الأوقات اللي هتلتزم بيها:</p>
+
+                        <div class="schedule-grid" id="scheduleGrid">
+                            <div class="schedule-slot" onclick="toggleSlot(this, event)">
+                                <div class="slot-icon">🌅</div>
+                                <div class="slot-name">بعد الفجر</div>
+                            </div>
+                            <div class="schedule-slot" onclick="toggleSlot(this, event)">
+                                <div class="slot-icon">☀️</div>
+                                <div class="slot-name">الضهر</div>
+                            </div>
+                            <div class="schedule-slot" onclick="toggleSlot(this, event)">
+                                <div class="slot-icon">🌤️</div>
+                                <div class="slot-name">بعد العصر</div>
+                            </div>
+                            <div class="schedule-slot" onclick="toggleSlot(this, event)">
+                                <div class="slot-icon">🌆</div>
+                                <div class="slot-name">بعد المغرب</div>
+                            </div>
+                            <div class="schedule-slot" onclick="toggleSlot(this, event)">
+                                <div class="slot-icon">🌙</div>
+                                <div class="slot-name">قبل النوم</div>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.9rem; color: #888; text-align: center;">اضغط لتحديد أوقاتك</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-num">5</div>
+                    <div class="step-title-wrap">
+                        <div class="step-title">أضف الإيجابي بعدها مباشرة</div>
+                        <div class="step-subtitle">المكافأة الذهنية تقوّي البرمجة الجديدة</div>
+                    </div>
+                    <div class="step-toggle">+</div>
+                </div>
+                <div class="step-body">
+                    <div class="step-body-inner">
+                        <p>بعد السيناريو التنفيري، تخيّل على طول <strong>العكس تماماً</strong>:</p>
+                        <div class="scenario-box">
+                            <div class="scenario-label">✨ السيناريو الإيجابي</div>
+                            <div class="scenario-text">
+                                أنا <span class="highlight-good">رفضت.</span> قفلت اللابتوب. قومت، اتوضيت، صليت ركعتين. حاسس بـ<span class="highlight-good">خفّة، نقاء، فخر حقيقي.</span> بصيت في المراية — عينيا مشرقة. صمدت. انتصرت. أنا أقوى مما كنت فاكر.
+                            </div>
+                        </div>
+                        <p style="margin-top: 1rem;">الخطوة دي <strong>ضرورية</strong> — دماغك لازم يتعلم مسار الهروب الإيجابي، مش بس يتعلم أن العادة مقززة.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Why it works -->
+    <section class="section">
+        <h2>🆚 ليه ده أقوى من قوة الإرادة؟</h2>
+        <p>قوة الإرادة وحدها بتعتمد على الجزء الواعي من دماغك. وده <strong>بيتعب</strong> مع الضغط والإرهاق والسهر.</p>
+        <p>العلاج التنفيري بيشتغل على مستوى أعمق — اللاوعي والذاكرة العاطفية.</p>
+
+        <div class="willpower-comparison">
+            <div class="wc-card willpower">
+                <h3>❌ قوة الإرادة وحدها</h3>
+                <div class="wc-item">تعتمد على الطاقة الذهنية اللي بتنفد</div>
+                <div class="wc-item">لما تكون مرهق أو تعبان، بتضعف بشكل كبير</div>
+                <div class="wc-item">أنت بتقاوم الرغبة بالقوة — والرغبة لسه موجودة</div>
+                <div class="wc-item">بعد كل انتكاسة، العملية بتبدأ من الصفر</div>
+            </div>
+            <div class="wc-card technique">
+                <h3>✅ العلاج التنفيري</h3>
+                <div class="wc-item">بيشتغل على مستوى اللاوعي — مش محتاج طاقة</div>
+                <div class="wc-item">حتى لو كنت تعبان، الربط الجديد شغّال</div>
+                <div class="wc-item">مش بتقاوم الرغبة — الرغبة نفسها بتضعف</div>
+                <div class="wc-item">كل تكرار يقوّي المسار الجديد في الدماغ</div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <div class="icon">🧬</div>
+            <h3>إنت مش بتقاوم — إنت بتغيّر</h3>
+            <p>لما دماغك يربط العادة بالقرف بدل المتعة، <strong>مش هتحتاج تقاوم</strong> — لأن الرغبة أصلاً مش هتكون بنفس القوة.</p>
+        </div>
+    </section>
+
+    <!-- Mistakes Section -->
+    <section class="section">
+        <h2>⚠️ أخطاء متعملهاش</h2>
+        <p>الناس اللي ما شافتش نتيجة من التقنية دي، غالباً وقعت في واحد من الأخطاء دي:</p>
+
+        <div class="mistakes-grid">
+            <div class="mistake-card">
+                <div class="icon">💭</div>
+                <h3>تخيّل سطحي</h3>
+                <p>متقولش بس "هحس بندم". لازم تتخيّل الندم بكل تفاصيله — الصور، الأصوات، الأحاسيس الجسدية.</p>
+                <div class="mistake-fix">✓ الصح: تفاصيل حسية كاملة — مكان، وقت، ريحة، إحساس بالجسم</div>
+            </div>
+            <div class="mistake-card">
+                <div class="icon">📅</div>
+                <h3>عدم الانتظام</h3>
+                <p>مرة أو اتنين في الأسبوع مش هينفع. الدماغ محتاج تكرار مكثّف عشان يبدأ يعيد البرمجة.</p>
+                <div class="mistake-fix">✓ الصح: 10-15 مرة يومياً لأسبوعين على الأقل</div>
+            </div>
+            <div class="mistake-card">
+                <div class="icon">😞</div>
+                <h3>الاستسلام بعد انتكاسة</h3>
+                <p>لو رجعت انتكست بعد أيام، متستسلمش. الطريق القديم قوي وعمره سنين — استمر.</p>
+                <div class="mistake-fix">✓ الصح: كل يوم تطبيق يضعّف الطريق القديم — مش هينهار في يوم</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Timeline -->
+    <section class="section">
+        <h2>⏰ إمتى هتشوف نتيجة؟</h2>
+        <p>الأبحاث بتقول إن التأثير بيبدأ بشكل ملحوظ بعد <strong>4-6 أيام</strong> من التطبيق المنتظم. لكن عشان تغيير دائم، محتاج 3-8 أسابيع.</p>
+
+        <div class="results-timeline">
+            <h3>🗓️ خريطة التحسن المتوقعة</h3>
+            <div class="timeline-bar">
+                <div class="bar-track">
+                    <div class="bar-fill" id="progressBar" style="--target-width: 100%;"></div>
+                </div>
+                <div class="bar-milestones">
+                    <div class="milestone reached">
+                        <div class="milestone-dot"></div>
+                        <div class="milestone-day">يوم 1</div>
+                        <div class="milestone-desc">تبدأ التدريب</div>
+                    </div>
+                    <div class="milestone" id="m2">
+                        <div class="milestone-dot"></div>
+                        <div class="milestone-day">يوم 4-6</div>
+                        <div class="milestone-desc">أول تأثير ملحوظ</div>
+                    </div>
+                    <div class="milestone" id="m3">
+                        <div class="milestone-dot"></div>
+                        <div class="milestone-day">أسبوع 2</div>
+                        <div class="milestone-desc">الرغبة تضعف بوضوح</div>
+                    </div>
+                    <div class="milestone" id="m4">
+                        <div class="milestone-dot"></div>
+                        <div class="milestone-day">أسبوع 4</div>
+                        <div class="milestone-desc">تغيير ملموس</div>
+                    </div>
+                    <div class="milestone" id="m5">
+                        <div class="milestone-dot"></div>
+                        <div class="milestone-day">أسبوع 8</div>
+                        <div class="milestone-desc">تغيير دائم</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box" style="margin-top: 2rem;">
+            <div class="icon">🎯</div>
+            <h3>مش هدف الكمال — هدف التكرار</h3>
+            <p>حتى لو عندك انتكاسة في الأسبوع الأول أو التاني — استمر. كل جلسة تدريب بتضعف الطريق القديم وبتقوّي الطريق الجديد.</p>
+        </div>
+    </section>
+
+    <!-- Challenge Button -->
+    <button class="challenge-btn" onclick="showChallenge()">
+        🎯 شاهد تحدي الـ3 أيام
+    </button>
+
+    <!-- Navigation Arrows -->
+    <div class="nav-arrows">
+        <a href="technique-1.html" class="nav-arrow">
+            <span>→</span>
+            <span>التقنية السابقة: المناطق الحمراء</span>
+        </a>
+        <a href="technique-3.html" class="nav-arrow next">
+            <span>التقنية التالية: اركب الموجة</span>
+            <span>←</span>
+        </a>
+    </div>
+
+</div>
+
+<!-- Challenge Modal -->
+<div class="modal" id="challengeModal">
+    <div class="modal-content">
+        <div class="challenge-icon">🧠</div>
+        <h3>تحدي الـ3 أيام القادمة</h3>
+        <h4>"أعد برمجة الذاكرة"</h4>
+
+        <p><strong>الهدف:</strong> تكتشف بنفسك إن التخيّل المتكرر فعلاً بيضعّف الرغبة — مش بالقمع، لكن بتغيير الارتباط نفسه.</p>
+
+        <ol>
+            <li>
+                <strong>اكتب سيناريو تنفيري خاص بيك</strong> — صفحة كاملة، تفاصيل دقيقة، مشاعر حقيقية من آخر انتكاسة. اكتبه بصوت المراقب لنفسه.
+            </li>
+            <li>
+                <strong>تخيّله 5 مرات يومياً</strong> حتى لو مفيش رغبة:
+                <ul>
+                    <li>بعد الفجر</li>
+                    <li>الضهر</li>
+                    <li>بعد العصر</li>
+                    <li>بعد المغرب</li>
+                    <li>قبل النوم</li>
+                </ul>
+            </li>
+            <li>
+                <strong>كل ما تيجيلك رغبة حقيقية:</strong> وقّف كل حاجة، غمّض عينيك، تخيّل السيناريو كله (30-60 ثانية)، افتح عينيك.
+            </li>
+            <li>
+                <strong>سجّل يومياً:</strong> هل الرغبة ضعفت؟ بكم نسبة تقريباً؟ اكتب ملاحظة سريعة بعد كل جلسة.
+            </li>
+        </ol>
+
+        <div class="info-box" style="margin-top: 1.5rem;">
+            <p style="font-weight: 600; color: var(--purple-medium); font-size: 1rem;">
+                💡 مثال سريع: بعد تخيّل السيناريو، قيّم الرغبة من 10.<br>
+                لو بدأت بـ 8/10 وبعد أسبوع وصلت لـ 4/10 — ده دليل إن دماغك بيتغير فعلاً.
+            </p>
+        </div>
+
+        <button class="modal-close" onclick="closeChallenge()">فهمت — سأبدأ التحدي اليوم ✓</button>
+    </div>
+</div>
+
+<script>
+    // Toggle steps
+    function toggleStep(card) {
+        const isOpen = card.classList.contains('open');
+        document.querySelectorAll('.step-card').forEach(c => c.classList.remove('open'));
+        if (!isOpen) card.classList.add('open');
+    }
+
+    // Toggle schedule slots
+    function toggleSlot(slot, e) {
+        e.stopPropagation();
+        slot.classList.toggle('done');
+    }
+
+    // Scenario player
+    const scenarioFull = `تخيّل إنك في أوضتك بالليل. حاسس بملل وفراغ. دماغك بيهمس: <span class="highlight-bad">"مرة واحدة بس..."</span>
+
+بتفتح اللابتوب. لكن لحظة ما تمد إيدك، وقّف وتخيّل:
+
+"أنا دلوقتي بستسلم. هحس بـ10 ثواني متعة وهمية. بعدين... <span class="highlight-bad">فراغ. خواء. هبص في المراية — عينيا فاضية، كإني خسرت جزء من روحي.</span>
+
+هحس بضعف، ذل، احتقار لنفسي. وعدت نفسي مرجعش، <span class="highlight-bad">كذبت تاني.</span> الإحساس بالفشل بيغرقني. طاقتي بتنزف. عزيمتي انهارت.
+
+<span class="highlight-bad">هفكر في بكرة — هصلي الفجر إزاي وأنا حاسس بالثقل ده؟</span>"`;
+
+    function playScenario(e) {
+        e.stopPropagation();
+        const box = document.getElementById('scenarioBox');
+        const textEl = document.getElementById('scenarioText');
+        box.style.display = 'block';
+        textEl.innerHTML = '';
+        let i = 0;
+        const stripped = scenarioFull;
+
+        // Show text gradually
+        box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        setTimeout(() => { textEl.innerHTML = stripped; }, 200);
+    }
+
+    // Modal
+    function showChallenge() {
+        document.getElementById('challengeModal').classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeChallenge() {
+        document.getElementById('challengeModal').classList.remove('show');
+        document.body.style.overflow = 'auto';
+    }
+
+    document.getElementById('challengeModal').addEventListener('click', function(e) {
+        if (e.target === this) closeChallenge();
+    });
+
+    // Intersection Observer for sections
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.section').forEach(el => observer.observe(el));
+
+    // Progress bar animation
+    const barObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('animated');
+                    // Animate milestones
+                    const milestones = ['m2', 'm3', 'm4', 'm5'];
+                    milestones.forEach((id, i) => {
+                        setTimeout(() => {
+                            document.getElementById(id)?.classList.add('reached');
+                        }, 400 * (i + 1));
+                    });
+                }, 200);
+                barObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    const progressBar = document.getElementById('progressBar');
+    if (progressBar) barObserver.observe(progressBar);
+</script>
+
+</body>
+</html>
